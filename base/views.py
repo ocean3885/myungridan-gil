@@ -6,8 +6,6 @@ from .forms import ManseryukForm
 from manseryuk.views import Msr_Calculator
 
 # Create your views here.
-def home(request):
-    return render(request, 'base.html')
 
 class msrInputView(CreateView):
     model = Manseryuk
