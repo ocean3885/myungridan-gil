@@ -7,10 +7,13 @@ from manseryuk.views import Msr_Calculator
 
 # Create your views here.
 
+def home(request):
+    return render(request, 'base/home.html')
+
 class msrInputView(CreateView):
     model = Manseryuk
     form_class = ManseryukForm
-    template_name = "base/msr_input.html"
+    template_name = "base/msr/msr_input.html"
 
     def get_success_url(self):
         return reverse("msr-detail", kwargs={"msr_id": self.object.id})
@@ -18,7 +21,7 @@ class msrInputView(CreateView):
 
 class msrDetailView(DetailView):
     model = Manseryuk
-    template_name = "base/msr_detail.html"
+    template_name = "base/msr/msr_detail.html"
     pk_url_kwarg = "msr_id"
     context_object_name = 'msr'
 

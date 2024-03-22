@@ -42,6 +42,9 @@ module.exports = {
         // '../../**/*.py'
     ],
     theme: {
+        fontFamily: {
+            'kor': ['"NanumGothic"'],
+          },
         extend: {},
     },
     plugins: [
