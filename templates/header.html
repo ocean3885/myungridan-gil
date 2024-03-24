@@ -80,7 +80,7 @@
             </a>
 
             <div
-              class="hs-dropdown [--strategy:static] md:[--strategy:absolute] [--adaptive:none] md:[--trigger:hover] py-3 md:py-4"
+              class="hs-dropdown py-3 md:py-4"
             >
               <button
                 type="button"
@@ -153,6 +153,8 @@
     const button = document.querySelector("button[data-hs-collapse]");
     const targetId = button.getAttribute("data-hs-collapse");
     const targetElement = document.querySelector(targetId);
+    const dropdown = document.querySelector('.hs-dropdown');
+    const dropdownMenu = document.querySelector('.hs-dropdown-menu');
 
     button.addEventListener("click", function () {
       // 토글 상태에 따라 클래스를 추가하거나 제거합니다.
@@ -178,5 +180,9 @@
         }
       });
     });
+
+    dropdown.addEventListener("click", function () {
+      dropdownMenu.classList.toggle("hidden");
+    })
   });
 </script>
