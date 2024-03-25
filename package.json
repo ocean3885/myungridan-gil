@@ -1,9 +1,0 @@
-{
-  "devDependencies": {
-    "tailwindcss": "^3.4.1"
-  },
-  "dependencies": {
-    "flowbite": "^2.3.0",
-    "preline": "^2.0.3"
-  }
-}
