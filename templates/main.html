@@ -1,0 +1,32 @@
+{% load compress %} 
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="{% static "favicon.ico" %}">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <link
+      href="https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css"
+      rel="stylesheet"
+    />
+    <title>명리단길</title>
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}" />
+    {% endcompress %}
+  </head>
+  <body class="bg-gray-50 font-kor-nanum leading-normal tracking-normal">
+    <main id="content" role="main">
+      {% include 'header.html' %} 
+      {% block content %} 
+      {% endblock %} 
+    </main>
+    {% include 'footer.html' %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="{% static 'js/preline.js' %}"></script>
+  </body>
+</html>
