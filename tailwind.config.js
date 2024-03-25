@@ -6,6 +6,9 @@ module.exports = {
     'node_modules/preline/dist/*.js',
   ],
   theme: {
+    fontFamily: {
+      'kor-nanum': ['"NanumGothic"',],
+    },
     extend: {},
   },
   plugins: [
