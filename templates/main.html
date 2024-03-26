@@ -1,5 +1,4 @@
-{% load compress %} 
-{% load static %}
+{% load compress %} {% load static %}
 
 <!DOCTYPE html>
 
@@ -14,6 +13,12 @@
       href="https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
     <title>명리단길</title>
     {% compress css %}
     <link rel="stylesheet" href="{% static 'src/output.css' %}" />
@@ -21,9 +26,7 @@
   </head>
   <body class="bg-gray-50 font-kor-nanum leading-normal tracking-normal">
     <main id="content" role="main">
-      {% include 'header.html' %} 
-      {% block content %} 
-      {% endblock %} 
+      {% include 'header.html' %} {% block content %} {% endblock %}
     </main>
     {% include 'footer.html' %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
