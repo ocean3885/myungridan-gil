@@ -10,7 +10,13 @@ module.exports = {
       'kor-nanum': ['"NanumGothic"',],
       'notosanskr': ['Noto Sans Kr',],
     },
-    extend: {},
+    extend: {
+      utilities: {
+        '.webkit-overflow-scrolling-none': {
+          '-webkit-overflow-scrolling': 'none',
+        },
+      },
+    },
   },
   plugins: [
     require('flowbite/plugin'),
