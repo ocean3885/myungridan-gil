@@ -20,16 +20,14 @@
       rel="stylesheet"
     />
     <title>명리단길</title>
-    {% compress css %}
+    {% comment %} {% compress css %} {% endcomment %}
     <link rel="stylesheet" href="{% static 'src/output.css' %}" />
-    {% endcompress %}
+    {% comment %} {% endcompress %} {% endcomment %}
   </head>
-  <body class="bg-gray-50 font-notosanskr leading-normal tracking-normal w-full">
-    <main id="content" role="main">
-      {% include 'header.html' %} {% block content %} {% endblock %}
-    </main>
-    {% include 'footer.html' %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+  <body class="bg-gray-50 font-notosanskr leading-normal tracking-normal">
+      {% include 'header.html' %} 
+      {% block content %} {% endblock %}
+      {% include 'footer.html' %}
     <script src="{% static 'js/preline.js' %}"></script>
   </body>
 </html>
