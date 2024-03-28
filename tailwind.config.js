@@ -7,8 +7,7 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      'kor-nanum': ['"NanumGothic"',],
-      'notosanskr': ['Noto Sans Kr',],
+      'notosanskr': ['"Noto Sans KR"', ],
     },
     extend: {},
   },
