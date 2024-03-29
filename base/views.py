@@ -10,6 +10,12 @@ from manseryuk.views import Msr_Calculator
 def home(request):
     return render(request, 'base/home.html')
 
+def about(request):
+    return render(request, 'base/introduce.html')
+
+def jmsubmit(request):
+    return render(request, 'base/jmsubmit.html')
+
 class msrInputView(CreateView):
     model = Manseryuk
     form_class = ManseryukForm
