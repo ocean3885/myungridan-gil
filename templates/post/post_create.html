@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>동적 폼 예시</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        let textIndex = $('#id_texts-TOTAL_FORMS').val();
+        let imageIndex = $('#id_images-TOTAL_FORMS').val();
+
+        $('#add-text').click(function() {
+            const textTemplate = $('#text-template').html().replace(/__prefix__/g, textIndex);
+            $('#text-formset-container').append(textTemplate);
+            $('#id_texts-TOTAL_FORMS').val(++textIndex);
+        });
+
+        $('#add-image').click(function() {
+            const imageTemplate = $('#image-template').html().replace(/__prefix__/g, imageIndex);
+            $('#image-formset-container').append(imageTemplate);
+            $('#id_images-TOTAL_FORMS').val(++imageIndex);
+        });
+    });
+    </script>
+</head>
+<body>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ post_form.as_p }}
+    <!-- 텍스트 폼셋 -->
+    {{ text_formset.management_form }}
+    <div id="text-formset-container">
+        <!-- 기존 폼 필드 -->
+        {% for form in text_formset %}
+            {{ form.as_p }}
+        {% endfor %}
+    </div>
+    <button type="button" id="add-text">텍스트 영역 추가하기</button>
+
+    <!-- 이미지 폼셋 -->
+    
+    {{ image_formset.management_form }}
+    <div id="image-formset-container">
+        <!-- 기존 폼 필드 -->
+        {% for form in image_formset %}
+            {{ form.as_p }}
+        {% endfor %}
+    </div>
+    <button type="button" id="add-image">사진 추가하기</button>
+
+    <button type="submit">제출</button>
+</form>
+
+<!-- 텍스트 영역 템플릿 -->
+<script type="text/template" id="text-template">
+    <p>
+        <label for="id_texts-__prefix__-content">Content:</label>
+        <textarea id="id_texts-__prefix__-content" name="texts-__prefix__-content"></textarea>
+    </p>
+</script>
+
+<!-- 이미지 영역 템플릿 -->
+<script type="text/template" id="image-template">
+    <p>
+        <label for="id_images-__prefix__-image">Image:</label>
+        <input type="file" id="id_images-__prefix__-image" name="images-__prefix__-image">
+    </p>
+</script>
+
+</body>
+</html>

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'base',
     'mrdg',
+    'post',
     'django_browser_reload',
     'manseryuk',
     'compressor',
@@ -178,6 +179,9 @@ USE_TZ = True
 STATIC_URL = "/static/" 
 STATIC_ROOT = '/var/www/myungridangil/static'
 STATICFILES_DIRS = [ BASE_DIR / 'static', ]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 COMPRESS_ROOT = BASE_DIR / 'static'
 COMPRESS_ENABLED = True

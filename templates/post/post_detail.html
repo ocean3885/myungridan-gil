@@ -1,0 +1,10 @@
+
+{{ post.user }}{{ post.title }}
+
+{% for text in post.texts.all %}
+        <p>{{ text.content }}</p>
+{% endfor %}
+
+{% for image in post.images.all %}
+<img src="{{ image.image.url }}" alt="">
+{% endfor %}
