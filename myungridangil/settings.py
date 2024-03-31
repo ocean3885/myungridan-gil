@@ -180,7 +180,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = '/var/www/myungridangil/static'
 STATICFILES_DIRS = [ BASE_DIR / 'static', ]
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/root/myungridan-gil/media'
 
 
 COMPRESS_ROOT = BASE_DIR / 'static'
