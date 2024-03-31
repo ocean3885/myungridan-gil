@@ -180,7 +180,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = '/var/www/myungridangil/static'
 STATICFILES_DIRS = [ BASE_DIR / 'static', ]
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/root/myungridan-gil/media'
+MEDIA_ROOT = '/var/www/myungridangil/media'
 
 
 COMPRESS_ROOT = BASE_DIR / 'static'
