@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-
+    'widget_tweaks',
+    
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
 
     'django.contrib.staticfiles',
     'base',
+    'mrdg',
     'django_browser_reload',
     'manseryuk',
     'compressor',
@@ -190,6 +192,13 @@ STATICFILES_FINDERS = (
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_REDRICTED_URL='/'
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 try:
     from .settings_local import *

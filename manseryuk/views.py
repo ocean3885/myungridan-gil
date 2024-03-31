@@ -1,7 +1,6 @@
 from .models import CalendaData
 
 
-
 class Msr_Calculator():
 
     def __init__(self):
@@ -182,3 +181,4 @@ class Msr_Calculator():
                 return JIJI_CH[i]
             
             
+
