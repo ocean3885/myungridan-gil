@@ -184,8 +184,11 @@ STATIC_ROOT = '/var/www/myungridangil/static'
 STATICFILES_DIRS = [ BASE_DIR / 'static', ]
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
-CKEDITOR_BASEPATH = "/staticfiles/ckeditor/ckeditor/"
-
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+    }
+}
 MEDIA_URL = '/media/'
 MEDIA_ROOT = '/var/www/myungridangil/media'
 
