@@ -1,15 +1,6 @@
 from django.contrib import admin
-from .models import Post, Text, Image
+from .models import Post, Category
 
-class TextInline(admin.TabularInline):  # 또는 admin.StackedInline
-    model = Text
-    extra = 1  # 기본적으로 보여질 폼의 수
+admin.site.register(Post)
+admin.site.register(Category)
 
-class ImageInline(admin.TabularInline):  # 또는 admin.StackedInline
-    model = Image
-    extra = 1
-
-class PostAdmin(admin.ModelAdmin):
-    inlines = [TextInline, ImageInline]
-
-admin.site.register(Post, PostAdmin)

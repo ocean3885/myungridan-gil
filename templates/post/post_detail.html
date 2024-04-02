@@ -1,10 +1,5 @@
-
 {{ post.user }}{{ post.title }}
 
-{% for text in post.texts.all %}
-        <p>{{ text.content }}</p>
-{% endfor %}
+<p>{{ post.content }}</p>
 
-{% for image in post.images.all %}
-<img src="{{ image.image.url }}" alt="">
-{% endfor %}
+<img src="{{ post.image.url }}" alt="" />

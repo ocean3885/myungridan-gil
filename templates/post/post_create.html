@@ -1,70 +1,65 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>동적 폼 예시</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-    $(document).ready(function() {
-        let textIndex = $('#id_texts-TOTAL_FORMS').val();
-        let imageIndex = $('#id_images-TOTAL_FORMS').val();
+{% extends 'main.html' %} {% load widget_tweaks %} {% block content %}
 
-        $('#add-text').click(function() {
-            const textTemplate = $('#text-template').html().replace(/__prefix__/g, textIndex);
-            $('#text-formset-container').append(textTemplate);
-            $('#id_texts-TOTAL_FORMS').val(++textIndex);
-        });
-
-        $('#add-image').click(function() {
-            const imageTemplate = $('#image-template').html().replace(/__prefix__/g, imageIndex);
-            $('#image-formset-container').append(imageTemplate);
-            $('#id_images-TOTAL_FORMS').val(++imageIndex);
-        });
-    });
-    </script>
-</head>
-<body>
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ post_form.as_p }}
-    <!-- 텍스트 폼셋 -->
-    {{ text_formset.management_form }}
-    <div id="text-formset-container">
-        <!-- 기존 폼 필드 -->
-        {% for form in text_formset %}
-            {{ form.as_p }}
-        {% endfor %}
+<!-- Comment Form -->
+<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+  <div class="mx-auto max-w-2xl">
+    <div class="text-center">
+      <h2 class="text-xl text-gray-800 font-bold sm:text-3xl dark:text-white">
+        글 작성하기
+      </h2>
     </div>
-    <button type="button" id="add-text">텍스트 영역 추가하기</button>
 
-    <!-- 이미지 폼셋 -->
-    
-    {{ image_formset.management_form }}
-    <div id="image-formset-container">
-        <!-- 기존 폼 필드 -->
-        {% for form in image_formset %}
-            {{ form.as_p }}
-        {% endfor %}
+    <!-- Card -->
+    <div
+      class="mt-5 p-4 relative z-10 bg-white border rounded-xl sm:mt-10 md:p-10 dark:bg-gray-800 dark:border-gray-700"
+    >
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-4 sm:mb-8">
+          <label
+            for="hs-feedback-post-comment-name-1"
+            class="block mb-2 text-sm font-medium dark:text-white"
+            >카테고리</label
+          >
+          {% render_field post_form.category type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Full name" %}
+        </div>
+
+        <div class="mb-4 sm:mb-8">
+          <label
+            for="hs-feedback-post-comment-name-1"
+            class="block mb-2 text-sm font-medium dark:text-white"
+            >제목</label
+          >
+          {% render_field post_form.title type="text" id="hs-feedback-post-comment-name-1" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Full name" %}
+        </div>
+
+        <div class="mb-4 sm:mb-8">
+          <label
+            for="hs-feedback-post-comment-textarea-1"
+            class="block mb-2 text-sm font-medium"
+            >본문</label
+          >
+          <div class="mt-1">
+            {% render_field post_form.content id="hs-feedback-post-comment-textarea-1" name="hs-feedback-post-comment-textarea-1" rows="30" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Leave your comment here..." %}
+          </div>
+        </div>
+
+        <div>{{post_form.image}}</div>
+
+        <div class="mt-6 grid">
+          <button
+            type="submit"
+            class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+          >
+            작성완료
+          </button>
+        </div>
+      </form>
     </div>
-    <button type="button" id="add-image">사진 추가하기</button>
+    <!-- End Card -->
+  </div>
+</div>
+<!-- End Comment Form -->
 
-    <button type="submit">제출</button>
-</form>
-
-<!-- 텍스트 영역 템플릿 -->
-<script type="text/template" id="text-template">
-    <p>
-        <label for="id_texts-__prefix__-content">Content:</label>
-        <textarea id="id_texts-__prefix__-content" name="texts-__prefix__-content"></textarea>
-    </p>
-</script>
-
-<!-- 이미지 영역 템플릿 -->
-<script type="text/template" id="image-template">
-    <p>
-        <label for="id_images-__prefix__-image">Image:</label>
-        <input type="file" id="id_images-__prefix__-image" name="images-__prefix__-image">
-    </p>
-</script>
-
-</body>
-</html>
+{% endblock content %}
