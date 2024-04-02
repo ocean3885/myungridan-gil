@@ -9,6 +9,7 @@ urlpatterns = [
     path('msr/', include('mrdg.urls')),
     path('post/', include('post.urls')),
     path('', include('base.urls')),    
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
 ] 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

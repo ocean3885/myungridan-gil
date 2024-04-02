@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.naver',
 
+    'ckeditor',
+    'ckeditor_uploader',
+
     'django.contrib.staticfiles',
     'base',
     'mrdg',
@@ -179,6 +182,10 @@ USE_TZ = True
 STATIC_URL = "/static/" 
 STATIC_ROOT = '/var/www/myungridangil/static'
 STATICFILES_DIRS = [ BASE_DIR / 'static', ]
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_BASEPATH = "/staticfiles/ckeditor/ckeditor/"
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = '/var/www/myungridangil/media'
 
