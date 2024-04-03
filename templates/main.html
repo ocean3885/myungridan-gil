@@ -1,4 +1,4 @@
-{% load compress %} 
+{% comment %} {% load compress %}  {% endcomment %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -19,9 +19,9 @@
     <title>명리단길</title>
     <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
     <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
-    {% compress css %}
+    {% comment %} {% compress css %} {% endcomment %}
     <link rel="stylesheet" href="{% static 'src/output.css' %}" />
-    {% endcompress %}
+    {% comment %} {% endcompress %} {% endcomment %}
   </head>
   <body class="bg-gray-50 font-notosanskr leading-normal tracking-normal">
     {% include 'header.html' %} {% block content %} {% endblock %} 
