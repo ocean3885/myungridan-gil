@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  important: "html",
   content: [
     './templates/**/*.html',
     './node_modules/flowbite/**/*.js',
@@ -12,6 +13,7 @@ module.exports = {
     extend: {},
   },
   plugins: [
+    require('@tailwindcss/typography'),
     require('flowbite/plugin'),
     require('preline/plugin'),
   ],

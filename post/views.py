@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_POST
 from .models import Post
 from .forms import PostForm
 
@@ -32,5 +33,21 @@ def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     return render(request, 'post/post_detail.html', {'post': post})
 
+def post_edit(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == 'POST':
+        post_form = PostForm(request.POST,request.FILES,instance=post)
+        if post_form.is_valid():
+            post_form.save()
+            return redirect('post-detail', post_id=post.pk)
+
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'post/post_create.html', {'post_form': form})
 
 
+@require_POST
+def post_delete(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    post.delete()
+    return redirect('home')
