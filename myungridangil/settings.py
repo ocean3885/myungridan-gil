@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     'ckeditor',
     'ckeditor_uploader',
+    'imagekit',
 
     'django.contrib.staticfiles',
     'base',

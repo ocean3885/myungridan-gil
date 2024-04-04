@@ -1,0 +1,19 @@
+{% extends 'main.html' %} {% block content %}
+
+<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+  <div class="mx-auto max-w-2xl">
+    <ul>
+      {% for post in posts %}
+      <li>
+        <a href="{% url 'post-detail' post_id=post.pk %}"
+          >{{ post.title }} by {{ post.user }} (Posting on {{ post.created_at}})</a>
+          <img src="{{post.image_thumb.url}}"/>
+      </li>
+      {% empty %}
+      <li>No Posts available.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% endblock content %}

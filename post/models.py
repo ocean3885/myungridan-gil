@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from ckeditor_uploader.fields import RichTextUploadingField
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 
 class Category(models.Model):
     name = models.CharField(max_length=20)
@@ -10,13 +12,13 @@ class Category(models.Model):
         return self.name
 
 
-
 class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name='posts', on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=100)
     content = RichTextUploadingField()
     image = models.ImageField(upload_to='post_img/')
+    image_thumb = ImageSpecField(source='image',processors=[ResizeToFill(100, 100)],format='JPEG',options={'quality': 60})
     created_at = models.DateTimeField(auto_now_add=True)  # 포스트가 생성될 때의 날짜/시간 자동 저장
     updated_at = models.DateTimeField(auto_now=True) 
 
