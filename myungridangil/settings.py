@@ -109,7 +109,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SITE_ID = 2
+SITE_ID = 1
 
 ROOT_URLCONF = 'myungridangil.urls'
 
