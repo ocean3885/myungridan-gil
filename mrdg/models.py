@@ -1,22 +1,10 @@
 from django.db import models
-import datetime
-
 class Manseryuk(models.Model):
 
-    today = datetime.date.today()
-
     name = models.CharField(max_length=20)
-
-    YEAR_CHOICES = []
-    for r in range(1900, (datetime.datetime.now().year+1)):
-        YEAR_CHOICES.append((r, r))
-
-    year = models.IntegerField(
-        blank=False, null=False,
-        choices=YEAR_CHOICES, default=datetime.datetime.now().year
-        )
-    month = models.IntegerField(default=today.month)
-    day = models.IntegerField(default=today.day)
+    year = models.CharField(max_length=4)
+    month = models.CharField(max_length=2)
+    day = models.CharField(max_length=2)
 
     YD_CHOICES = [
         ("평달", "평달"),
@@ -25,13 +13,8 @@ class Manseryuk(models.Model):
     yd = models.CharField(max_length=10, null=True, choices=YD_CHOICES,
                           default="평달")
 
-    TIME_CHOICES = [
-        ("자", "23:30~01:30"), ("축", "01:30~03:30"), ("인", "03:30~05:30"),
-        ("묘", "05:30~07:30"), ("진", "07:30~09:30"), ("사", "09:30~11:30"),
-        ("오", "11:30~13:30"), ("미", "13:30~15:30"), ("신", "15:30~17:30"),
-        ("유", "17:30~19:30"), ("술", "19:30~21:30"), ("해", "21:30~23:30"),
-    ]
-    time = models.CharField(max_length=1, choices=TIME_CHOICES)
+    hour = models.CharField(max_length=2, null=True)
+    min = models.CharField(max_length=2, null=True)
 
     GEN_CHOICES = [
         ("남", "남"),

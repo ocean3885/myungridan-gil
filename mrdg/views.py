@@ -3,7 +3,7 @@ from django.views.generic import CreateView, DetailView
 from django.urls import reverse
 from .forms import ManseryukForm
 from manseryuk.views import Msr_Calculator
-
+from .utils import determine_zodiac_hour_str
 class msrInputView(CreateView):
     model = Manseryuk
     form_class = ManseryukForm
@@ -22,8 +22,10 @@ class msrDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         this_msr = Manseryuk.objects.get(pk=self.kwargs.get('msr_id'))
+        
         data = Msr_Calculator()
+        time = determine_zodiac_hour_str(this_msr.hour, this_msr.min)
         datas = data.getAll(this_msr.year, this_msr.month, this_msr.day,
-                            this_msr.time, this_msr.sl, this_msr.gen, this_msr.yd)
+                            time, this_msr.sl, this_msr.gen, this_msr.yd)
         context["datas"] = datas
         return context

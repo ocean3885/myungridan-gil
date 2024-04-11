@@ -18,7 +18,7 @@ class ManseryukForm(ModelForm):
     day = forms.ChoiceField(widget=forms.Select, choices=DAY_CHOICES,
                             initial=today.day, label="태어난 일(日) ")
     
-    field_order = ['name', 'sl', 'yd', 'gen', 'year', 'month', 'day', 'time']
+    field_order = ['name', 'sl', 'yd', 'gen', 'year', 'month', 'day', 'hour', 'min']
 
     class Meta:
         model = Manseryuk
@@ -30,7 +30,8 @@ class ManseryukForm(ModelForm):
             "month": "월(月) ",
             "day": "일(日) ",
             "yd": "평달/윤달 ",
-            "time": "시간 ",
+            "hour": "시간 ",
+            "min": "분 ",
             "gen": "성별 ",
             "sl": "음력/양력"
         }

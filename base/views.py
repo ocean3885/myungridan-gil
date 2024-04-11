@@ -7,6 +7,4 @@ def home(request):
 def about(request):
     return render(request, 'base/introduce.html')
 
-def jmsubmit(request):
-    return render(request, 'base/jmsubmit.html')
 
