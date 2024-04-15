@@ -1800,6 +1800,10 @@ html :is(.mt-auto) {
   margin-top: auto;
 }
 
+html :is(.mb-6) {
+  margin-bottom: 1.5rem;
+}
+
 html :is(.block) {
   display: block;
 }
@@ -4020,6 +4024,14 @@ html :is(.dark [data-hs-tab].active .dark\:hs-tab-active\:text-gray-200) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  html :is(.sm\:grid-cols-4) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  html :is(.sm\:grid-cols-3) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   html :is(.sm\:border-b-2) {
     border-bottom-width: 2px;
   }
@@ -4393,6 +4405,10 @@ html :is(.dark [data-hs-tab].active .dark\:hs-tab-active\:text-gray-200) {
 
   html :is(.lg\:grid-cols-6) {
     grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  html :is(.lg\:grid-cols-5) {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   html :is(.lg\:items-center) {
