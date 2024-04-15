@@ -1,7 +1,11 @@
 {% load widget_tweaks %} 
-<form>
+<form method="POST" autocomplete="off" enctype="multipart/form-data">
+  {% csrf_token %}
     <div class="mt-6 grid gap-4 lg:gap-6">
       <!-- Grid -->
+      <h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-gray-200">
+        신청인 정보
+      </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
         <div>
           <label
@@ -85,7 +89,46 @@
       </div>
       <!-- End Grid -->
       
+      <div>
+        <label
+          for="fav_name"
+          class="block mb-2 text-sm text-gray-700 font-medium"
+          >선호하는 이름</label
+        >
+        {% render_field submit.fav_name type="text" id="fav_name" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+      </div>
+      
+      <div>
+        <label
+          for="avoid_name"
+          class="block mb-2 text-sm text-gray-700 font-medium"
+          >피하는 이름</label
+        >
+        {% render_field submit.avoid_name type="text" id="avoid_name" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+      </div>
+
+      <!-- Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+        <div>
+          <label
+            for="dad_name"
+            class="block mb-2 text-sm text-gray-700 font-medium"
+            >아버지 이름</label
+          >
+          {% render_field submit.dad_name id="dad_name" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+        </div>
   
+        <div>
+          <label
+            for="mom_name"
+            class="block mb-2 text-sm text-gray-700 font-medium"
+            >어머니 이름</label
+          >
+          {% render_field submit.mom_name id="mom_name" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+        </div>
+      </div>
+      <!-- End Grid -->
+      
       <div>
         <label
           for="description"
@@ -174,28 +217,24 @@
     <div class="mt-3 flex">
       <div class="flex">
         <input
-          id="remember-me"
-          name="remember-me"
+          id="agree-term"
+          name="agree-term"
           type="checkbox"
-          class="shrink-0 mt-1.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500"
+          class="shrink-0 mt-1.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500"
+          required
         />
       </div>
       <div class="ms-3">
-        <label for="remember-me" class="text-sm text-gray-600 dark:text-gray-400"
-          >By submitting this form I have read and acknowledged the
-          <a
-            class="text-blue-600 decoration-2 hover:underline font-medium"
-            href="#"
-            >Privacy policy</a
-          ></label
-        >
+        <label for="agree-term" class="text-sm text-gray-600"
+          >개인정보 제공에 동의합니다.
+        </label>
       </div>
     </div>
     <!-- End Checkbox -->
   
     <div class="mt-6 grid">
       <button
-        type="submit"
+        type="submit" id="submit-btn"
         class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
       >
         작성완료
@@ -203,3 +242,4 @@
     </div>
   </form>
   
+

@@ -44,7 +44,7 @@ class Submit(models.Model):
     phone = models.CharField(max_length=20)
     email = models.EmailField(blank=True, max_length=254)
     description = models.TextField(blank=True)
-    process = models.CharField(max_length=20, choices=PROCESS_CHOICES, null=True, default="1")
+    process = models.CharField(max_length=20, choices=PROCESS_CHOICES, blank=True, default="1")
 
     def __str__(self):
         return self.name
