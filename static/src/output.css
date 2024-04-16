@@ -1800,10 +1800,6 @@ html :is(.mt-auto) {
   margin-top: auto;
 }
 
-html :is(.mb-3) {
-  margin-bottom: 0.75rem;
-}
-
 html :is(.block) {
   display: block;
 }
@@ -2423,6 +2419,10 @@ html :is(.rounded-xl) {
   border-radius: 0.75rem;
 }
 
+html :is(.rounded-sm) {
+  border-radius: 0.125rem;
+}
+
 html :is(.rounded-e-lg) {
   border-start-end-radius: 0.5rem;
   border-end-end-radius: 0.5rem;
@@ -2508,6 +2508,21 @@ html :is(.border-gray-600) {
 
 html :is(.border-transparent) {
   border-color: transparent;
+}
+
+html :is(.border-blue-300) {
+  --tw-border-opacity: 1;
+  border-color: rgb(164 202 254 / var(--tw-border-opacity));
+}
+
+html :is(.border-blue-500) {
+  --tw-border-opacity: 1;
+  border-color: rgb(63 131 248 / var(--tw-border-opacity));
+}
+
+html :is(.border-gray-400) {
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
 
 html :is(.border-b-transparent) {

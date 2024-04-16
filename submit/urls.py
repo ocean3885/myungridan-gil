@@ -6,4 +6,5 @@ urlpatterns = [
     path('gm/', views.gm_submit, name="gm-submit"),
     path('sj/', views.sj_submit, name="sj-submit"),
     path('etc/', views.etc_submit, name="etc-submit"),
+    path('detail/<int:pk>/', views.submit_detail, name="submit-detail"),
 ]

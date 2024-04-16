@@ -3,16 +3,23 @@
 <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
   <!-- Grid -->
   <div class="grid md:grid-cols-2 items-start gap-12">
-
-    {%include "./jm_about.html"%}
+    
+    {% if submit.process == '1' %}
+        {%include "./detail_wait.html"%}
+    {% elif submit.process == '2' %}
+        {%include "./detail_ing.html"%}
+    {% else %}
+        {%include "./detail_finish.html" %}
+    {% endif %}
 
     <div class="relative">
       <!-- Form -->
       <div
         class="flex flex-col border rounded-xl p-4 sm:p-6 lg:p-10"
       >
-
-        {%include "./jm_form.html"%}
+        {% if submit.category == 'jm' %}
+            {%include "./jm_detail.html"%}
+        {% endif %}
 
         <div class="mt-3 text-center">
           <p class="text-sm text-gray-500">

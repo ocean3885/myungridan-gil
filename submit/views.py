@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import (JmSubmitForm, PersonForm)
+from .models import Submit, Person
 import requests
 
 send_url = 'https://apis.aligo.in/send/'
@@ -17,7 +18,6 @@ def jm_submit(request):
             person = personForm.save(commit=False)
             person.submit = obj
             person.save()
-            context = {'submit': obj, 'person': person}
             sms_data = {'key': 'mbam9e8v586xu9vugol89i2wxvihrv9l',
                         'userid': 'ocean3885',
                         'sender': '01022324548',
@@ -26,7 +26,7 @@ def jm_submit(request):
                         }
             send_response = requests.post(send_url, data=sms_data)
             print(send_response.json())
-            return render(request, 'submit/submit_complete.html', context)
+            return redirect('submit-detail', pk=obj.pk)
         else:
             context = {'submit': submitForm, 'person': personForm}
             return render(request, 'submit/jm_submit.html', context)
@@ -36,6 +36,10 @@ def jm_submit(request):
     context = {'submit': submitForm, 'person': personForm}
     return render(request, 'submit/jm_submit.html', context)
 
+def submit_detail(request,pk):
+    submit = get_object_or_404(Submit, pk=pk)
+    person = Person.objects.get(submit__id=submit.id)
+    return render(request, 'submit/submit_detail.html', {'submit': submit, 'person': person})
 
 
 def gm_submit(request):
