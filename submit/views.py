@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator
 from .forms import (JmSubmitForm, PersonForm)
 from .models import Submit, Person
 import requests
@@ -50,3 +51,36 @@ def sj_submit(request):
 
 def etc_submit(request):
     return render(request, 'submit/etc_submit.html')
+
+def submit_list(request):
+    submits = Submit.objects.all()
+    # 정렬
+    submits = submits.order_by('-created')  # 최근 작성된 게시글부터 정렬
+
+    # 페이지네이션
+    paginator = Paginator(submits, 10)  # 페이지당 10개의 게시글을 보여줌
+    page_number = request.GET.get('page')  # URL에서 페이지 번호를 가져옴
+    page_obj = paginator.get_page(page_number)  # 해당 페이지의 게시글을 가져옴
+
+    return render(request, 'submit/list.html', {'page_obj': page_obj})
+
+def submit_edit(request,pk):
+    submit = get_object_or_404(Submit, pk=pk)
+    person = Person.objects.get(submit__id=submit.id)
+    if request.method == 'POST':
+        submitForm = JmSubmitForm(request.POST,instance=submit)
+        personForm = PersonForm(request.POST,instance=person)
+        if all([submitForm.is_valid(), personForm.is_valid()]):
+            submitForm.save()
+            personForm.save()
+            return redirect('submit-detail', pk=submit.pk)
+    else:
+        submitForm = JmSubmitForm(instance=submit)
+        personForm = PersonForm(instance=person)
+        context = {'submit': submitForm, 'person': personForm}
+    return render(request, 'submit/jm_submit.html', context)
+
+def submit_delete(request,pk):
+    submit = get_object_or_404(Submit, pk=pk)
+    submit.delete()
+    return redirect('submit-list')

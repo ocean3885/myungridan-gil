@@ -5,6 +5,7 @@
   },
   "dependencies": {
     "flowbite": "^2.3.0",
-    "preline": "^2.0.3"
+    "preline": "^2.0.3",
+    "rippleui": "^1.12.1"
   }
 }

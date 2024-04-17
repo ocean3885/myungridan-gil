@@ -16,6 +16,7 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('flowbite/plugin'),
     require('preline/plugin'),
+    require("rippleui"),
   ],
 }
 
