@@ -5106,6 +5106,11 @@ html :is(.py-8) {
   padding-bottom: 2rem;
 }
 
+html :is(.py-0) {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
 html :is(.pb-8) {
   padding-bottom: 2rem;
 }
