@@ -52,8 +52,13 @@ def sj_submit(request):
 def etc_submit(request):
     return render(request, 'submit/etc_submit.html')
 
-def submit_list(request):
-    submits = Submit.objects.all()
+def submit_list(request, status=''):
+    if status:
+        submits = Submit.objects.filter(process=status)
+    else:
+        submits = Submit.objects.all()
+    
+    count = submits.count()
     # 정렬
     submits = submits.order_by('-created')  # 최근 작성된 게시글부터 정렬
 
@@ -62,7 +67,13 @@ def submit_list(request):
     page_number = request.GET.get('page')  # URL에서 페이지 번호를 가져옴
     page_obj = paginator.get_page(page_number)  # 해당 페이지의 게시글을 가져옴
 
-    return render(request, 'submit/list.html', {'page_obj': page_obj})
+    context = {
+        'page_obj': page_obj,
+        'count': count,
+        'status': status
+    }
+
+    return render(request, 'submit/list.html', context)
 
 def submit_edit(request,pk):
     submit = get_object_or_404(Submit, pk=pk)
