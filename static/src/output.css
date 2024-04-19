@@ -4337,6 +4337,14 @@ html :is(.w-full) {
   width: 100%;
 }
 
+html :is(.w-5) {
+  width: 1.25rem;
+}
+
+html :is(.w-6) {
+  width: 1.5rem;
+}
+
 html :is(.min-w-full) {
   min-width: 100%;
 }
@@ -5051,6 +5059,11 @@ html :is(.px-6) {
   padding-right: 1.5rem;
 }
 
+html :is(.py-0) {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
 html :is(.py-1) {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -5104,11 +5117,6 @@ html :is(.py-5) {
 html :is(.py-8) {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-html :is(.py-0) {
-  padding-top: 0px;
-  padding-bottom: 0px;
 }
 
 html :is(.pb-8) {
@@ -5225,11 +5233,6 @@ html :is(.tracking-normal) {
 html :is(.text-amber-500) {
   --tw-text-opacity: 1;
   color: rgb(245 158 11 / var(--tw-text-opacity));
-}
-
-html :is(.text-black) {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 html :is(.text-blue-600) {
@@ -5808,11 +5811,6 @@ html :is(.hover\:text-blue-600:hover) {
   color: rgb(28 100 242 / var(--tw-text-opacity));
 }
 
-html :is(.hover\:text-blue-700:hover) {
-  --tw-text-opacity: 1;
-  color: rgb(26 86 219 / var(--tw-text-opacity));
-}
-
 html :is(.hover\:text-gray-400:hover) {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
@@ -6211,11 +6209,6 @@ html :is(.dark .dark\:hover\:bg-gray-700:hover) {
 html :is(.dark .dark\:hover\:bg-gray-800:hover) {
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
-}
-
-html :is(.dark .dark\:hover\:text-blue-400:hover) {
-  --tw-text-opacity: 1;
-  color: rgb(118 169 250 / var(--tw-text-opacity));
 }
 
 html :is(.dark .dark\:hover\:text-blue-500:hover) {

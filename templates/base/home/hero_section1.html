@@ -1,3 +1,4 @@
+{% load static %}
 <!-- Hero -->
 <div class="relative overflow-hidden">
   <!-- Gradients -->
@@ -64,9 +65,9 @@
           </a>
           <a
             class="py-3 px-4 inline-flex items-center gap-x-2 text-base font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-            href="#"
+            href="{% url 'submit-verify'%}"
           >
-            
+            <img class="w-6" src="{% static 'base/img/search_icon.png'%}"/>
             신청서 확인
           </a>
         </div>
