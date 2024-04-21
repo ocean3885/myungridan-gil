@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'mrdg',
     'post',
     'submit',
+    'estimate',
     'django_browser_reload',
     'manseryuk',
     'compressor',

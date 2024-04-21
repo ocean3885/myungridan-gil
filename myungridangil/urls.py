@@ -10,6 +10,7 @@ urlpatterns = [
     path('msr/', include('mrdg.urls')),
     path('post/', include('post.urls')),
     path('submit/', include('submit.urls')),
+    path('estimate/', include('estimate.urls')),
     path('', include('base.urls')),    
     path('ckeditor/upload/', CustomImageUploadView.as_view(), name='ckeditor_upload'),
     path('ckeditor/', include('ckeditor_uploader.urls')),

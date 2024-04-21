@@ -5,55 +5,55 @@
 
 <!-- Table Section -->
 <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-    <!-- Card -->
-    <div class="flex flex-col">
-      <div class="-m-1.5 overflow-x-auto">
-        <div class="p-1.5 min-w-full inline-block align-middle">
-          <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-neutral-800 dark:border-neutral-700">
-            <!-- Table -->
-            <div class="flex w-full overflow-x-auto px-5 py-5">
-              <table class="table-compact table ">
-                <thead>
-                  <tr>
-                    <th>번호</th>
-                    <th>이름</th>
-                    <th>신청종류</th>
-                    <th>진행상황</th>
-                    <th>신청일</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for submit in submits %}
-                  <tr class="cursor-pointer" onclick="window.location.href='{% url 'submit-detail' submit.pk %}';">
-                      <th>{{submit.pk}}</th>
-                      <td>{{submit.name}}</td>
-                      <td>{{submit.get_category_display}}</td>
-                      <td>{{submit.get_process_display}}</td>
-                      <td>{{submit.created|date:"Y-m-d H:i"}}</td>
-                    </a>
-                  </tr>
-                  {% endfor %}
-                  
-                </tbody>
-              </table>
-            </div>
-            <!-- End Table -->
-  
-            <!-- Footer -->
-            <div class="px-6 py-4 gap-3 flex justify-between items-center">
-              <div>
-                <p class="text-sm text-gray-600 dark:text-neutral-400">
-                  <span class="font-semibold text-gray-800 dark:text-neutral-200">{{count}}</span> results
-                </p>
-              </div>
-            </div>
-            <!-- End Footer -->
+  <!-- Card -->
+  <div class="flex flex-col">
+    <div class="-m-1.5 overflow-x-auto">
+      <div class="p-1.5 min-w-full inline-block align-middle">
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-neutral-800 dark:border-neutral-700">
+          <!-- Table -->
+          <div class="flex w-full overflow-x-auto px-5 py-5">
+            <table class="table-compact table ">
+              <thead>
+                <tr>
+                  <th>번호</th>
+                  <th>이름</th>
+                  <th>신청종류</th>
+                  <th>진행상황</th>
+                  <th>신청일</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for submit in submits %}
+                <tr class="cursor-pointer" onclick="window.location.href='{% url 'submit-detail' submit.pk %}';">
+                    <th>{{submit.pk}}</th>
+                    <td>{{submit.name}}</td>
+                    <td>{{submit.get_category_display}}</td>
+                    <td>{{submit.get_process_display}}</td>
+                    <td>{{submit.created|date:"Y-m-d H:i"}}</td>
+                  </a>
+                </tr>
+                {% endfor %}
+                
+              </tbody>
+            </table>
           </div>
+          <!-- End Table -->
+
+          <!-- Footer -->
+          <div class="px-6 py-4 gap-3 flex justify-between items-center">
+            <div>
+              <p class="text-sm text-gray-600 dark:text-neutral-400">
+                <span class="font-semibold text-gray-800 dark:text-neutral-200">{{count}}</span> results
+              </p>
+            </div>
+          </div>
+          <!-- End Footer -->
         </div>
       </div>
     </div>
-    <!-- End Card -->
   </div>
-  <!-- End Table Section -->
+  <!-- End Card -->
+</div>
+<!-- End Table Section -->
 
 {% endblock content %}

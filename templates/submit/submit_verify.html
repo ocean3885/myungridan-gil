@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<main class="w-full max-w-md mx-auto p-6">
+<div class="w-full max-w-md mx-auto p-6">
     <div
       class="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm"
     >
@@ -12,7 +12,6 @@
           <h1 class="block text-2xl font-bold text-gray-800">
             신청서 확인하기
           </h1>
-          
         </div>
 
         <div class="mt-5">
@@ -32,7 +31,7 @@
                   >신청인이름</label
                 >
                 <div class="relative">
-                  <input name="submit_name" placeholder="신청인이름" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" required="True"/>
+                  <input name="submit_name" placeholder="신청인이름" class="py-3 px-4 block w-full border-gray-200 border rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" required="True"/>
                 </div>
               </div>
               <!-- End Form Group -->
@@ -47,9 +46,7 @@
                   >                  
                 </div>
                 <div class="relative">
-                  <div class="relative">
-                    <input name="submit_phone" placeholder="전화번호" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" required="True"/>
-                  </div>
+                  <input name="submit_phone" placeholder="전화번호" class="py-3 px-4 block w-full border-gray-200 border rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" required="True"/>
                 </div>
               </div>
               <!-- End Form Group -->
@@ -66,7 +63,7 @@
         </div>
       </div>
     </div>
-  </main>
+</div>
 
 
 
