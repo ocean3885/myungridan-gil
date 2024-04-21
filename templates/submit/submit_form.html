@@ -1,0 +1,17 @@
+{% extends 'main.html' %} 
+{% block content %}
+
+{% if category == 'jm' or category == 'gm' %}
+    {% include 'submit/components/name_layout.html' %}
+{% elif category == 'sj' %}
+    {% include 'submit/components/saju_layout.html' %}
+{% else %}
+    {% include 'submit/components/etc_layout.html' %}
+{% endif %}
+
+
+
+
+
+
+{% endblock content %}

@@ -8,7 +8,7 @@ def staff_or_valid_session_check(user, request):
     staff_or_admin = user.is_authenticated and (user.is_superuser or user.is_staff)
     
     # 세션에서 이름과 전화번호를 확인
-    valid_session = 'submit_name' in request.session and 'submit_phone' in request.session
+    valid_session = 'submit_name' in request.session 
 
     return staff_or_admin or valid_session
 

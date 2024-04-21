@@ -139,9 +139,15 @@
       </div>
     
       <!-- End Grid -->
+      {% if category == "jm" %}
       <h2 class="text-xl font-semibold text-gray-800">
         신생아 정보
       </h2>
+      {% else %}
+      <h2 class="text-xl font-semibold text-gray-800">
+        신청인 정보
+      </h2>
+      {% endif %}
 
       <div class="grid grid-cols-2 gap-4 lg:gap-6">
         <div>

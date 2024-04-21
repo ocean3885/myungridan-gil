@@ -3,29 +3,22 @@
 <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
   <!-- Grid -->
   <div class="grid md:grid-cols-2 items-start gap-12">
-    
-    {% if submit.process == '1' %}
-        {%include "./detail_wait.html"%}
-    {% elif submit.process == '2' %}
-        {%include "./detail_ing.html"%}
-    {% else %}
-        {%include "./detail_finish.html" %}
-    {% endif %}
+
+    {%include "./name_about.html"%}
 
     <div class="relative">
       <!-- Form -->
       <div
         class="flex flex-col border rounded-xl p-4 sm:p-6 lg:p-10"
       >
-        {% if submit.category == 'jm' or submit.category == 'gm' %}
-          {% include "./name_detail.html"%}
-        {% elif submit.category == 'sj' %}
-          {% include "./saju_detail.html"%}
-        {% else %}
-          {% include "./etc_detail.html"%}
-        {% endif %}
 
-        
+        {%include "./name_form.html"%}
+
+        <div class="mt-3 text-center">
+          <p class="text-sm text-gray-500">
+            입금확인 후 1-2일 내 작업이 진행됩니다. <br> 기타 문의사항이 있을경우 신청하신 전화번호로 연락 드리겠습니다.
+          </p>
+        </div>
       </div>
       <!-- End Form -->
     </div>

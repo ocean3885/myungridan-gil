@@ -8,7 +8,7 @@
       >
       <div
         id="name"
-        class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+        class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
       >
         {{submit.name}}
       </div>
@@ -20,26 +20,41 @@
       >
       <div
         id="phone"
-        class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+        class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
       >
         {{submit.phone}}
       </div>
     </div>
   </div>
   <!-- End Grid -->
-  {% if user.is_staff %}
+<!-- Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
   <div>
     <label for="process" class="block mb-2 text-sm text-gray-700 font-medium"
       >진행상황</label
     >
     <div
       id="process"
-      class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+      class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
     >
       {{submit.get_process_display}}
     </div>
   </div>
-  {% endif %}
+
+  <div>
+    <label for="category" class="block mb-2 text-sm text-gray-700 font-medium"
+      >신청종류</label
+    >
+    <div
+      id="category"
+      class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
+    >
+      {{submit.get_category_display}}
+    </div>
+  </div>
+</div>
+<!-- End Grid -->
+
   <!-- Grid -->
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
     <div>
@@ -48,7 +63,7 @@
       >
       <div
         id="visit"
-        class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+        class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
       >
         {{submit.get_visit_display}}
       </div>
@@ -60,7 +75,7 @@
       >
       <div
         id="wantdate"
-        class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+        class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
       >
         {{submit.wantdate}}
       </div>
@@ -78,7 +93,7 @@
       >
       <div
         id="first_name_ch"
-        class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+        class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
       >
         {{submit.first_name_ch}}
       </div>
@@ -92,7 +107,7 @@
       >
       <div
         id="first_name_kr"
-        class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+        class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
       >
         {{submit.first_name_kr}}
       </div>
@@ -106,7 +121,7 @@
       >
       <div
         id="first_name_bon"
-        class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+        class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
       >
         {{submit.first_name_bon}}
       </div>
@@ -120,7 +135,7 @@
     >
     <div
       id="fav_name"
-      class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+      class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
     >
       {{submit.fav_name}}
     </div>
@@ -132,7 +147,7 @@
     >
     <div
       id="avoid_name"
-      class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+      class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
     >
       {{submit.avoid_name}}
     </div>
@@ -146,7 +161,7 @@
       >
       <div
         id="dad_name"
-        class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+        class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
       >
         {{submit.dad_name}}
       </div>
@@ -158,7 +173,7 @@
       >
       <div
         id="mom_name"
-        class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+        class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
       >
         {{submit.mom_name}}
       </div>
@@ -175,7 +190,7 @@
     <div
       id="description"
       rows="6"
-      class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+      class="py-3 px-4 block w-full bg-gray-100 border-b-2 rounded-md text-sm"
     >
       {{submit.description|linebreaks}}
     </div>
@@ -191,7 +206,7 @@
       >
       <div
         id="gen"
-        class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+        class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
       >
         {{person.gen}}
       </div>
@@ -203,7 +218,7 @@
       >
       <div
         id="sl"
-        class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+        class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
       >
         {{person.sl}}
       </div>
@@ -218,7 +233,7 @@
       >
       <div
         id="year"
-        class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+        class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
       >
         {{person.year}}
       </div>
@@ -230,7 +245,7 @@
       >
       <div
         id="month"
-        class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+        class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
       >
         {{person.month}}
       </div>
@@ -242,7 +257,7 @@
       >
       <div
         id="day"
-        class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+        class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
       >
         {{person.day}}
       </div>
@@ -254,7 +269,7 @@
       >
       <div
         id="hour"
-        class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+        class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
       >
         {{person.hour}}
       </div>
@@ -266,7 +281,7 @@
       >
       <div
         id="min"
-        class="py-3 px-4 block w-full border-gray-400 rounded-md text-sm border"
+        class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
       >
         {{person.min}}
       </div>
@@ -290,5 +305,30 @@
         삭제
       </button>
     </a>
+    {% if user.is_staff %}
+    <a href="{% url 'submit-list' %}">
+      <button
+        class="py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+      >
+        목록
+      </button>
+    </a>
+    {% elif session %}
+    <a href="{% url 'submit-verify-list' %}">
+      <button
+        class="py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+      >
+        목록
+      </button>
+    </a>
+    {% else %}
+    <a href="{% url 'home' %}">
+      <button
+        class="py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+      >
+        홈
+      </button>
+    </a>
+    {% endif %}      
   </div>
 </div>

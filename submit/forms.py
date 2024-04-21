@@ -3,11 +3,28 @@ from django import forms
 import datetime
 from .models import Submit, Person
 
-class JmSubmitForm(ModelForm):
+class NameSubmitForm(ModelForm):
 
     field_order = ['process', 'name', 'phone', 'visit', 'wantdate', 'email', 'adress', 'first_name_ch', 
                    'first_name_kr', 'first_name_bon', 'fav_name', 'avoid_name',
                    'dad_name', 'mom_name', 'dolrim', 'description']
+
+    class Meta:
+        model = Submit
+        exclude = ['category', 'user']
+
+class SajuSubmitForm(ModelForm):
+
+    field_order = ['process', 'name', 'phone', 'visit', 'wantdate', 'email', 'adress', 'description']
+
+    class Meta:
+        model = Submit
+        exclude = ['category', 'user']
+
+
+class EtcSubmitForm(ModelForm):
+
+    field_order = ['process', 'name', 'phone', 'visit', 'wantdate', 'email', 'adress', 'description']
 
     class Meta:
         model = Submit
