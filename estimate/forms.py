@@ -50,4 +50,4 @@ class EstimateForm(ModelForm):
 
     class Meta:
         model = Estimate
-        exclude = ['user']
+        exclude = ['user','count']
