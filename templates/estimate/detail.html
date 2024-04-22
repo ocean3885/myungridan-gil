@@ -1,43 +1,40 @@
 <div class="mt-6 grid gap-4 lg:gap-6">
     <h2 class="mb-4 text-xl font-semibold text-gray-800">신청인 정보</h2>
-    <!-- Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
-      <div>
-        <label for="name" class="block mb-2 text-sm text-gray-700 font-medium"
-          >신청인이름</label
-        >
-        <div
-          id="name"
-          class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
-        >
-          {{submit.name}}
-        </div>
-      </div>
-  
-      <div>
-        <label for="phone" class="block mb-2 text-sm text-gray-700 font-medium"
-          >전화번호</label
-        >
-        <div
-          id="phone"
-          class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
-        >
-          {{submit.phone}}
-        </div>
+    <div>
+      <label for="name" class="block mb-2 text-sm text-gray-700 font-medium"
+        >신청인이름</label
+      >
+      <div
+        id="name"
+        class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
+      >
+        {{submit.name}}
       </div>
     </div>
-    <!-- End Grid -->
+    {% if user.is_staff %}
+    <div>
+      <label for="phone" class="block mb-2 text-sm text-gray-700 font-medium"
+        >전화번호</label
+      >
+      <div
+        id="phone"
+        class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
+      >
+        {{submit.phone}}
+      </div>
+    </div>
+    {% endif %}
     
     <div>
       <label
         for="description"
         class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
-        >기타요청사항</label
+        >감명세부사항</label
       >
       <div
         id="description"
         rows="6"
-        class="py-3 px-4 block w-full bg-gray-100 border-b-2 rounded-md text-sm"
+        class="py-3 px-4 block min-h-52 w-full bg-gray-100 border-b-2 rounded-md text-sm"
       >
         {{submit.description|linebreaks}}
       </div>

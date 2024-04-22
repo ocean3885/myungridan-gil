@@ -4269,6 +4269,10 @@ html {
   max-height: 100%;
 }
 
+.min-h-52 {
+  min-height: 13rem;
+}
+
 .w-1\/2 {
   width: 50%;
 }
