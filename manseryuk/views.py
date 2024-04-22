@@ -6,8 +6,8 @@ class Msr_Calculator():
     def __init__(self):
         pass
 
-    def getAll(self, year, month, day, time, sl, gen, yd):
-        if int(sl) == 1:
+    def getAll(self, year, month, day, time, sl, gen):
+        if sl == "양력":
             birthdata = CalendaData.objects.using('manseryuk').filter(
                 cd_sy=year, cd_sm=month, cd_sd=day
             )
@@ -16,7 +16,7 @@ class Msr_Calculator():
                 cd_ly=year, cd_lm=month, cd_ld=day
             )
 
-        if yd == "윤달":
+        if sl == "음력윤달":
             data = birthdata[1]
         else:
             data = birthdata[0]
@@ -118,7 +118,7 @@ class Msr_Calculator():
     def daewoonNum(self, year, month, day, sl, way):
         JEOLGI = ["입춘", "경칩", "청명", "입하", "망종", "소서",
                   "입추", "백로", "한로", "입동", "대설", "소한"]
-        if int(sl) == 1:
+        if sl == "양력":
             birthdata = CalendaData.objects.using('manseryuk').filter(
                 cd_sy=year, cd_sm=month, cd_sd=day
             )

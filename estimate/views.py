@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
+from manseryuk.views import Msr_Calculator
+from manseryuk.calculator import determine_zodiac_hour_str
 from .forms import EstimateForm
 from .models import Estimate
 
@@ -27,7 +29,11 @@ def estimate_detail(request,pk):
     submit = get_object_or_404(Estimate, pk=pk)
     submit.count += 1
     submit.save()
-    return render(request, 'estimate/estimate_detail.html', {'submit': submit})        
+    data = Msr_Calculator()
+    time = determine_zodiac_hour_str(submit.hour, submit.min)
+    datas = data.getAll(submit.year, submit.month, submit.day,
+                        time, submit.sl, submit.gen)
+    return render(request, 'estimate/estimate_detail.html', {'submit': submit,'datas':datas})        
 
 def estimate_list(request):
     submits = Estimate.objects.all()

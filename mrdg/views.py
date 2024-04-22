@@ -3,7 +3,7 @@ from django.views.generic import CreateView, DetailView
 from django.urls import reverse
 from .forms import ManseryukForm
 from manseryuk.views import Msr_Calculator
-from .utils import determine_zodiac_hour_str
+from manseryuk.calculator import determine_zodiac_hour_str
 class msrInputView(CreateView):
     model = Manseryuk
     form_class = ManseryukForm
