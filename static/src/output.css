@@ -4495,6 +4495,10 @@ html {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
+.grid-cols-10 {
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+
 .grid-cols-12 {
   grid-template-columns: repeat(12, minmax(0, 1fr));
 }
@@ -4509,10 +4513,6 @@ html {
 
 .grid-cols-7 {
   grid-template-columns: repeat(7, minmax(0, 1fr));
-}
-
-.grid-cols-10 {
-  grid-template-columns: repeat(10, minmax(0, 1fr));
 }
 
 .flex-row {
@@ -4917,11 +4917,6 @@ html {
 .bg-rose-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(244 63 94 / var(--tw-bg-opacity));
-}
-
-.bg-slate-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
 }
 
 .bg-transparent {
@@ -6327,10 +6322,6 @@ html {
     width: 7rem;
   }
 
-  .sm\:w-\[auto\] {
-    width: auto;
-  }
-
   .sm\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -6378,6 +6369,11 @@ html {
   .sm\:py-4 {
     padding-top: 1rem;
     padding-bottom: 1rem;
+  }
+
+  .sm\:py-1 {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
   }
 
   .sm\:text-2xl {

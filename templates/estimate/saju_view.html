@@ -10,12 +10,12 @@
     and experiences.
   </p>
 
-  <div class="mt-4 border border-gray-500 divide-y divide-stone-400"> 
+  <div class="mt-4 bg-gray-100 border border-gray-500 divide-y divide-stone-400"> 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-1 text-center">{{datas.time_gan10}}</div>
-      <div class="py-1 text-center">일간</div>
-      <div class="py-1 text-center">{{datas.month_gan10}}</div>
-      <div class="py-1 text-center">{{datas.year_gan10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{datas.time_gan10}}</div>
+      <div class="py-0 sm:py-1 text-center">일간</div>
+      <div class="py-0 sm:py-1 text-center">{{datas.month_gan10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{datas.year_gan10}}</div>
     </div>
 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
@@ -33,27 +33,27 @@
     </div>
 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-1 text-center">{{datas.time_ji10}}</div>
-      <div class="py-1 text-center">{{datas.day_ji10}}</div>
-      <div class="py-1 text-center">{{datas.month_ji10}}</div>
-      <div class="py-1 text-center">{{datas.year_ji10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{datas.time_ji10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{datas.day_ji10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{datas.month_ji10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{datas.year_ji10}}</div>
     </div>
   </div>
 
   <div class="mt-4 border border-gray-500 divide-y divide-stone-400"> 
     <div class="grid grid-cols-10 divide-x divide-stone-400">
       {% for data in datas.daewoon_num_list %}
-      <div class="py-1 text-center">{{data}}</div>
+      <div class="py-0 text-center">{{data}}</div>
       {% endfor %}
     </div>
     <div class="grid grid-cols-10 divide-x divide-stone-400">
-      {% for data in datas.daewoon.1|reverse %}
-      <div class="py-1 text-center {{data|kor_color}}">{{ data|to_hanja }}</div>
+      {% for data in datas.daewoon.1 %}
+      <div class="py-1 text-center {{data|hanja_color}}">{{ data }}</div>
       {% endfor %}
     </div>
     <div class="grid grid-cols-10 divide-x divide-stone-400">
-      {% for data in datas.daewoon.2|reverse %}
-      <div class="py-1 text-center {{data|kor_color}}">{{ data|to_hanja }}</div>
+      {% for data in datas.daewoon.2 %}
+      <div class="py-1 text-center {{data|hanja_color}}">{{ data }}</div>
       {% endfor %}
     </div>
   </div>

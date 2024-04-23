@@ -1,5 +1,19 @@
 import math
 
+
+# 한글에서 한자로의 매핑
+korean_to_hanja = {
+    '갑': '甲', '을': '乙', '병': '丙', '정': '丁', '무': '戊',
+    '기': '己', '경': '庚', '신': '辛', '임': '壬', '계': '癸',
+    '자': '子', '축': '丑', '인': '寅', '묘': '卯', '진': '辰',
+    '사': '巳', '오': '午', '미': '未', '신': '申', '유': '酉',
+    '술': '戌', '해': '亥'
+}
+
+def to_hanja(korean_text):
+    return ''.join(korean_to_hanja.get(char, char) for char in korean_text)
+
+
 def descending_tens(n):
     # n이 소수일 경우 소수보다 큰 가장 가까운 정수로 변환
     n = math.ceil(n)

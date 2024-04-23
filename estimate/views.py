@@ -15,7 +15,7 @@ def estimate_form(request):
             if request.user.is_authenticated:
                 obj.user = request.user
             obj.save()
-            return render(request, 'estimate/estimate_detail.html', {'submit': obj})
+            return redirect('estimate-detail', pk=obj.pk)
         else:
             errors = submitForm.errors
             context = {'submit': submitForm,'errors':errors}
