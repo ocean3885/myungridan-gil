@@ -1,5 +1,5 @@
 from .models import CalendaData
-from .calculator import find_ten_god
+from .calculator import find_ten_god, find_stem_branch_ten_god,descending_tens
 
 class Msr_Calculator():
 
@@ -58,9 +58,14 @@ class Msr_Calculator():
         outdata["daewoon_num"] = self.daewoonNum(
             year, month, day, sl, outdata["daewoon"][0]
         )
+        outdata["daewoon_num_list"] = descending_tens(outdata["daewoon_num"])
         outdata["time_gan10"] = find_ten_god(outdata["day_gan_kr"],outdata["time_gan_kr"])
         outdata["month_gan10"] = find_ten_god(outdata["day_gan_kr"],outdata["month_gan_kr"])
         outdata["year_gan10"] = find_ten_god(outdata["day_gan_kr"],outdata["year_gan_kr"])
+        outdata["time_ji10"] = find_stem_branch_ten_god(outdata["day_gan_kr"],outdata["time_ji_kr"])
+        outdata["day_ji10"] = find_stem_branch_ten_god(outdata["day_gan_kr"],outdata["day_ji_kr"])
+        outdata["month_ji10"] = find_stem_branch_ten_god(outdata["day_gan_kr"],outdata["month_ji_kr"])
+        outdata["year_ji10"] = find_stem_branch_ten_god(outdata["day_gan_kr"],outdata["year_ji_kr"])
         return outdata
 
     def getDaewoon(self, gen, ygan, mgan, mji):

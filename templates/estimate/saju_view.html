@@ -1,5 +1,5 @@
 {% load custom_tags %}
-<div class="bg-slate-200">
+<div>
   <h1
     class="text-3xl font-bold text-gray-800 sm:text-4xl lg:text-5xl lg:leading-tight dark:text-white"
   >
@@ -19,24 +19,42 @@
     </div>
 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-2 text-center {{datas.time_gan_ch|custom_filter }}">{{datas.time_gan_ch}}</div>
-      <div class="py-2 text-center {{datas.day_gan_ch|custom_filter }}">{{datas.day_gan_ch}}</div>
-      <div class="py-2 text-center {{datas.month_gan_ch|custom_filter }}">{{datas.month_gan_ch}}</div>
-      <div class="py-2 text-center {{datas.year_gan_ch|custom_filter }}">{{datas.year_gan_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{datas.time_gan_ch|hanja_color }}">{{datas.time_gan_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{datas.day_gan_ch|hanja_color }}">{{datas.day_gan_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{datas.month_gan_ch|hanja_color }}">{{datas.month_gan_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{datas.year_gan_ch|hanja_color }}">{{datas.year_gan_ch}}</div>
     </div>
 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-1 text-center">{{datas.time_ji_ch}}</div>
-      <div class="py-1 text-center">{{datas.day_ji_ch}}</div>
-      <div class="py-1 text-center">{{datas.month_ji_ch}}</div>
-      <div class="py-1 text-center">{{datas.year_ji_ch}}</div>
+      <div class="py-2 text-3xl text-semibold text-center {{datas.time_ji_ch|hanja_color }}">{{datas.time_ji_ch}}</div>
+      <div class="py-2 text-3xl text-semibold text-center {{datas.day_ji_ch|hanja_color }}">{{datas.day_ji_ch}}</div>
+      <div class="py-2 text-3xl text-semibold text-center {{datas.month_ji_ch|hanja_color }}">{{datas.month_ji_ch}}</div>
+      <div class="py-2 text-3xl text-semibold text-center {{datas.year_ji_ch|hanja_color }}">{{datas.year_ji_ch}}</div>
     </div>
 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-1 text-center">정재</div>
-      <div class="py-1 text-center">편재</div>
-      <div class="py-1 text-center">비견</div>
-      <div class="py-1 text-center">겁재</div>
+      <div class="py-1 text-center">{{datas.time_ji10}}</div>
+      <div class="py-1 text-center">{{datas.day_ji10}}</div>
+      <div class="py-1 text-center">{{datas.month_ji10}}</div>
+      <div class="py-1 text-center">{{datas.year_ji10}}</div>
+    </div>
+  </div>
+
+  <div class="mt-4 border border-gray-500 divide-y divide-stone-400"> 
+    <div class="grid grid-cols-10 divide-x divide-stone-400">
+      {% for data in datas.daewoon_num_list %}
+      <div class="py-1 text-center">{{data}}</div>
+      {% endfor %}
+    </div>
+    <div class="grid grid-cols-10 divide-x divide-stone-400">
+      {% for data in datas.daewoon.1|reverse %}
+      <div class="py-1 text-center {{data|kor_color}}">{{ data|to_hanja }}</div>
+      {% endfor %}
+    </div>
+    <div class="grid grid-cols-10 divide-x divide-stone-400">
+      {% for data in datas.daewoon.2|reverse %}
+      <div class="py-1 text-center {{data|kor_color}}">{{ data|to_hanja }}</div>
+      {% endfor %}
     </div>
   </div>
 
