@@ -1,5 +1,5 @@
 from .models import CalendaData
-
+from .calculator import find_ten_god
 
 class Msr_Calculator():
 
@@ -58,6 +58,9 @@ class Msr_Calculator():
         outdata["daewoon_num"] = self.daewoonNum(
             year, month, day, sl, outdata["daewoon"][0]
         )
+        outdata["time_gan10"] = find_ten_god(outdata["day_gan_kr"],outdata["time_gan_kr"])
+        outdata["month_gan10"] = find_ten_god(outdata["day_gan_kr"],outdata["month_gan_kr"])
+        outdata["year_gan10"] = find_ten_god(outdata["day_gan_kr"],outdata["year_gan_kr"])
         return outdata
 
     def getDaewoon(self, gen, ygan, mgan, mji):

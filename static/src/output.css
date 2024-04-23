@@ -4385,10 +4385,6 @@ html {
   flex-basis: 100%;
 }
 
-.border-collapse {
-  border-collapse: collapse;
-}
-
 .origin-top-left {
   transform-origin: top left;
 }
@@ -4709,21 +4705,6 @@ html {
   border-color: rgb(229 231 235 / var(--tw-divide-opacity));
 }
 
-.divide-stone-500 > :not([hidden]) ~ :not([hidden]) {
-  --tw-divide-opacity: 1;
-  border-color: rgb(120 113 108 / var(--tw-divide-opacity));
-}
-
-.divide-stone-200 > :not([hidden]) ~ :not([hidden]) {
-  --tw-divide-opacity: 1;
-  border-color: rgb(231 229 228 / var(--tw-divide-opacity));
-}
-
-.divide-stone-300 > :not([hidden]) ~ :not([hidden]) {
-  --tw-divide-opacity: 1;
-  border-color: rgb(214 211 209 / var(--tw-divide-opacity));
-}
-
 .divide-stone-400 > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-opacity: 1;
   border-color: rgb(168 162 158 / var(--tw-divide-opacity));
@@ -4853,6 +4834,11 @@ html {
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 
+.border-gray-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(107 114 128 / var(--tw-border-opacity));
+}
+
 .border-gray-600 {
   --tw-border-opacity: 1;
   border-color: rgb(75 85 99 / var(--tw-border-opacity));
@@ -4862,27 +4848,12 @@ html {
   border-color: transparent;
 }
 
-.border-gray-900 {
-  --tw-border-opacity: 1;
-  border-color: rgb(17 24 39 / var(--tw-border-opacity));
-}
-
-.border-gray-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(107 114 128 / var(--tw-border-opacity));
-}
-
 .border-b-transparent {
   border-bottom-color: transparent;
 }
 
 .border-e-white\/\[\.7\] {
   border-inline-end-color: rgb(255 255 255 / .7);
-}
-
-.border-t-stone-500 {
-  --tw-border-opacity: 1;
-  border-top-color: rgb(120 113 108 / var(--tw-border-opacity));
 }
 
 .bg-amber-500 {
@@ -4944,6 +4915,11 @@ html {
   background-color: rgb(244 63 94 / var(--tw-bg-opacity));
 }
 
+.bg-slate-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
+}
+
 .bg-transparent {
   background-color: transparent;
 }
@@ -4955,11 +4931,6 @@ html {
 
 .bg-white\/50 {
   background-color: rgb(255 255 255 / 0.5);
-}
-
-.bg-slate-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50 {
@@ -5154,10 +5125,6 @@ html {
 
 .pt-2 {
   padding-top: 0.5rem;
-}
-
-.pt-4 {
-  padding-top: 1rem;
 }
 
 .text-center {

@@ -1,3 +1,4 @@
+{% load custom_tags %}
 <div class="bg-slate-200">
   <h1
     class="text-3xl font-bold text-gray-800 sm:text-4xl lg:text-5xl lg:leading-tight dark:text-white"
@@ -11,17 +12,17 @@
 
   <div class="mt-4 border border-gray-500 divide-y divide-stone-400"> 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-1 text-center">정재</div>
-      <div class="py-1 text-center">편재</div>
-      <div class="py-1 text-center">비견</div>
-      <div class="py-1 text-center">겁재</div>
+      <div class="py-1 text-center">{{datas.time_gan10}}</div>
+      <div class="py-1 text-center">일간</div>
+      <div class="py-1 text-center">{{datas.month_gan10}}</div>
+      <div class="py-1 text-center">{{datas.year_gan10}}</div>
     </div>
 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-1 text-center">{{datas.time_gan_ch}}</div>
-      <div class="py-1 text-center">{{datas.day_gan_ch}}</div>
-      <div class="py-1 text-center">{{datas.month_gan_ch}}</div>
-      <div class="py-1 text-center">{{datas.year_gan_ch}}</div>
+      <div class="py-2 text-center {{datas.time_gan_ch|custom_filter }}">{{datas.time_gan_ch}}</div>
+      <div class="py-2 text-center {{datas.day_gan_ch|custom_filter }}">{{datas.day_gan_ch}}</div>
+      <div class="py-2 text-center {{datas.month_gan_ch|custom_filter }}">{{datas.month_gan_ch}}</div>
+      <div class="py-2 text-center {{datas.year_gan_ch|custom_filter }}">{{datas.year_gan_ch}}</div>
     </div>
 
     <div class="grid grid-cols-4 divide-x divide-stone-400">

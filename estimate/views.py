@@ -54,14 +54,13 @@ def estimate_list(request):
 
 def estimate_edit(request,pk):
     submit = get_object_or_404(Estimate, pk=pk)
-    submitForm = EstimateForm(request.POST)
     if request.method == 'POST':
-        submitForm =submitForm(request.POST, instance=submit)
+        submitForm =EstimateForm(request.POST, instance=submit)
         if submitForm.is_valid():
             submitForm.save()
             return redirect('estimate-detail', pk=submit.pk)
     else:
-        submitForm = submitForm(instance=submit)
+        submitForm = EstimateForm(instance=submit)
         context = {'submit': submitForm}
     return render(request, 'estimate/estimate_form.html', context)
     
