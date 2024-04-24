@@ -16,9 +16,13 @@ def to_hanja(korean_text):
 
 def descending_tens(n):
     # n이 소수일 경우 소수보다 큰 가장 가까운 정수로 변환
-    n = math.ceil(n)
-    start = n + 90  # 첫 번째 숫자를 계산
-    return [start - 10 * i for i in range(10)]
+    rounded_n = round(n)
+    start = rounded_n + 90  # 첫 번째 숫자를 계산
+    # start부터 10*i씩 감소시킨 요소 9개를 생성
+    result = [start - 10 * i for i in range(9)]
+    # 마지막에 원래 수 n 추가
+    result.append(n)
+    return result
 
 def find_ten_god(benchmark, other):
     # 천간 배열

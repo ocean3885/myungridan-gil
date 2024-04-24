@@ -43,7 +43,7 @@
   <div class="mt-4"> 
     <div class="flex">
       {% for num, data1, data2 in grouped_data %}
-      <div class="clickable cursor-pointer flex-1 border-2 border-transparent">
+      <div class="clickable table border cursor-pointer flex-1">
         <div class="py-0 text-center bg-gray-200">{{ num }}</div>
         <div class="py-1 text-center {{ data1|hanja_color }}">{{ data1 }}</div>
         <div class="py-1 text-center {{ data2|hanja_color }}">{{ data2 }}</div>
@@ -63,11 +63,9 @@
       // 모든 요소의 빨간 테두리 제거
       document.querySelectorAll('.clickable').forEach(function(el) {
         el.classList.remove('border-red-600');
-        el.classList.add('border-transparent');
       });
       // 클릭된 요소에 빨간 테두리 추가
       this.classList.add('border-red-600');
-      this.classList.remove('border-transparent');
     });
   });
 </script>

@@ -127,49 +127,6 @@ class Msr_Calculator():
             return data
         
     
-    # def getDaewoon(self, gender, yearGan, monthGan, dayJi):
-    #     YANG_GAN = ["갑", "병", "무", "경", "임"]
-    #     EUM_GAN = ["을", "정", "기", "신", "계"]
-    #     ALL_GAN = ["갑", "을", "병", "정", "무", "기", "경", "신", "임", "계"]
-    #     ALL_JI = ["자", "축", "인", "묘", "진", "사", "오", "미", "신", "유", "술", "해"]
-
-    #     direction = None
-    #     if (gender == "남" and yearGan in YANG_GAN) or (gender == "여" and yearGan in EUM_GAN):
-    #         direction = "순행"
-    #     elif (gender == "남" and yearGan in EUM_GAN) or (gender == "여" and yearGan in YANG_GAN):
-    #         direction = "역행"
-
-    #     if not direction:
-    #         raise ValueError("Invalid gender or year Gan")
-
-    #     data = [direction]
-
-    #     def rotate_elements(elements, start_index, reverse=False):
-    #         length = len(elements)
-    #         rotated = []
-    #         step = -1 if reverse else 1
-    #         index = start_index
-    #         for _ in range(length):
-    #             rotated.append(elements[index % length])
-    #             index += step
-    #         return rotated
-
-    #     start_gan = ALL_GAN.index(monthGan)
-    #     start_ji = ALL_JI.index(dayJi)
-
-    #     if direction == "순행":
-    #         rotated_gan = rotate_elements(ALL_GAN, start_gan + 1)
-    #         rotated_ji = rotate_elements(ALL_JI, start_ji + 1)
-    #     else:
-    #         rotated_gan = rotate_elements(ALL_GAN, start_gan - 1, reverse=True)
-    #         rotated_ji = rotate_elements(ALL_JI, start_ji - 1, reverse=True)
-
-    #     data.append(self.to_hanja(rotated_gan))
-    #     data.append(self.to_hanja(rotated_ji))
-
-    #     return data
-
-
 
     def daewoonNum(self, year, month, day, sl, way):
         JEOLGI = ["입춘", "경칩", "청명", "입하", "망종", "소서",
