@@ -12,51 +12,62 @@
 
   <div class="mt-4 bg-gray-100 border border-gray-500 divide-y divide-stone-400"> 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-0 sm:py-1 text-center">{{datas.time_gan10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.time_gan10}}</div>
       <div class="py-0 sm:py-1 text-center">일간</div>
-      <div class="py-0 sm:py-1 text-center">{{datas.month_gan10}}</div>
-      <div class="py-0 sm:py-1 text-center">{{datas.year_gan10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.month_gan10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.year_gan10}}</div>
     </div>
 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-2 text-3xl font-semibold text-center {{datas.time_gan_ch|hanja_color }}">{{datas.time_gan_ch}}</div>
-      <div class="py-2 text-3xl font-semibold text-center {{datas.day_gan_ch|hanja_color }}">{{datas.day_gan_ch}}</div>
-      <div class="py-2 text-3xl font-semibold text-center {{datas.month_gan_ch|hanja_color }}">{{datas.month_gan_ch}}</div>
-      <div class="py-2 text-3xl font-semibold text-center {{datas.year_gan_ch|hanja_color }}">{{datas.year_gan_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.time_gan_ch|hanja_color }}">{{submit.data.datas.time_gan_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.day_gan_ch|hanja_color }}">{{submit.data.datas.day_gan_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.month_gan_ch|hanja_color }}">{{submit.data.datas.month_gan_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.year_gan_ch|hanja_color }}">{{submit.data.datas.year_gan_ch}}</div>
     </div>
 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-2 text-3xl text-semibold text-center {{datas.time_ji_ch|hanja_color }}">{{datas.time_ji_ch}}</div>
-      <div class="py-2 text-3xl text-semibold text-center {{datas.day_ji_ch|hanja_color }}">{{datas.day_ji_ch}}</div>
-      <div class="py-2 text-3xl text-semibold text-center {{datas.month_ji_ch|hanja_color }}">{{datas.month_ji_ch}}</div>
-      <div class="py-2 text-3xl text-semibold text-center {{datas.year_ji_ch|hanja_color }}">{{datas.year_ji_ch}}</div>
+      <div class="py-2 text-3xl text-semibold text-center {{submit.data.datas.time_ji_ch|hanja_color }}">{{submit.data.datas.time_ji_ch}}</div>
+      <div class="py-2 text-3xl text-semibold text-center {{submit.data.datas.day_ji_ch|hanja_color }}">{{submit.data.datas.day_ji_ch}}</div>
+      <div class="py-2 text-3xl text-semibold text-center {{submit.data.datas.month_ji_ch|hanja_color }}">{{submit.data.datas.month_ji_ch}}</div>
+      <div class="py-2 text-3xl text-semibold text-center {{submit.data.datas.year_ji_ch|hanja_color }}">{{submit.data.datas.year_ji_ch}}</div>
     </div>
 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-0 sm:py-1 text-center">{{datas.time_ji10}}</div>
-      <div class="py-0 sm:py-1 text-center">{{datas.day_ji10}}</div>
-      <div class="py-0 sm:py-1 text-center">{{datas.month_ji10}}</div>
-      <div class="py-0 sm:py-1 text-center">{{datas.year_ji10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.time_ji10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.day_ji10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.month_ji10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.year_ji10}}</div>
     </div>
   </div>
 
-  <div class="mt-4 border border-gray-500 divide-y divide-stone-400"> 
-    <div class="grid grid-cols-10 divide-x divide-stone-400">
-      {% for data in datas.daewoon_num_list %}
-      <div class="py-0 text-center">{{data}}</div>
-      {% endfor %}
-    </div>
-    <div class="grid grid-cols-10 divide-x divide-stone-400">
-      {% for data in datas.daewoon.1 %}
-      <div class="py-1 text-center {{data|hanja_color}}">{{ data }}</div>
-      {% endfor %}
-    </div>
-    <div class="grid grid-cols-10 divide-x divide-stone-400">
-      {% for data in datas.daewoon.2 %}
-      <div class="py-1 text-center {{data|hanja_color}}">{{ data }}</div>
+  <div class="mt-4"> 
+    <div class="flex">
+      {% for num, data1, data2 in grouped_data %}
+      <div class="clickable cursor-pointer flex-1 border-2 border-transparent">
+        <div class="py-0 text-center bg-gray-200">{{ num }}</div>
+        <div class="py-1 text-center {{ data1|hanja_color }}">{{ data1 }}</div>
+        <div class="py-1 text-center {{ data2|hanja_color }}">{{ data2 }}</div>
+      </div>
       {% endfor %}
     </div>
   </div>
 
 
 </div>
+
+
+<script>
+  // 클릭 이벤트 리스너를 각각의 'clickable' 클래스가 있는 요소에 추가
+  document.querySelectorAll('.clickable').forEach(function(element) {
+    element.addEventListener('click', function() {
+      // 모든 요소의 빨간 테두리 제거
+      document.querySelectorAll('.clickable').forEach(function(el) {
+        el.classList.remove('border-red-600');
+        el.classList.add('border-transparent');
+      });
+      // 클릭된 요소에 빨간 테두리 추가
+      this.classList.add('border-red-600');
+      this.classList.remove('border-transparent');
+    });
+  });
+</script>

@@ -50,7 +50,7 @@ class EstimateForm(ModelForm):
 
     class Meta:
         model = Estimate
-        exclude = ['user','count']
+        exclude = ['user','count','data']
 
         widgets = {
             "phone": forms.TextInput(

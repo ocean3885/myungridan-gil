@@ -22,6 +22,7 @@ class Estimate(models.Model):
     email = models.EmailField(blank=True, max_length=254)
     description = models.TextField(blank=True)
     process = models.CharField(max_length=20, choices=PROCESS_CHOICES, blank=True, default="1")
+    data = models.JSONField(default=dict)
     gen = models.CharField(max_length=1)
     sl = models.CharField(max_length=10)
     year = models.CharField(max_length=4)

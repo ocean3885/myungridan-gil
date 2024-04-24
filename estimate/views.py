@@ -14,6 +14,11 @@ def estimate_form(request):
             obj = submitForm.save(commit=False)            
             if request.user.is_authenticated:
                 obj.user = request.user
+            data = Msr_Calculator()
+            time = determine_zodiac_hour_str(obj.hour, obj.min)
+            datas = data.getAll(obj.year, obj.month, obj.day,
+                        time, obj.sl, obj.gen)
+            obj.data = {'datas':datas}
             obj.save()
             return redirect('estimate-detail', pk=obj.pk)
         else:
@@ -29,11 +34,16 @@ def estimate_detail(request,pk):
     submit = get_object_or_404(Estimate, pk=pk)
     submit.count += 1
     submit.save()
-    data = Msr_Calculator()
-    time = determine_zodiac_hour_str(submit.hour, submit.min)
-    datas = data.getAll(submit.year, submit.month, submit.day,
-                        time, submit.sl, submit.gen)
-    return render(request, 'estimate/estimate_detail.html', {'submit': submit,'datas':datas})        
+    grouped_data = zip(
+            submit.data['datas']['daewoon_num_list'],
+            submit.data['datas']['daewoon'][1],
+            submit.data['datas']['daewoon'][2]
+        )
+    context = {
+        'submit': submit,
+        'grouped_data': grouped_data
+    }
+    return render(request, 'estimate/estimate_detail.html', context)        
 
 def estimate_list(request):
     submits = Estimate.objects.all()
