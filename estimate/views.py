@@ -4,6 +4,8 @@ from manseryuk.views import Msr_Calculator
 from manseryuk.calculator import determine_zodiac_hour_str
 from .forms import EstimateForm
 from .models import Estimate
+from datetime import datetime
+
 
 def estimate_form(request):
     submitForm = EstimateForm(request.POST or None)
@@ -39,9 +41,22 @@ def estimate_detail(request,pk):
             submit.data['datas']['daewoon'][1],
             submit.data['datas']['daewoon'][2]
         )
+    grouped_year = zip(
+            submit.data['datas']['cycles_100'][0],
+            submit.data['datas']['cycles_100'][1],
+            submit.data['datas']['cycles_100'][2],
+        )
+    grouped_list = list(grouped_year)
+    grouped_chunks = [grouped_list[i:i + 10] for i in range(0, len(grouped_list), 10)]
+    current_year = datetime.now().year
+    groups_with_visibility = []
+    for group in grouped_chunks:
+        visible = any(year == current_year for year, _, _ in group)
+        groups_with_visibility.append((group, visible))
     context = {
         'submit': submit,
-        'grouped_data': grouped_data
+        'grouped_data': grouped_data,
+        'groups_with_visibility': groups_with_visibility
     }
     return render(request, 'estimate/estimate_detail.html', context)        
 

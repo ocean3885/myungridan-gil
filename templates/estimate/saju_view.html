@@ -43,17 +43,31 @@
   <div class="mt-4"> 
     <div class="flex">
       {% for num, data1, data2 in grouped_data %}
-      <div class="clickable table border cursor-pointer flex-1">
+      <div class="clickable table border cursor-pointer flex-1" data-target="group-{{ forloop.counter0 }}">
         <div class="py-0 text-center bg-gray-200">{{ num }}</div>
         <div class="py-1 text-center {{ data1|hanja_color }}">{{ data1 }}</div>
         <div class="py-1 text-center {{ data2|hanja_color }}">{{ data2 }}</div>
       </div>
       {% endfor %}
     </div>
+    <div class="mt-4" id="data-groups">
+      {% for group, visible in groups_with_visibility %}
+        <div class="data-group {% if not visible %}hidden{% endif %}" id="group-{{ forloop.counter0 }}">
+          <div class="grid grid-cols-10">
+            {% for data in group %}
+              <div class="table border flex-1">
+                <div class="py-0 text-[10px] sm:text-sm text-center bg-gray-200">{{ data.0 }}</div>
+                <div class="py-1 text-center {{ data.1|hanja_color }}">{{ data.1 }}</div>
+                <div class="py-1 text-center {{ data.2|hanja_color }}">{{ data.2 }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
   </div>
-
-
 </div>
+
 
 
 <script>
@@ -66,6 +80,16 @@
       });
       // 클릭된 요소에 빨간 테두리 추가
       this.classList.add('border-red-600');
+
+      const targetId = element.getAttribute('data-target');
+      const groups = document.querySelectorAll('.data-group');
+      groups.forEach(group => {
+        if(group.id === targetId) {
+          group.classList.remove('hidden');
+        } else {
+          group.classList.add('hidden');
+        }
+      });
     });
   });
 </script>

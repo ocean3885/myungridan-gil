@@ -143,3 +143,36 @@ def determine_zodiac_hour_str(hour_str, minute_str):
 
     # 지정된 시간 범위 밖인 경우
     return "해당 시간에 대한 지지를 찾을 수 없음"
+
+
+def generate_future_cycles(year, daeun):
+    
+    # 천간과 지지
+    heavenly_stems = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]
+    earthly_branches = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
+    
+    # 대운수 반올림 처리 및 시작년도 계산
+    rounded_daeun = round(daeun)
+    start_year = year + rounded_daeun - 1
+    
+    # 결과를 저장할 리스트 초기화
+    years = []
+    heavenly_cycles = []
+    earthly_cycles = []
+    
+    # 시작 년도의 육십갑자 천간과 지지 인덱스 찾기
+    base_year = 1984  # 갑자년 시작
+    offset = (start_year - base_year) % 60
+    heavenly_index = offset % 10
+    earthly_index = offset % 12
+
+    # 100개의 년도, 천간, 지지 계산
+    for i in range(100):
+        years.append(start_year + i)
+        heavenly_cycles.append(heavenly_stems[(heavenly_index + i) % 10])
+        earthly_cycles.append(earthly_branches[(earthly_index + i) % 12])
+    years = list(reversed(years))
+    heavenly_cycles = list(reversed(heavenly_cycles))
+    earthly_cycles = list(reversed(earthly_cycles))
+
+    return years, heavenly_cycles, earthly_cycles
