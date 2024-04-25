@@ -4521,6 +4521,10 @@ html {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
+.grid-cols-10 {
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+
 .grid-cols-12 {
   grid-template-columns: repeat(12, minmax(0, 1fr));
 }
@@ -4535,10 +4539,6 @@ html {
 
 .grid-cols-7 {
   grid-template-columns: repeat(7, minmax(0, 1fr));
-}
-
-.grid-cols-10 {
-  grid-template-columns: repeat(10, minmax(0, 1fr));
 }
 
 .flex-row {
@@ -5249,6 +5249,10 @@ html {
   line-height: 2.25rem;
 }
 
+.text-\[10px\] {
+  font-size: 10px;
+}
+
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
@@ -5274,8 +5278,8 @@ html {
   line-height: 1rem;
 }
 
-.text-\[10px\] {
-  font-size: 10px;
+.text-\[11px\] {
+  font-size: 11px;
 }
 
 .font-bold {
@@ -6377,6 +6381,24 @@ html {
   color: rgb(229 231 235 / var(--tw-text-opacity));
 }
 
+@media (max-width: 800px) {
+  .max-\[800px\]\:hidden {
+    display: none;
+  }
+}
+
+@media (max-width: 799px) {
+  .max-\[799px\]\:hidden {
+    display: none;
+  }
+}
+
+@media not all and (min-width: 640px) {
+  .max-sm\:text-center {
+    text-align: center;
+  }
+}
+
 @media (max-width: 639px) {
   .max-\[639px\]\:text-4xl {
     font-size: 2.25rem;
@@ -6395,6 +6417,18 @@ html {
   .max-\[371px\]\:text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
+  }
+
+  .max-\[371px\]\:text-\[11px\] {
+    font-size: 11px;
+  }
+
+  .max-\[371px\]\:text-\[10px\] {
+    font-size: 10px;
+  }
+
+  .max-\[371px\]\:text-\[12px\] {
+    font-size: 12px;
   }
 }
 
@@ -6686,6 +6720,11 @@ html {
     padding-bottom: 1.5rem;
   }
 
+  .md\:py-10 {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
   .md\:ps-5 {
     padding-inline-start: 1.25rem;
   }
@@ -6712,6 +6751,11 @@ html {
   .md\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+
+  .md\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
   .md\:leading-normal {
@@ -6969,6 +7013,11 @@ html {
   .lg\:text-6xl {
     font-size: 3.75rem;
     line-height: 1;
+  }
+
+  .lg\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
   .lg\:leading-normal {

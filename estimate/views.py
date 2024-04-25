@@ -36,23 +36,20 @@ def estimate_detail(request,pk):
     submit = get_object_or_404(Estimate, pk=pk)
     submit.count += 1
     submit.save()
-    grouped_data = zip(
-            submit.data['datas']['daewoon_num_list'],
-            submit.data['datas']['daewoon'][1],
-            submit.data['datas']['daewoon'][2]
-        )
-    grouped_year = zip(
-            submit.data['datas']['cycles_100'][0],
-            submit.data['datas']['cycles_100'][1],
-            submit.data['datas']['cycles_100'][2],
-        )
-    grouped_list = list(grouped_year)
-    grouped_chunks = [grouped_list[i:i + 10] for i in range(0, len(grouped_list), 10)]
+    grouped_chunks = submit.data['datas']['cycles_100']
     current_year = datetime.now().year
     groups_with_visibility = []
+    grouped_data_visibility = []
     for group in grouped_chunks:
         visible = any(year == current_year for year, _, _ in group)
         groups_with_visibility.append((group, visible))
+        grouped_data_visibility.append(visible)
+    grouped_data = zip(
+            submit.data['datas']['daewoon_num_list'],
+            submit.data['datas']['daewoon'][1],
+            submit.data['datas']['daewoon'][2],
+            grouped_data_visibility
+        )
     context = {
         'submit': submit,
         'grouped_data': grouped_data,

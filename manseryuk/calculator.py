@@ -174,5 +174,7 @@ def generate_future_cycles(year, daeun):
     years = list(reversed(years))
     heavenly_cycles = list(reversed(heavenly_cycles))
     earthly_cycles = list(reversed(earthly_cycles))
-
-    return years, heavenly_cycles, earthly_cycles
+    grouped_year = zip(years,heavenly_cycles,earthly_cycles)
+    grouped_list = list(grouped_year)
+    grouped_chunks = [grouped_list[i:i + 10] for i in range(0, len(grouped_list), 10)]
+    return grouped_chunks

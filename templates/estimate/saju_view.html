@@ -42,8 +42,8 @@
 
   <div class="mt-4"> 
     <div class="flex">
-      {% for num, data1, data2 in grouped_data %}
-      <div class="clickable table border cursor-pointer flex-1" data-target="group-{{ forloop.counter0 }}">
+      {% for num, data1, data2, visible in grouped_data %}
+      <div class="clickable table border cursor-pointer flex-1 {% if visible %}border-red-600{% endif %}" data-target="group-{{ forloop.counter0 }}">
         <div class="py-0 text-center bg-gray-200">{{ num }}</div>
         <div class="py-1 text-center {{ data1|hanja_color }}">{{ data1 }}</div>
         <div class="py-1 text-center {{ data2|hanja_color }}">{{ data2 }}</div>
