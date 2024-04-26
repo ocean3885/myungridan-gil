@@ -50,10 +50,12 @@ def estimate_detail(request,pk):
             submit.data['datas']['daewoon'][2],
             grouped_data_visibility
         )
+    all_false = all(not value for value in groups_with_visibility)
     context = {
         'submit': submit,
         'grouped_data': grouped_data,
-        'groups_with_visibility': groups_with_visibility
+        'groups_with_visibility': groups_with_visibility,
+        'all_false': all_false
     }
     return render(request, 'estimate/estimate_detail.html', context)        
 
@@ -79,8 +81,16 @@ def estimate_edit(request,pk):
     if request.method == 'POST':
         submitForm =EstimateForm(request.POST, instance=submit)
         if submitForm.is_valid():
-            submitForm.save()
-            return redirect('estimate-detail', pk=submit.pk)
+            obj = submitForm.save(commit=False)            
+            if request.user.is_authenticated:
+                obj.user = request.user
+            data = Msr_Calculator()
+            time = determine_zodiac_hour_str(obj.hour, obj.min)
+            datas = data.getAll(obj.year, obj.month, obj.day,
+                        time, obj.sl, obj.gen)
+            obj.data = {'datas':datas}
+            obj.save()
+            return redirect('estimate-detail', pk)
     else:
         submitForm = EstimateForm(instance=submit)
         context = {'submit': submitForm}

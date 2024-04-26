@@ -1,17 +1,37 @@
 {% load custom_tags %}
+{% load static %}
 <div>
-  <h1
-    class="text-3xl font-bold text-gray-800 sm:text-4xl lg:text-5xl lg:leading-tight dark:text-white"
-  >
-    진행중
-  </h1>
-  <p class="mt-1 md:text-lg text-gray-800 dark:text-gray-200">
-    We help brands and platforms turn big ideas into beautiful digital products
-    and experiences.
+  <div class="flex rounded-sm items-center justify-center h-28 bg-no-repeat bg-center bg-[url('{% static '/estimate/img/gammyung_title_bg.jpg' %}')]">
+    <h1 class="text-white rounded-lg px-4 py-2 text-2xl bg-slate-500 bg-opacity-50">무 료 감 명</h1>
+  </div>
+  <p class="mt-6 text-right text-xs text-gray-800">
+    {{submit.created}}
   </p>
-
-  <div class="mt-4 bg-gray-100 border border-gray-500 divide-y divide-stone-400"> 
+  <div class="text-sm sm:text-md md:text-base mt-2 border border-gray-500 divide-y divide-stone-400"> 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
+      <div class="py-0 sm:py-1 text-center">신청인</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.name}}</div>
+      <div class="py-0 sm:py-1 text-center">성별</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.gen}}</div>
+    </div>
+    <div class="grid grid-cols-2 divide-x divide-stone-400">
+      <div class="py-0 sm:py-1 text-center">양력</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.s_year}}년 {{submit.data.datas.s_month}}월 {{submit.data.datas.s_day}}일</div>
+    </div>
+    <div class="grid grid-cols-2 divide-x divide-stone-400">
+      <div class="py-0 sm:py-1 text-center">음력</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.l_year}}년 {{submit.data.datas.l_month}}월 {{submit.data.datas.l_day}}일 </div>
+    </div>
+    <div class="grid grid-cols-2 divide-x divide-stone-400">
+      <div class="py-0 sm:py-1 text-center">시간</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.time_ji_ch}}시 [ {{submit.hour}}시 {{submit.min}}분 ] </div>
+    </div>
+  </div>
+
+
+
+  <div class="mt-6 bg-gray-100 border border-gray-500 divide-y divide-stone-400"> 
+    <div class="text-sm sm:text-md md:text-base grid grid-cols-4 divide-x divide-stone-400">
       <div class="py-0 sm:py-1 text-center">{{submit.data.datas.time_gan10}}</div>
       <div class="py-0 sm:py-1 text-center">일간</div>
       <div class="py-0 sm:py-1 text-center">{{submit.data.datas.month_gan10}}</div>
@@ -32,7 +52,7 @@
       <div class="py-2 text-3xl text-semibold text-center {{submit.data.datas.year_ji_ch|hanja_color }}">{{submit.data.datas.year_ji_ch}}</div>
     </div>
 
-    <div class="grid grid-cols-4 divide-x divide-stone-400">
+    <div class="text-sm sm:text-md md:text-base grid grid-cols-4 divide-x divide-stone-400">
       <div class="py-0 sm:py-1 text-center">{{submit.data.datas.time_ji10}}</div>
       <div class="py-0 sm:py-1 text-center">{{submit.data.datas.day_ji10}}</div>
       <div class="py-0 sm:py-1 text-center">{{submit.data.datas.month_ji10}}</div>
@@ -40,7 +60,8 @@
     </div>
   </div>
 
-  <div class="mt-4"> 
+  <div class="mt-4">
+    <div class='text-sm sm:text-md md:text-base pl-3 pb-2'>대운(大運)</div> 
     <div class="flex">
       {% for num, data1, data2, visible in grouped_data %}
       <div class="clickable table border cursor-pointer flex-1 {% if visible %}border-red-600{% endif %}" data-target="group-{{ forloop.counter0 }}">
@@ -50,7 +71,8 @@
       </div>
       {% endfor %}
     </div>
-    <div class="mt-4" id="data-groups">
+    <div class='text-sm sm:text-md md:text-base mt-3 pl-3 pb-2'>세운(世運)</div> 
+    <div id="data-groups">
       {% for group, visible in groups_with_visibility %}
         <div class="data-group {% if not visible %}hidden{% endif %}" id="group-{{ forloop.counter0 }}">
           <div class="grid grid-cols-10">
@@ -64,6 +86,20 @@
           </div>
         </div>
       {% endfor %}
+        
+      {% if all_false %}
+        <div class="data-group" id="group-11">
+          <div class="grid grid-cols-10">
+            {% for data in submit.data.datas.baby_10 %}
+              <div class="table border flex-1">
+                <div class="py-0 text-[10px] sm:text-sm text-center bg-gray-200">{{ data.0 }}</div>
+                <div class="py-1 text-center {{ data.1|hanja_color }}">{{ data.1 }}</div>
+                <div class="py-1 text-center {{ data.2|hanja_color }}">{{ data.2 }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
     </div>
   </div>
 </div>

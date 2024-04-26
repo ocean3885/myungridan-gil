@@ -1,5 +1,5 @@
 from .models import CalendaData
-from .calculator import find_ten_god, find_stem_branch_ten_god,descending_tens,to_hanja,generate_future_cycles
+from .calculator import find_ten_god, find_stem_branch_ten_god,descending_tens,to_hanja,generate_future_cycles,generate_baby_cycles
 
 class Msr_Calculator():
 
@@ -67,6 +67,7 @@ class Msr_Calculator():
         outdata["month_ji10"] = find_stem_branch_ten_god(outdata["day_gan_kr"],outdata["month_ji_kr"])
         outdata["year_ji10"] = find_stem_branch_ten_god(outdata["day_gan_kr"],outdata["year_ji_kr"])    
         outdata["cycles_100"] = generate_future_cycles(outdata["s_year"],outdata["daewoon_num"])
+        outdata["baby_10"] = generate_baby_cycles(outdata["s_year"])
         return outdata
 
     def getDaewoon(self, gen, ygan, mgan, mji):

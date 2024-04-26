@@ -178,3 +178,27 @@ def generate_future_cycles(year, daeun):
     grouped_list = list(grouped_year)
     grouped_chunks = [grouped_list[i:i + 10] for i in range(0, len(grouped_list), 10)]
     return grouped_chunks
+
+
+def generate_baby_cycles(year):
+    # 천간과 지지
+    heavenly_stems = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]
+    earthly_branches = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
+    years = []
+    heavenly_cycles = []
+    earthly_cycles = []
+    # 시작 년도의 육십갑자 천간과 지지 인덱스 찾기
+    base_year = 1984  # 갑자년 시작
+    offset = (year - base_year) % 60
+    heavenly_index = offset % 10
+    earthly_index = offset % 12
+     # 10개의 년도, 천간, 지지 계산
+    for i in range(10):
+        years.append(year + i)
+        heavenly_cycles.append(heavenly_stems[(heavenly_index + i) % 10])
+        earthly_cycles.append(earthly_branches[(earthly_index + i) % 12])
+    years = list(reversed(years))
+    heavenly_cycles = list(reversed(heavenly_cycles))
+    earthly_cycles = list(reversed(earthly_cycles))
+    grouped_year = list(zip(years,heavenly_cycles,earthly_cycles))
+    return grouped_year
