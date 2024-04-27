@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 import datetime
-from .models import Estimate
+from .models import Estimate, Comment
 
 class EstimateForm(ModelForm):
 
@@ -69,3 +69,10 @@ class EstimateForm(ModelForm):
                 }
             ),
         }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        exclude = ['user','post']
+        fields = ['content']

@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from manseryuk.views import Msr_Calculator
 from manseryuk.calculator import determine_zodiac_hour_str
-from .forms import EstimateForm
-from .models import Estimate
+from .forms import EstimateForm, CommentForm
+from .models import Estimate, Comment
 from datetime import datetime
 
 
@@ -36,6 +36,8 @@ def estimate_detail(request,pk):
     submit = get_object_or_404(Estimate, pk=pk)
     submit.count += 1
     submit.save()
+    comments = submit.comments.all()
+    comment_form = CommentForm()
     grouped_chunks = submit.data['datas']['cycles_100']
     current_year = datetime.now().year
     groups_with_visibility = []
@@ -50,12 +52,14 @@ def estimate_detail(request,pk):
             submit.data['datas']['daewoon'][2],
             grouped_data_visibility
         )
-    all_false = all(not value for value in groups_with_visibility)
+    all_false = all(not value for value in grouped_data_visibility)
     context = {
         'submit': submit,
         'grouped_data': grouped_data,
         'groups_with_visibility': groups_with_visibility,
-        'all_false': all_false
+        'all_false': all_false,
+        'comments': comments,
+        'comment_form': comment_form
     }
     return render(request, 'estimate/estimate_detail.html', context)        
 
@@ -96,12 +100,49 @@ def estimate_edit(request,pk):
         context = {'submit': submitForm}
     return render(request, 'estimate/estimate_form.html', context)
     
+def verify_edit(request,pk):
+    if request.method == "POST":
+        submit = get_object_or_404(Estimate, pk=pk)
+        estimate_name = request.POST.get('estimate_name')
+        estimate_phone = request.POST.get('estimate_phone')
+        if submit.name == estimate_name and submit.phone == estimate_phone:
+            request.session['estimate_name'] = estimate_name
+            request.session['estimate_phone'] = estimate_phone
+            return redirect('estimate-edit', pk)
+        else:
+            return render(request,'estimate/verify_form.html',{'wrong': True})  
+    else:
+        return render(request, 'estimate/verify_form.html')
+    
+def verify_delete(request,pk):
+    if request.method == "POST":
+        submit = get_object_or_404(Estimate, pk=pk)
+        estimate_name = request.POST.get('estimate_name')
+        estimate_phone = request.POST.get('estimate_phone')
+        if submit.name == estimate_name and submit.phone == estimate_phone:
+            submit.delete()
+            return redirect('estimate-list')
+        else:
+            return render(request,'estimate/verify_form.html',{'wrong': True})  
+    else:
+        return render(request, 'estimate/verify_form.html',{'delete': True})
+    
 
-def estimate_delete(request,pk):
+def add_comment(request,pk):
     submit = get_object_or_404(Estimate, pk=pk)
-    if not request.user.is_staff:
-        return redirect('home')
-    submit.delete()
-    return redirect('estimate-list')
-
-
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.post = submit
+            submit.process = 2
+            comment.save()
+            submit.save()
+            return redirect('estimate-detail', pk)
+        
+def delete_comment(request,post_id,comment_id):
+    comment = get_object_or_404(Comment,pk=comment_id)
+    comment.delete()
+    return redirect('estimate-detail',post_id)
+    

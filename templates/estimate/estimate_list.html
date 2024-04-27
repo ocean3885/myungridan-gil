@@ -1,111 +1,34 @@
 {% extends 'main.html' %} 
 {% block content %}
+{% load static %}
 
-
-<!-- Table Section -->
-<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-    <!-- Card -->
-    <div class="flex flex-col">
-      <div class="-m-1.5 overflow-x-auto">
-        <div class="p-1.5 min-w-full inline-block align-middle">
-          <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-neutral-800 dark:border-neutral-700">
-            <!-- Header -->
-            <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-neutral-700">
-              <div>
-                <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-200">
-                  무료감명신청
-                </h2>
-                <p class="text-sm text-gray-600 dark:text-neutral-400">
-                  내이름은 과연 몇점? 무료로 이름감명 받아보세요.
-                </p>
-              </div>
-  
-              <div>
-                <div class="inline-flex gap-x-2">
-                  <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 hover:bg-gray-50" href="{% url 'estimate-form' %}">
-                    신청하기
-                  </a>
-                  
-                </div>
-              </div>
-            </div>
-            <!-- End Header -->
-  
-            <!-- Table -->
-            <div class="flex w-full overflow-x-auto px-5 py-5">
-              <table class="table-compact table ">
-                <thead>
-                  <tr>
-                    <th>번호</th>
-                    <th>이름</th>
-                    <th>진행상황</th>
-                    <th>작성일</th>
-                    <th>조회</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for submit in page_obj %}
-                  <tr class="cursor-pointer" onclick="window.location.href='{% url 'estimate-detail' submit.pk %}';">
-                      <th>{{submit.pk}}</th>
-                      <td>{{submit.name}}</td>
-                      <td>{{submit.get_process_display}}</td>
-                      <td>{{submit.created|date:"y.m.d"}}</td>
-                      <td>{{submit.count}}</td>
-                    </a>
-                  </tr>
-                  {% endfor %}
-                  
-                </tbody>
-              </table>
-            </div>
-            <!-- End Table -->
-  
-            <!-- Footer -->
-            <div class="px-6 py-4 gap-3 flex justify-between items-center">
-              <div>
-                <p class="text-sm text-gray-600 dark:text-neutral-400">
-                  <span class="font-semibold text-gray-800 dark:text-neutral-200">{{count}}</span> results
-                </p>
-              </div>
-  
-              <div>
-                <div class="inline-flex gap-x-2">
-                  {% if page_obj.has_previous %}
-                  <a href="?page={{ page_obj.previous_page_number }}">
-                    <button type="button" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
-                      <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                      Prev
-                    </button>
-                  </a>
-                  {% endif %}
-                  {% with current=page_obj.number total_pages=page_obj.paginator.num_pages %}
-                      {% for num in page_obj.paginator.page_range %}
-                          {% if num >= current|add:'-2' and num <= current|add:'2' %}
-                              <a href="?page={{ num }}" {% if num == current %}class="active"{% endif %}>{{ num }}</a>
-                              {% if not forloop.last %}, {% endif %}  <!-- 여기에 콤마 추가 -->
-                          {% endif %}
-                      {% endfor %}
-                  {% endwith %}
-                  {% if page_obj.has_next %}
-                  <a href="?page={{ page_obj.next_page_number }}">
-                    <button type="button" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
-                      Next
-                      <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                    </button>
-                  </a>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-            <!-- End Footer -->
-          </div>
-        </div>
+<!-- Blog Article -->
+<div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
+  <div class="grid lg:grid-cols-3 gap-y-8 lg:gap-y-0 lg:gap-x-6">
+    <!-- Content -->
+    <div class="lg:col-span-2">
+      <div class="py-8 lg:pe-8">
+        {% include './components/list.html' %}
       </div>
     </div>
-    <!-- End Card -->
+    <!-- End Content -->
+
+    <!-- Sidebar -->
+    <div
+      class="lg:col-span-1 lg:w-full lg:h-full lg:bg-gradient-to-r lg:from-gray-50 lg:via-transparent lg:to-transparent"
+    >
+      {% include './components/sidebar.html'%}
+    </div>
+    <!-- End Sidebar -->
   </div>
-  <!-- End Table Section -->
+</div>
+<!-- End Blog Article -->
 
-
+<script>
+  document.querySelectorAll("#menu1").forEach(function (el) {
+    el.classList.add("text-blue-600");
+    el.classList.remove('text-gray-500');
+  });
+</script>
 
 {% endblock content %}

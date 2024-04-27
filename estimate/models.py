@@ -33,3 +33,14 @@ class Estimate(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Estimate, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'Comment by {self.user}'

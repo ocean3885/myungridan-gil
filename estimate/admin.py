@@ -1,8 +1,15 @@
 from django.contrib import admin
-from .models import Estimate
+from .models import Estimate, Comment
 
-admin.site.register(Estimate)
+class CommentInline(admin.StackedInline):
+    model = Comment
 
 
+class EstimateAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone','created', 'gen')
+    inlines = (
+        CommentInline,
+    )
 
+admin.site.register(Estimate, EstimateAdmin)
 

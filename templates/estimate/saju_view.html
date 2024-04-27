@@ -1,12 +1,12 @@
 {% load custom_tags %}
 {% load static %}
 <div>
-  <div class="flex rounded-sm items-center justify-center h-28 bg-no-repeat bg-center bg-[url('{% static '/estimate/img/gammyung_title_bg.jpg' %}')]">
-    <h1 class="text-white rounded-lg px-4 py-2 text-2xl bg-slate-500 bg-opacity-50">무 료 감 명</h1>
+  <div class="flex rounded-md items-center justify-center h-28 bg-no-repeat bg-center bg-[url('{% static '/estimate/img/gammyung_title_bg.jpg' %}')]">
+    <div class="text-white rounded-lg px-4 py-2 text-base sm:text-xl bg-slate-500 bg-opacity-50">무 료 감 명</div>
   </div>
-  <p class="mt-6 text-right text-xs text-gray-800">
+  <div class="mt-6 text-right text-xs text-gray-800">
     {{submit.created}}
-  </p>
+  </div>
   <div class="text-sm sm:text-md md:text-base mt-2 border border-gray-500 divide-y divide-stone-400"> 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
       <div class="py-0 sm:py-1 text-center">신청인</div>
