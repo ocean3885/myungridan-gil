@@ -3,8 +3,11 @@
 <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
   <!-- Grid -->
   <div class="grid md:grid-cols-2 items-start gap-12">
-
-    {%include "./name_about.html"%}
+    {% if category == 'jm' %}
+      {%include "./name_about.html"%}
+    {% else %}
+      {%include "./gm_about.html"%}
+    {% endif %}
 
     <div class="relative">
       <!-- Form -->
@@ -26,10 +29,3 @@
   <!-- End Grid -->
 </div>
 
-<script>
-  document.querySelectorAll("#menu4").forEach(function (el) {
-    el.classList.add("text-blue-600");
-    el.classList.remove("text-gray-500");
-  });
-  
-</script>

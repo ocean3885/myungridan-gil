@@ -5010,6 +5010,10 @@ html {
   --tw-bg-opacity: 0.5;
 }
 
+.bg-opacity-60 {
+  --tw-bg-opacity: 0.6;
+}
+
 .bg-\[url\(\'https\:\/\/images\.unsplash\.com\/photo-1438761681033-6461ffad8d80\?crop\=entropy\&cs\=tinysrgb\&fit\=max\&fm\=jpg\&ixid\=M3w0NzEyNjZ8MHwxfHNlYXJjaHw4fHxwcm9maWxlfGVufDB8MHx8fDE3MTEwMDM0MjN8MA\&ixlib\=rb-4\.0\.3\&q\=80\&w\=1080\'\)\] {
   background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw4fHxwcm9maWxlfGVufDB8MHx8fDE3MTEwMDM0MjN8MA&ixlib=rb-4.0.3&q=80&w=1080');
 }
@@ -5307,6 +5311,11 @@ html {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 .font-bold {
@@ -6491,12 +6500,12 @@ html {
     height: 75%;
   }
 
-  .sm\:h-96 {
-    height: 24rem;
-  }
-
   .sm\:h-5 {
     height: 1.25rem;
+  }
+
+  .sm\:h-96 {
+    height: 24rem;
   }
 
   .sm\:w-24 {
