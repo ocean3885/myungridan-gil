@@ -22,6 +22,7 @@ class Submit(models.Model):
 
     VISIT_CHOICES = [
         ("visit", "방문상담"),
+        ("email", "메일상담"),
         ("call", "전화상담"),
     ]
 
