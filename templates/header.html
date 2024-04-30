@@ -1,6 +1,6 @@
 {% load static %}
 <header
-  class="flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full bg-white border-b border-gray-200 text-sm py-3 md:py-0"
+  class="print:hidden flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full bg-white border-b border-gray-200 text-sm py-3 md:py-0"
 >
   <nav
     class="relative max-w-7xl w-full mx-auto px-4 md:flex md:items-center md:justify-between md:px-6 lg:px-8"
@@ -228,7 +228,7 @@
 
 {% if user.is_staff %}
 <!-- Nav -->
-<nav class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
+<nav class="print:hidden max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
   <div
     class="flex flex-row justify-between items-center py-2 sm:py-4"
   >

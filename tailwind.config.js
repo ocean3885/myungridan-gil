@@ -10,7 +10,12 @@ module.exports = {
     fontFamily: {
       'notosanskr': ['"Noto Sans KR"', ],
     },
-    extend: {},
+    extend: {
+      screens: {
+        print: { raw: 'print' },
+        screen: { raw: 'screen' },
+      },
+    },
   },
   plugins: [
     require('@tailwindcss/typography'),

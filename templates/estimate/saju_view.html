@@ -1,7 +1,7 @@
 {% load custom_tags %}
 {% load static %}
 <div>
-  <div class="flex rounded-md items-center justify-center h-28 bg-no-repeat bg-center bg-[url('{% static '/estimate/img/gammyung_title_bg.jpg' %}')]">
+  <div class="print:hidden flex rounded-md items-center justify-center h-28 bg-no-repeat bg-center bg-[url('{% static '/estimate/img/gammyung_title_bg.jpg' %}')]">
     <div class="text-white rounded-lg px-4 py-2 text-base sm:text-xl bg-slate-500 bg-opacity-50">무 료 감 명</div>
   </div>
   <div class="mt-6 text-right text-xs text-gray-800">
@@ -46,10 +46,10 @@
     </div>
 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-2 text-3xl text-semibold text-center {{submit.data.datas.time_ji_ch|hanja_color }}">{{submit.data.datas.time_ji_ch}}</div>
-      <div class="py-2 text-3xl text-semibold text-center {{submit.data.datas.day_ji_ch|hanja_color }}">{{submit.data.datas.day_ji_ch}}</div>
-      <div class="py-2 text-3xl text-semibold text-center {{submit.data.datas.month_ji_ch|hanja_color }}">{{submit.data.datas.month_ji_ch}}</div>
-      <div class="py-2 text-3xl text-semibold text-center {{submit.data.datas.year_ji_ch|hanja_color }}">{{submit.data.datas.year_ji_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.time_ji_ch|hanja_color }}">{{submit.data.datas.time_ji_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.day_ji_ch|hanja_color }}">{{submit.data.datas.day_ji_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.month_ji_ch|hanja_color }}">{{submit.data.datas.month_ji_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.year_ji_ch|hanja_color }}">{{submit.data.datas.year_ji_ch}}</div>
     </div>
 
     <div class="text-sm sm:text-md md:text-base grid grid-cols-4 divide-x divide-stone-400">

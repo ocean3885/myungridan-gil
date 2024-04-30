@@ -1,0 +1,183 @@
+{% load custom_tags %}
+{% load static %}
+<div>
+  <div class="print:hidden flex rounded-md items-center justify-center h-28 bg-no-repeat bg-center bg-[url('{% static '/submit/img/jm_title_bg.jpg' %}')]">
+    <div class="text-white rounded-lg px-4 py-2 text-base sm:text-xl bg-slate-500 bg-opacity-50">작명신청</div>
+  </div>
+  <div class="print:hidden w-full py-16 px-5 text-sm lg:text-base flex justify-center">
+    <div>
+      <span class="text-base lg:text-xl font-semibold text-amber-900">"{{submit.name}}"</span>님의 작명신청이 
+      {% if submit.process == "1"%}<span class="text-base lg:text-xl font-semibold text-amber-900">"입금대기중"</span> 입니다. 입금이 확인되는대로 작명을 진행하도록 하겠습니다.
+      {% elif submit.process == "2" %}입금확인후 <span class="text-base lg:text-xl font-semibold text-amber-900">"작명진행중"</span>입니다. 기타 추가 요청사항이 있을경우 유선(063-285-7255)으로 전화주시기 바랍니다.
+      {% else %}<span class="text-base lg:text-xl font-semibold text-amber-900">"완료"</span>되었습니다. 이용해주셔서 감사합니다.{% endif %}
+    </div>
+  </div>
+  <div class="mt-6 flex justify-end gap-2 text-right text-xs text-gray-800">
+    <div>{{submit.created}}</div>
+    <img onclick="window.print()" class="w-4 h-auto cursor-pointer" src="{% static '/section/img/printer.png' %}"/>
+  </div>
+  <div class="text-sm sm:text-md md:text-base mt-2 border border-gray-500 divide-y divide-stone-400"> 
+    <div class="grid grid-cols-4 divide-x divide-stone-400">
+      <div class="py-0 sm:py-1 text-center">신청인</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.name}}</div>
+      <div class="py-0 sm:py-1 text-center">성별</div>
+      <div class="py-0 sm:py-1 text-center">{{person.gen}}</div>
+    </div>
+    <div class="grid grid-cols-2 divide-x divide-stone-400">
+      <div class="py-0 sm:py-1 text-center">양력</div>
+      <div class="py-0 sm:py-1 text-center">{{person.data.datas.s_year}}년 {{person.data.datas.s_month}}월 {{person.data.datas.s_day}}일</div>
+    </div>
+    <div class="grid grid-cols-2 divide-x divide-stone-400">
+      <div class="py-0 sm:py-1 text-center">음력</div>
+      <div class="py-0 sm:py-1 text-center">{{person.data.datas.l_year}}년 {{person.data.datas.l_month}}월 {{person.data.datas.l_day}}일 </div>
+    </div>
+    <div class="grid grid-cols-2 divide-x divide-stone-400">
+      <div class="py-0 sm:py-1 text-center">시간</div>
+      <div class="py-0 sm:py-1 text-center">{{person.data.datas.time_ji_ch}}시 [ {{person.hour}}시 {{person.min}}분 ] </div>
+    </div>
+  </div>
+
+
+
+  <div class="mt-6 bg-gray-100 border border-gray-500 divide-y divide-stone-400"> 
+    <div class="text-sm sm:text-md md:text-base grid grid-cols-4 divide-x divide-stone-400">
+      <div class="py-0 sm:py-1 text-center">{{person.data.datas.time_gan10}}</div>
+      <div class="py-0 sm:py-1 text-center">일간</div>
+      <div class="py-0 sm:py-1 text-center">{{person.data.datas.month_gan10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{person.data.datas.year_gan10}}</div>
+    </div>
+
+    <div class="grid grid-cols-4 divide-x divide-stone-400">
+      <div class="py-2 text-3xl font-semibold text-center {{person.data.datas.time_gan_ch|hanja_color }}">{{person.data.datas.time_gan_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{person.data.datas.day_gan_ch|hanja_color }}">{{person.data.datas.day_gan_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{person.data.datas.month_gan_ch|hanja_color }}">{{person.data.datas.month_gan_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{person.data.datas.year_gan_ch|hanja_color }}">{{person.data.datas.year_gan_ch}}</div>
+    </div>
+
+    <div class="grid grid-cols-4 divide-x divide-stone-400">
+      <div class="py-2 text-3xl font-semibold text-center {{person.data.datas.time_ji_ch|hanja_color }}">{{person.data.datas.time_ji_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{person.data.datas.day_ji_ch|hanja_color }}">{{person.data.datas.day_ji_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{person.data.datas.month_ji_ch|hanja_color }}">{{person.data.datas.month_ji_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{person.data.datas.year_ji_ch|hanja_color }}">{{person.data.datas.year_ji_ch}}</div>
+    </div>
+
+    <div class="text-sm sm:text-md md:text-base grid grid-cols-4 divide-x divide-stone-400">
+      <div class="py-0 sm:py-1 text-center">{{person.data.datas.time_ji10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{person.data.datas.day_ji10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{person.data.datas.month_ji10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{person.data.datas.year_ji10}}</div>
+    </div>
+  </div>
+
+  {% if user.is_staff %}
+  <div class="mt-4">
+    <div class='text-sm sm:text-md md:text-base pl-3 pb-2'>대운(大運)</div> 
+    <div class="flex">
+      {% for num, data1, data2, visible in grouped_data %}
+      <div class="clickable table border cursor-pointer flex-1 {% if visible %}border-red-600{% endif %}" data-target="group-{{ forloop.counter0 }}">
+        <div class="py-0 text-center bg-gray-200">{{ num }}</div>
+        <div class="py-1 text-center {{ data1|hanja_color }}">{{ data1 }}</div>
+        <div class="py-1 text-center {{ data2|hanja_color }}">{{ data2 }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class='text-sm sm:text-md md:text-base mt-3 pl-3 pb-2'>세운(世運)</div> 
+    <div id="data-groups">
+      {% for group, visible in groups_with_visibility %}
+        <div class="data-group {% if not visible %}hidden{% endif %}" id="group-{{ forloop.counter0 }}">
+          <div class="grid grid-cols-10">
+            {% for data in group %}
+              <div class="table border flex-1">
+                <div class="py-0 text-[10px] sm:text-sm text-center bg-gray-200">{{ data.0 }}</div>
+                <div class="py-1 text-center {{ data.1|hanja_color }}">{{ data.1 }}</div>
+                <div class="py-1 text-center {{ data.2|hanja_color }}">{{ data.2 }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+        
+      {% if all_false %}
+        <div class="data-group" id="group-11">
+          <div class="grid grid-cols-10">
+            {% for data in person.data.datas.baby_10 %}
+              <div class="table border flex-1">
+                <div class="py-0 text-[10px] sm:text-sm text-center bg-gray-200">{{ data.0 }}</div>
+                <div class="py-1 text-center {{ data.1|hanja_color }}">{{ data.1 }}</div>
+                <div class="py-1 text-center {{ data.2|hanja_color }}">{{ data.2 }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  {% else %}
+  <div class="flex items-center mt-8 text-base lg:text-xl font-semibold">
+    <div class="mt-[2px] mr-3 h-4 border-l-4 border-amber-900/70"></div>
+    <div>작명절차안내</div>
+  </div>
+  <!-- 절차안내섹션 start -->
+  <div class="flex flex-col sm:flex-row flex-wrap mt-4 lg:mt-8">
+    <div class="flex items-center w-full mb-4 px-2 border border-gray-300 border-t-0 border-l-0 rounded-br-xl">
+      <div class="flex-none py-5 lg:px-5"><img class="w-28 rounded-lg" src="{% static "/submit/img/jminfo1.jpg" %}" /></div>
+      <div class="h-full py-4 px-6 ">
+          <h3 class="text-base font-bold mb-2 border-b-2 border-amber-950/50">1.신청서 작성</h3>
+          <p class="text-sm text-gray-700 font-normal">생년.월.일.시.음력&양력구분 등 필수 기입 내용을 정확히 기재 해주세요. 희망한자,선호하는 이름유형, 돌림자 등 작명에 필요한 추가 정보가있으면 같이 기재 바랍니다.</p>
+      </div>
+    </div>
+    <div class="flex items-center w-full mb-4 px-2 border border-gray-300 border-t-0 border-l-0 rounded-br-xl">
+      <div class="flex-none py-5 lg:px-5"><img class="w-28 rounded-lg" src="{% static "/submit/img/jminfo2.jpg" %}" /></div>
+      <div class="h-full py-4 px-6 ">
+          <h3 class="text-base font-bold mb-2 border-b-2 border-amber-950/50">2.작명료결제(15만원)</h3>
+          <p class="text-sm text-gray-700 font-normal">신청서 및 입금확인 후 작업시작 전 연락드립니다. 신청서에 불분명한 내용이있는 경우 또는 연락이 되지 않을 경우 작업은 보류됩니다.</p>
+      </div>
+    </div>
+    <div class="flex items-center w-full mb-4 px-2 border border-gray-300 border-t-0 border-l-0 rounded-br-xl">
+      <div class="flex-none py-5 lg:px-5"><img class="w-28 rounded-lg" src="{% static "/submit/img/jminfo3.jpg" %}" /></div>
+      <div class="h-full py-4 px-6 ">
+          <h3 class="text-base font-bold mb-2 border-b-2 border-amber-950/50">3.작명진행</h3>
+          <p class="text-sm text-gray-700 font-normal">신생아의 사주를 분석하여 최적의 이름을 뽑아 신청서에 기재된 이메일로 작명추천서(이름4개)를 보내드립니다.</p>
+      </div>
+    </div>
+    <div class="flex items-center w-full mb-4 px-2 border border-gray-300 border-t-0 border-l-0 rounded-br-xl">
+      <div class="flex-none py-5 lg:px-5"><img class="w-28 rounded-lg" src="{% static "/submit/img/jminfo4.jpg" %}" /></div>
+      <div class="h-full py-4 px-6 ">
+          <h3 class="text-base font-bold mb-2 border-b-2 border-amber-950/50">4.작명완료</h3>
+          <p class="text-sm text-gray-700 font-normal">작명추천서의 이름중 하나를 선택하시면 작명신청은 완료 됩니다. 추가 이름추천(1회무료) 및 인증서(3만원)를 원하시는 경우 유선으로 문의 바랍니다.</p>
+      </div>
+    </div>
+  </div>
+  <!-- 절차안내섹션 end -->  
+  <div class="hidden md:block">
+    {% include "section/reserve.html" %}
+    {% include "section/account_info.html" %}
+  </div>
+  {% endif %}
+</div>
+
+
+
+<script>
+  // 클릭 이벤트 리스너를 각각의 'clickable' 클래스가 있는 요소에 추가
+  document.querySelectorAll('.clickable').forEach(function(element) {
+    element.addEventListener('click', function() {
+      // 모든 요소의 빨간 테두리 제거
+      document.querySelectorAll('.clickable').forEach(function(el) {
+        el.classList.remove('border-red-600');
+      });
+      // 클릭된 요소에 빨간 테두리 추가
+      this.classList.add('border-red-600');
+
+      const targetId = element.getAttribute('data-target');
+      const groups = document.querySelectorAll('.data-group');
+      groups.forEach(group => {
+        if(group.id === targetId) {
+          group.classList.remove('hidden');
+        } else {
+          group.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

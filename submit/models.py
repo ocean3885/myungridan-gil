@@ -61,6 +61,7 @@ class Person(models.Model):
     day = models.CharField(max_length=2)
     hour = models.CharField(max_length=2)
     min = models.CharField(max_length=2)
+    data = models.JSONField(default=dict)
 
     def __str__(self):
         return self.name

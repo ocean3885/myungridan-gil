@@ -3,10 +3,45 @@
 {% block content %}
 
 
+<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+  <!-- Grid -->
+  <div class="grid md:grid-cols-2 items-start gap-12">
+    <div>
+        {% if submit.category == 'jm' %}
+            {% include "./components/name_detail_info.html"%}
+        {% elif submit.category == 'gm' %}
+            {% include "./components/gm_detail_info.html"%}
+        {% elif submit.category == 'sj' %}
+            {% include "./components/saju_detail_info.html"%}
+        {% else %}
+            {% include "./components/etc_detail_info.html"%}
+        {% endif %}
+    </div>
 
-{% include 'submit/components/detail_layout.html' %}
-
-
+    <div class="print:hidden relative">
+      <!-- Form -->
+      <div
+        class="flex flex-col border rounded-xl p-4 sm:p-6 lg:p-10"
+      >
+        {% if submit.category == 'jm' %}
+          {% include "./components/name_detail.html"%}
+        {% elif submit.category == 'gm' %}
+          {% include "./components/gm_detail.html"%}
+        {% elif submit.category == 'sj' %}
+          {% include "./components/saju_detail.html"%}
+        {% else %}
+          {% include "./components/etc_detail.html"%}
+        {% endif %}
+      </div>
+      <!-- End Form -->
+    </div>
+  </div>
+  <!-- End Grid -->
+</div>
+<div class="print:hidden md:hidden">
+  {% include "section/reserve.html" %}
+  {% include "section/account_info.html" %}
+</div>
 
 
 {% endblock content %}

@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
 from .utils import staff_or_valid_session_check, user_passes_test_with_request, staff_check
+from manseryuk.views import Msr_Calculator
+from manseryuk.calculator import determine_zodiac_hour_str
 from django.core.paginator import Paginator
 from .forms import (NameSubmitForm, SajuSubmitForm, EtcSubmitForm, PersonForm)
 from .models import Submit, Person
 from django.http import Http404
+from datetime import datetime
 import requests
 
 send_url = 'https://apis.aligo.in/send/'
@@ -34,6 +37,11 @@ def submit_form(request, category):
             if personForm is not None:
                 person = personForm.save(commit=False)
                 person.submit = obj
+                data = Msr_Calculator()
+                time = determine_zodiac_hour_str(person.hour, person.min)
+                datas = data.getAll(person.year, person.month, person.day,
+                            time, person.sl, person.gen)
+                person.data = {'datas':datas}
                 person.save()
 
             # SMS 전송 가정
@@ -47,7 +55,7 @@ def submit_form(request, category):
             send_response = requests.post(send_url, data=sms_data)  # send_url은 정의되어야 함
             print(send_response.json())
             request.session['submit_name'] = obj.name
-            return render(request, 'submit/submit_detail.html', {'submit': obj, 'person': person if personForm else None})
+            return redirect('submit-detail', obj.id)
         else:
             context = {'submit': submitForm, 'person': personForm}
             return render(request, 'submit/submit_form.html', context)
@@ -61,11 +69,34 @@ def submit_detail(request,pk):
     # Person 객체를 안전하게 가져오기
     try:
         person = Person.objects.get(submit__id=submit.id)
+        grouped_chunks = person.data['datas']['cycles_100']
+        current_year = datetime.now().year
+        groups_with_visibility = []
+        grouped_data_visibility = []
+        for group in grouped_chunks:
+            visible = any(year == current_year for year, _, _ in group)
+            groups_with_visibility.append((group, visible))
+            grouped_data_visibility.append(visible)
+        grouped_data = zip(
+                person.data['datas']['daewoon_num_list'],
+                person.data['datas']['daewoon'][1],
+                person.data['datas']['daewoon'][2],
+                grouped_data_visibility
+            )
+        all_false = all(not value for value in grouped_data_visibility)
+        context = {
+        'submit': submit,
+        'person': person,
+        'grouped_data': grouped_data,
+        'groups_with_visibility': groups_with_visibility,
+        'all_false': all_false,
+        }
     except Person.DoesNotExist:
         person = None  # Person 객체가 없으면 None으로 설정
+        context = {'submit':submit}
 
     if request.user.is_authenticated and request.user.is_staff:
-        return render(request, 'submit/submit_detail.html', {'submit': submit, 'person': person})    
+        return render(request, 'submit/submit_detail.html', context)    
     
     name = request.session.get('submit_name', False)
     phone = request.session.get('submit_phone', False)
@@ -73,14 +104,37 @@ def submit_detail(request,pk):
         #신청이 2개 이상인경우 submit_phone세션에 phone입력    
         if phone:            
             session = True
+            context['session'] = session
             #상세페이지에 session 이 true인 경우에만 목록 표시
-            return render(request, 'submit/submit_detail.html', {'submit': submit, 'person': person, 'session': session})        
+            return render(request, 'submit/submit_detail.html', context)        
         else:
             #신청이 1개인경우 home 버튼 표시
-            return render(request, 'submit/submit_detail.html', {'submit': submit, 'person': person})        
+            return render(request, 'submit/submit_detail.html', context)        
     else:        
         #운영자도아니고 verify과정도 안거쳤고 신청서작성하지도 않은경우
         return render(request, 'submit/submit_verify.html')
+
+
+def pay_ok(request,pk):
+    if request.user.is_authenticated and request.user.is_staff:
+        submit = get_object_or_404(Submit, pk=pk)
+        submit.process = "2"
+        submit.save()
+        return redirect('submit-detail',pk)
+    
+def pay_no(request,pk):
+    if request.user.is_authenticated and request.user.is_staff:
+        submit = get_object_or_404(Submit, pk=pk)
+        submit.process = "1"
+        submit.save()
+        return redirect('submit-detail',pk)
+    
+def complete(request,pk):
+    if request.user.is_authenticated and request.user.is_staff:
+        submit = get_object_or_404(Submit, pk=pk)
+        submit.process = "3"
+        submit.save()
+        return redirect('submit-detail',pk)
 
 
 def submit_verify(request):

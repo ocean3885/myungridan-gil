@@ -78,4 +78,4 @@ class PersonForm(ModelForm):
 
     class Meta:
         model = Person
-        exclude = ['submit', 'name']
+        exclude = ['submit', 'name', 'data']

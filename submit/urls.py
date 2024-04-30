@@ -10,4 +10,7 @@ urlpatterns = [
     path('detail/<int:pk>/', views.submit_detail, name="submit-detail"),
     path('detail/edit/<int:pk>/', views.submit_edit, name="submit-edit"),
     path('detail/delete/<int:pk>/', views.submit_delete, name="submit-delete"),
+    path('detail/payok/<int:pk>/', views.pay_ok, name="pay-ok"),
+    path('detail/payno/<int:pk>/', views.pay_no, name="pay-no"),
+    path('detail/complete/<int:pk>/', views.complete, name="complete"),
 ]
