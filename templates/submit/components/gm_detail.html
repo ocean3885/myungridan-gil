@@ -1,0 +1,376 @@
+<div class="mt-6 grid gap-4 lg:gap-6">
+    <div class="flex justify-between">
+      <h2 class="mb-4 text-xl font-semibold text-gray-800">신청인 정보</h2>
+      <div>
+        {% if user.is_staff %}
+        <a href="{% url 'pay-no' submit.id %}">
+          <button
+            class="py-1 px-2 inline-flex justify-center items-center text-xs lg:text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+          >
+            입금전
+          </button>
+        </a>
+        <a href="{% url 'pay-ok' submit.id %}">
+          <button
+            class="py-1 px-2 inline-flex justify-center items-center text-xs lg:text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+          >
+            입금확인
+          </button>
+        </a>
+        <a href="{% url 'complete' submit.id %}">
+          <button
+            class="py-1 px-2 inline-flex justify-center items-center text-xs lg:text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+          >
+            완료
+          </button>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+    <!-- Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+      <div>
+        <label for="name" class="block mb-2 text-sm text-gray-700 font-medium"
+          >신청인이름</label
+        >
+        <div
+          id="name"
+          class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
+        >
+          {{submit.name}}
+        </div>
+      </div>
+  
+      <div>
+        <label for="phone" class="block mb-2 text-sm text-gray-700 font-medium"
+          >전화번호</label
+        >
+        <div
+          id="phone"
+          class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
+        >
+          {{submit.phone}}
+        </div>
+      </div>
+    </div>
+    <!-- End Grid -->
+  
+  <div>
+    <label for="email" class="block mb-2 text-sm text-gray-700 font-medium"
+      >이메일</label
+    >
+    <div
+      id="email"
+      class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
+    >
+      {{submit.email}}
+    </div>
+  </div>
+  
+  <!-- Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+    <div>
+      <label for="process" class="block mb-2 text-sm text-gray-700 font-medium"
+        >진행상황</label
+      >
+      <div
+        id="process"
+        class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
+      >
+        {{submit.get_process_display}}
+      </div>
+    </div>
+  
+    <div>
+      <label for="category" class="block mb-2 text-sm text-gray-700 font-medium"
+        >신청종류</label
+      >
+      <div
+        id="category"
+        class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
+      >
+        {{submit.get_category_display}}
+      </div>
+    </div>
+  </div>
+  <!-- End Grid -->
+  
+    <!-- Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+      <div>
+        <label for="visit" class="block mb-2 text-sm text-gray-700 font-medium"
+          >상담방법</label
+        >
+        <div
+          id="visit"
+          class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
+        >
+          {{submit.get_visit_display}}
+        </div>
+      </div>
+  
+      <div>
+        <label for="wantdate" class="block mb-2 text-sm text-gray-700 font-medium"
+          >상담희망일</label
+        >
+        <div
+          id="wantdate"
+          class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
+        >
+          {{submit.wantdate}}
+        </div>
+      </div>
+    </div>
+    <!-- End Grid -->
+  
+    <!-- Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">
+      <div>
+        <label
+          for="first_name_ch"
+          class="block mb-2 text-sm text-gray-700 font-medium"
+          >성(한자)</label
+        >
+        <div
+          id="first_name_ch"
+          class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
+        >
+          {{submit.first_name_ch}}
+        </div>
+      </div>
+  
+      <div>
+        <label
+          for="first_name_kr"
+          class="block mb-2 text-sm text-gray-700 font-medium"
+          >성(한글)</label
+        >
+        <div
+          id="first_name_kr"
+          class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
+        >
+          {{submit.first_name_kr}}
+        </div>
+      </div>
+  
+      <div>
+        <label
+          for="first_name_bon"
+          class="block mb-2 text-sm text-gray-700 font-medium"
+          >본적</label
+        >
+        <div
+          id="first_name_bon"
+          class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
+        >
+          {{submit.first_name_bon}}
+        </div>
+      </div>
+    </div>
+    <!-- End Grid -->
+  
+    <div>
+      <label for="fav_name" class="block mb-2 text-sm text-gray-700 font-medium"
+        >선호하는 이름</label
+      >
+      <div
+        id="fav_name"
+        class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
+      >
+        {{submit.fav_name}}
+      </div>
+    </div>
+  
+    <div>
+      <label for="avoid_name" class="block mb-2 text-sm text-gray-700 font-medium"
+        >피하는 이름</label
+      >
+      <div
+        id="avoid_name"
+        class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
+      >
+        {{submit.avoid_name}}
+      </div>
+    </div>
+  
+    <!-- Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+      <div>
+        <label for="dad_name" class="block mb-2 text-sm text-gray-700 font-medium"
+          >아버지 이름</label
+        >
+        <div
+          id="dad_name"
+          class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
+        >
+          {{submit.dad_name}}
+        </div>
+      </div>
+  
+      <div>
+        <label for="mom_name" class="block mb-2 text-sm text-gray-700 font-medium"
+          >어머니 이름</label
+        >
+        <div
+          id="mom_name"
+          class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
+        >
+          {{submit.mom_name}}
+        </div>
+      </div>
+    </div>
+    <!-- End Grid -->
+  
+    <div>
+      <label
+        for="description"
+        class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
+        >기타요청사항</label
+      >
+      <div
+        id="description"
+        rows="6"
+        class="py-3 px-4 min-h-52 block w-full bg-gray-100 border-b-2 rounded-md text-sm"
+      >
+        {{submit.description|linebreaks}}
+      </div>
+    </div>
+  
+    <!-- End Grid -->
+    <h2 class="text-xl font-semibold text-gray-800">신생아 정보</h2>
+  
+    <div class="grid grid-cols-2 gap-4 lg:gap-6">
+      <div>
+        <label for="gen" class="block mb-2 text-sm text-gray-700 font-medium"
+          >성별</label
+        >
+        <div
+          id="gen"
+          class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
+        >
+          {{person.gen}}
+        </div>
+      </div>
+  
+      <div>
+        <label for="sl" class="block mb-2 text-sm text-gray-700 font-medium"
+          >음력/양력</label
+        >
+        <div
+          id="sl"
+          class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
+        >
+          {{person.sl}}
+        </div>
+      </div>
+    </div>
+  
+    <!-- Grid -->
+    <div class="grid grid-cols-2 gap-4 lg:gap-6">
+      <div>
+        <label for="year" class="block mb-2 text-sm text-gray-700 font-medium"
+          >년(年)</label
+        >
+        <div
+          id="year"
+          class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
+        >
+          {{person.year}}
+        </div>
+      </div>
+  
+      <div>
+        <label for="month" class="block mb-2 text-sm text-gray-700 font-medium"
+          >월(月)</label
+        >
+        <div
+          id="month"
+          class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
+        >
+          {{person.month}}
+        </div>
+      </div>
+  
+      <div>
+        <label for="day" class="block mb-2 text-sm text-gray-700 font-medium"
+          >일(日)</label
+        >
+        <div
+          id="day"
+          class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
+        >
+          {{person.day}}
+        </div>
+      </div>
+  
+      <div>
+        <label for="hour" class="block mb-2 text-sm text-gray-700 font-medium"
+          >시(時)</label
+        >
+        <div
+          id="hour"
+          class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
+        >
+          {{person.hour}}
+        </div>
+      </div>
+  
+      <div>
+        <label for="min" class="block mb-2 text-sm text-gray-700 font-medium"
+          >분(分)</label
+        >
+        <div
+          id="min"
+          class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm border-b-2"
+        >
+          {{person.min}}
+        </div>
+      </div>
+      <!-- End Grid -->
+    </div>
+  
+    <div class="mt-6 flex justify-center gap-x-3">
+      <a href="{% url 'submit-edit' submit.pk %}">
+        <button
+          class="py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+        >
+          수정
+        </button>
+      </a>
+      <a href="{% url 'submit-delete' submit.pk %}">
+        <button
+          onclick="return confirm('삭제할까요?');"
+          class="py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+        >
+          삭제
+        </button>
+      </a>
+      {% if user.is_staff %}
+      <a href="{% url 'submit-list' %}">
+        <button
+          class="py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+        >
+          목록
+        </button>
+      </a>
+      {% elif session %}
+      <a href="{% url 'submit-verify-list' %}">
+        <button
+          class="py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+        >
+          목록
+        </button>
+      </a>
+      {% else %}
+      <a href="{% url 'home' %}">
+        <button
+          class="py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+        >
+          홈
+        </button>
+      </a>
+      {% endif %}      
+    </div>
+  </div>
+  
+  
