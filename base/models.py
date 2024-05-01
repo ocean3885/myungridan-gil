@@ -1,4 +1,6 @@
 from django.db import models
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -8,6 +10,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length=500, blank=True)
     phone = models.CharField(max_length=15, blank=True)
     picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
+    image_thumb = ImageSpecField(source='picture',processors=[ResizeToFill(100, 100)],format='JPEG',options={'quality': 60})
     data = models.JSONField(default=dict)
     gen = models.CharField(max_length=1,blank=True)
     sl = models.CharField(max_length=10,blank=True)
