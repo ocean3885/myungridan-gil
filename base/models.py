@@ -9,6 +9,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     bio = models.TextField(max_length=500, blank=True)
     phone = models.CharField(max_length=15, blank=True)
+    bgimg = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     image_thumb = ImageSpecField(source='picture',processors=[ResizeToFill(100, 100)],format='JPEG',options={'quality': 60})
     data = models.JSONField(default=dict)
