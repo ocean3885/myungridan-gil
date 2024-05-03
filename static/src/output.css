@@ -4396,6 +4396,10 @@ html {
   width: 100%;
 }
 
+.w-\[96\%\] {
+  width: 96%;
+}
+
 .min-w-full {
   min-width: 100%;
 }
@@ -5305,6 +5309,11 @@ html {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+.py-7 {
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
 }
 
 .pb-2 {
