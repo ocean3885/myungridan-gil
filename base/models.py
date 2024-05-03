@@ -12,7 +12,7 @@ class Profile(models.Model):
     bgimg = models.ImageField(upload_to='profile_pics/', null=True, blank=True, default='default_bg.jpg')
     picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True, default='default_user.png')
     image_thumb = ImageSpecField(source='picture',processors=[ResizeToFill(100, 100)],format='JPEG',options={'quality': 60})
-    data = models.JSONField(default=dict)
+    data = models.JSONField(default=dict,blank=True)
     gen = models.CharField(max_length=1,blank=True)
     sl = models.CharField(max_length=10,blank=True)
     year = models.CharField(max_length=4,blank=True)
