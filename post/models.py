@@ -17,6 +17,8 @@ class Post(models.Model):
     category = models.ForeignKey(Category, related_name='posts', on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=100)
     content = RichTextUploadingField()
+    is_first = models.BooleanField(default=False)
+    is_second = models.BooleanField(default=False)
     image = models.ImageField(upload_to='post_img/')
     image_thumb = ImageSpecField(source='image',processors=[ResizeToFill(100, 100)],format='JPEG',options={'quality': 60})
     created_at = models.DateTimeField(auto_now_add=True)  # 포스트가 생성될 때의 날짜/시간 자동 저장

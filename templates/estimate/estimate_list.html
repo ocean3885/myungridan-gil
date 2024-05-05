@@ -14,21 +14,10 @@
     <!-- End Content -->
 
     <!-- Sidebar -->
-    <div
-      class="lg:col-span-1 lg:w-full lg:h-full lg:bg-gradient-to-r lg:from-gray-50 lg:via-transparent lg:to-transparent"
-    >
-      {% include './components/sidebar.html'%}
-    </div>
+      {% include 'sidebar.html'%}
     <!-- End Sidebar -->
   </div>
 </div>
 <!-- End Blog Article -->
-
-<script>
-  document.querySelectorAll("#menu1").forEach(function (el) {
-    el.classList.add("text-blue-600");
-    el.classList.remove('text-gray-500');
-  });
-</script>
 
 {% endblock content %}

@@ -34,6 +34,21 @@
           {% render_field post_form.title type="text" id="hs-feedback-post-comment-name-1" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Full name" %}
         </div>
 
+        <div class="flex gap-x-3 items-center mb-4 sm:mb-8">
+          <label
+            for="is_first"
+            class="block text-sm font-medium dark:text-white"
+            >항상</label
+          >
+          {% render_field post_form.is_first type="checkbox" id="is_first"%}
+          <label
+            for="is_second"
+            class="block text-sm font-medium dark:text-white"
+            >PC</label
+          >
+          {% render_field post_form.is_second type="checkbox" id="is_second"%}
+        </div>
+
         <div class="mb-4 sm:mb-8">
           <label
             for="hs-feedback-post-comment-textarea-1"

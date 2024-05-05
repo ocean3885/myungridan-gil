@@ -4,6 +4,7 @@ from manseryuk.views import Msr_Calculator
 from manseryuk.calculator import determine_zodiac_hour_str
 from .forms import EstimateForm, CommentForm
 from .models import Estimate, Comment
+from post.models import Post
 from datetime import datetime
 
 
@@ -67,6 +68,8 @@ def estimate_list(request):
     submits = Estimate.objects.all()
     count = submits.count()
     submits = submits.order_by('-created')  
+    posts1 = Post.objects.filter(is_first=True)
+    posts2 = Post.objects.filter(is_second=True)
 
     # 페이지네이션
     paginator = Paginator(submits, 20)  # 페이지당 10개의 게시글을 보여줌
@@ -76,6 +79,8 @@ def estimate_list(request):
     context = {
         'page_obj': page_obj,
         'count': count,
+        'posts1': posts1,
+        'posts2': posts2,
     }
 
     return render(request, 'estimate/estimate_list.html', context)
@@ -143,6 +148,10 @@ def add_comment(request,pk):
         
 def delete_comment(request,post_id,comment_id):
     comment = get_object_or_404(Comment,pk=comment_id)
+    submit = get_object_or_404(Estimate, pk=post_id)
     comment.delete()
+    if not submit.comments.count():
+        comment.post.process = 1
+        comment.post.save()
     return redirect('estimate-detail',post_id)
     

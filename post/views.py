@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
-from .utils import resize_image
+from .utils import resize_image 
 from .models import Post
 from .forms import PostForm
 
@@ -37,7 +37,14 @@ def post_create(request):
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)    
-    return render(request, 'post/post_detail.html', {'post': post})
+    posts1 = Post.objects.filter(is_first=True).exclude(pk=post_id)
+    posts2 = Post.objects.filter(is_second=True).exclude(pk=post_id)
+    context = {
+        'post': post,
+        'posts1': posts1,
+        'posts2': posts2,
+    }
+    return render(request, 'post/post_detail.html', context)
 
 def post_edit(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
@@ -59,5 +66,5 @@ def post_delete(request, post_id):
     return redirect('home')
 
 def post_list(request):
-    books = Post.objects.all()  
-    return render(request, 'post/post_list.html', {'posts': books})
+    posts = Post.objects.all()  
+    return render(request, 'post/post_list.html', {'posts': posts})

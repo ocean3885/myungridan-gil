@@ -4,14 +4,16 @@
 <section class="py-10 my-auto">
     <div class="lg:w-[80%] md:w-[90%] w-[96%] mx-auto flex gap-4">
         <div
-            class="lg:w-[88%] md:w-[80%] sm:w-[88%] w-full mx-auto shadow-2xl p-4 rounded-xl h-fit self-center">
+            class="md:w-[80%] sm:w-[88%] w-full mx-auto shadow-2xl p-4 sm:p-8 rounded-xl h-fit self-center">
             <!--  -->
             <div class="">
                 <h1
-                    class="lg:text-3xl text-2xl text-bold mb-2 text-center">
+                    class="lg:text-3xl text-2xl text-bold mb-5 text-center">
                     프로필
                 </h1>
-                <h2 class="text-grey text-sm mb-4 text-right">수정</h2>
+                {% if request.user == profile.user %}
+                <a href="{% url 'edit-profile' profile.user.username %}"><h2 class="text-grey text-sm mb-4 text-right">수정</h2></a>
+                {% endif %}
                     <!-- Cover Image -->
                 <div
                     class="py-7 w-full rounded-sm bg-[url('{{ profile.bgimg.url}}')] bg-cover bg-center bg-no-repeat items-center">
@@ -20,95 +22,48 @@
                         class="mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-[url('{{ profile.picture.url }}')] bg-cover bg-center bg-no-repeat">
                     </div>
                 </div>
-                <div class="grid grid-cols-2 gap-4 lg:gap-6 mt-4">
-                    <div>
-                      <label for="gen" class="block mb-2 text-sm text-gray-700 font-medium"
-                        >성별</label
-                      >
-                      <div
-                        id="gen"
-                        class="py-3 px-4 h-11 block w-full bg-gray-100 rounded-md text-sm border-b-2"
-                      >
-                        {{person.gen}}
-                      </div>
-                    </div>
-                
-                    <div>
-                      <label for="sl" class="block mb-2 text-sm text-gray-700 font-medium"
-                        >음력/양력</label
-                      >
-                      <div
-                        id="sl"
-                        class="py-3 px-4 h-11 block w-full bg-gray-100 rounded-md text-sm border-b-2"
-                      >
-                        {{person.sl}}
-                      </div>
+
+              <!-- Grid -->
+                <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                  <div>
+                    <label for="name" class="block mb-2 text-sm text-gray-700 font-medium"
+                      >이름</label
+                    >
+                    <div
+                      id="name"
+                      class="py-3 px-4 h-12 block w-full bg-gray-100 rounded-md text-sm lg:text-base border-b-2"
+                    >
+                      {{profile.name}}
                     </div>
                   </div>
-                
-                  <!-- Grid -->
-                  <div class="grid grid-cols-2 gap-4 lg:gap-6">
-                    <div>
-                      <label for="year" class="block mb-2 text-sm text-gray-700 font-medium"
-                        >년(年)</label
-                      >
-                      <div
-                        id="year"
-                        class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
-                      >
-                        {{person.year}}
-                      </div>
+
+                  <div>
+                    <label for="phone" class="block mb-2 text-sm text-gray-700 font-medium"
+                      >이메일</label
+                    >
+                    <div
+                      id="phone"
+                      class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm lg:text-base border-b-2"
+                    >
+                      {{profile.user.email}}
                     </div>
-                
-                    <div>
-                      <label for="month" class="block mb-2 text-sm text-gray-700 font-medium"
-                        >월(月)</label
-                      >
-                      <div
-                        id="month"
-                        class="py-3 px-4 block h-11 w-full bg-gray-100 rounded-md text-sm border-b-2"
-                      >
-                        {{person.month}}
-                      </div>
-                    </div>
-                
-                    <div>
-                      <label for="day" class="block mb-2 text-sm text-gray-700 font-medium"
-                        >일(日)</label
-                      >
-                      <div
-                        id="day"
-                        class="py-3 px-4 h-11 block w-full bg-gray-100 rounded-md text-sm border-b-2"
-                      >
-                        {{person.day}}
-                      </div>
-                    </div>
-                
-                    <div>
-                      <label for="hour" class="block mb-2 text-sm text-gray-700 font-medium"
-                        >시(時)</label
-                      >
-                      <div
-                        id="hour"
-                        class="py-3 px-4 h-11 block w-full bg-gray-100 rounded-md text-sm border-b-2"
-                      >
-                        {{person.hour}}
-                      </div>
-                    </div>
-                
-                    <div>
-                      <label for="min" class="block mb-2 text-sm text-gray-700 font-medium"
-                        >분(分)</label
-                      >
-                      <div
-                        id="min"
-                        class="py-3 px-4 h-11 block w-full bg-gray-100 rounded-md text-sm border-b-2"
-                      >
-                        {{person.min}}
-                      </div>
-                    </div>
-                    <!-- End Grid -->
                   </div>
+                </div>
+                <!-- End Grid -->
+                <div class="mt-10">
+                  <label
+                    for="description"
+                    class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
+                    >자기소개</label
+                  >
+                  <div
+                    id="description"
+                    rows="6"
+                    class="py-3 px-4 min-h-52 block w-full bg-gray-100 border-b-2 rounded-md text-sm lg:text-base"
+                  >
+                    {{profile.bio|linebreaks}}
+                  </div>
+                </div>
             </div>
         </div>
     </div>
