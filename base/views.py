@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Profile
+from post.models import Post
 from .forms import ProfileForm
 from .utils import resize_image
 
@@ -8,7 +9,22 @@ def home(request):
     return render(request, 'base/home.html')
 
 def about(request):
-    return render(request, 'base/introduce.html')
+    posts1 = Post.objects.filter(is_first=True)
+    posts2 = Post.objects.filter(is_second=True)
+    context = {
+        'posts1': posts1,
+        'posts2': posts2,
+    }
+    return render(request, 'base/introduce.html', context)
+
+def dowon_map(request):
+    posts1 = Post.objects.filter(is_first=True)
+    posts2 = Post.objects.filter(is_second=True)
+    context = {
+        'posts1': posts1,
+        'posts2': posts2,
+    }
+    return render(request, 'base/dowon_map.html', context)
 
 
 def view_profile(request,username):

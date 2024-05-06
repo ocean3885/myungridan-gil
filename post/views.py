@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator
 from django.views.decorators.http import require_POST
 from .utils import resize_image 
 from .models import Post
@@ -36,7 +37,9 @@ def post_create(request):
 
 
 def post_detail(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)    
+    post = get_object_or_404(Post, pk=post_id)   
+    post.count += 1
+    post.save() 
     posts1 = Post.objects.filter(is_first=True).exclude(pk=post_id)
     posts2 = Post.objects.filter(is_second=True).exclude(pk=post_id)
     context = {
@@ -67,4 +70,15 @@ def post_delete(request, post_id):
 
 def post_list(request):
     posts = Post.objects.all()  
-    return render(request, 'post/post_list.html', {'posts': posts})
+    posts = posts.order_by('-created_at')  
+    count = posts.count()
+    # 페이지네이션
+    paginator = Paginator(posts, 20)  # 페이지당 10개의 게시글을 보여줌
+    page_number = request.GET.get('page')  # URL에서 페이지 번호를 가져옴
+    page_obj = paginator.get_page(page_number)  # 해당 페이지의 게시글을 가져옴
+
+    context = {
+        'page_obj': page_obj,
+        'count': count,
+    }
+    return render(request, 'post/post_list.html', context)

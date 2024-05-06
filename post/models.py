@@ -17,6 +17,7 @@ class Post(models.Model):
     category = models.ForeignKey(Category, related_name='posts', on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=100)
     content = RichTextUploadingField()
+    count = models.IntegerField(default=0)
     is_first = models.BooleanField(default=False)
     is_second = models.BooleanField(default=False)
     image = models.ImageField(upload_to='post_img/')

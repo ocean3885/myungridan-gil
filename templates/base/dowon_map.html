@@ -10,9 +10,17 @@
     <div class="lg:col-span-2">
       <div class="py-8 lg:pe-8">
         <div class="space-y-5 lg:space-y-8">
-          <h2 class="text-3xl font-bold lg:text-5xl dark:text-white">
-            이름 하나로 인생의 이야기가 달라집니다
-          </h2>
+            <div class="flex rounded-md items-center justify-center h-28 bg-no-repeat bg-center bg-[url('{% static '/base/img/map_top_img.jpg' %}')]">
+                <div class="text-white rounded-lg px-4 py-2 text-base sm:text-xl bg-slate-500 bg-opacity-50">찾아오시는길</div>
+            </div>
+            <div class="flex items-center mt-2 text-base lg:text-xl font-semibold bg-gradient-to-r pl-3 py-1 from-gray-200 to-transparent">
+                <div class="mt-[2px] mr-3 h-4 border-l-4 border-amber-900/70"></div>
+                <div>작명원소개 > 찾아오시는길</div>
+            </div>
+
+            <h2 class="text-3xl font-bold lg:text-5xl dark:text-white">
+                이름 하나로 인생의 이야기가 달라집니다
+            </h2>
 
           <div class="flex items-center gap-x-3">
             <div
@@ -168,7 +176,4 @@
 </div>
 <!-- End Blog Article -->
 
-
-
 {% endblock content %}
-
