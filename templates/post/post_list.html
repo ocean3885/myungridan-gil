@@ -24,8 +24,12 @@
                 <tr class="cursor-pointer" onclick="window.location.href='{% url 'post-detail' post.pk %}';">
                     <th>{{post.pk}}</th>
                     <td>{{post.category}}</td>
-                    <td>{{post.title}}</td>
-                    <td>{{post.created_at|date:"Y-m-d"}}</td>
+                    <td>{{post.title}}{% if user.is_staff %}
+                      {% if post.is_first %} <span class="bg-blue-500 text-[10px] rounded-xl text-white px-1">A</span> {% endif %} 
+                      {% if post.is_second %} <span class="bg-blue-500 text-[10px] rounded-xl text-white px-1">S</span> {% endif %}
+                      {% endif %}
+                    </td>
+                    <td>{{post.created_at|date:"y.m.d"}}</td>
                     <td>{{post.count}}</td>
                 </tr>
                 {% endfor %}

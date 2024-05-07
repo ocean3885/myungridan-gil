@@ -11,9 +11,13 @@
                     class="lg:text-3xl text-2xl text-bold mb-5 text-center">
                     프로필
                 </h1>
+                <div class="text-gray text-sm flex justify-end mb-4 gap-x-2">
                 {% if request.user == profile.user %}
-                <a href="{% url 'edit-profile' profile.user.username %}"><h2 class="text-grey text-sm mb-4 text-right">수정</h2></a>
+                <a href="{% url 'edit-profile' profile.user.username %}"><div>수정</div></a>
                 {% endif %}
+                <a href="javascript:history.back()"><div>이전</div></a>
+                <a href="{% url 'post-list' %}"><div>목록</div></a>
+                </div>
                     <!-- Cover Image -->
                 <div
                     class="py-7 w-full rounded-sm bg-[url('{{ profile.bgimg.url}}')] bg-cover bg-center bg-no-repeat items-center">

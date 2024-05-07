@@ -49,6 +49,18 @@ def post_detail(request, post_id):
     }
     return render(request, 'post/post_detail.html', context)
 
+def post_always(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)   
+    post.is_first = not post.is_first
+    post.save()
+    return redirect('post-detail', post_id)
+
+def post_sideview(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)   
+    post.is_second = not post.is_second
+    post.save()
+    return redirect('post-detail', post_id)
+
 def post_edit(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     if request.method == 'POST':

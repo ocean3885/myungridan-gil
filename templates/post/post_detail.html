@@ -23,6 +23,22 @@
             <div class="grow">
               <div class="flex gap-x-2 justify-end sm:px-3">
                 {% if user.is_staff %}
+                <a href="{% url 'post-always' post.pk %}">
+                  <button
+                    type="button"
+                    class="py-1.5 px-2.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg border border-transparent{% if post.is_first %} bg-blue-600 text-white hover:bg-blue-700{% else %} bg-gray-200 text-black {% endif %}"
+                  >
+                    A
+                  </button></a
+                >
+                <a href="{% url 'post-sideview' post.pk %}">
+                  <button
+                    type="button"
+                    class="py-1.5 px-2.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg border border-transparent{% if post.is_second %} bg-blue-600 text-white hover:bg-blue-700{% else %} bg-gray-200 text-black {% endif %}"
+                  >
+                    S
+                  </button></a
+                >
                 <a href="{% url 'post-edit' post.pk %}">
                   <button
                     type="button"
@@ -38,7 +54,7 @@
                     onclick="return confirm('Are you sure?');"
                     class="py-1.5 px-2.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                   >
-                    DELETE
+                    DEL
                   </button>
                 </form>
                 {% else %}
