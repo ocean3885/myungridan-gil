@@ -9,16 +9,40 @@ def home(request):
     return render(request, 'base/home.html')
 
 def saju_base(request):
-    return render(request, 'base/saju_base.html')
+    posts1 = Post.objects.filter(is_first=True)
+    posts2 = Post.objects.filter(is_second=True)
+    context = {
+        'posts1': posts1,
+        'posts2': posts2,
+    }
+    return render(request, 'base/saju_base.html',context)
 
 def name_base(request):
-    return render(request, 'base/name_base.html')
+    posts1 = Post.objects.filter(is_first=True)
+    posts2 = Post.objects.filter(is_second=True)
+    context = {
+        'posts1': posts1,
+        'posts2': posts2,
+    }
+    return render(request, 'base/name_base.html',context)
 
 def dowon_qna(request):
-    return render(request, 'base/dowon_qna.html')
+    posts1 = Post.objects.filter(is_first=True)
+    posts2 = Post.objects.filter(is_second=True)
+    context = {
+        'posts1': posts1,
+        'posts2': posts2,
+    }
+    return render(request, 'base/dowon_qna.html',context)
 
 def submit_info(request):
-    return render(request, 'base/submit_info.html')
+    posts1 = Post.objects.filter(is_first=True)
+    posts2 = Post.objects.filter(is_second=True)
+    context = {
+        'posts1': posts1,
+        'posts2': posts2,
+    }
+    return render(request, 'base/submit_info.html',context)
 
 def about(request):
     posts1 = Post.objects.filter(is_first=True)
