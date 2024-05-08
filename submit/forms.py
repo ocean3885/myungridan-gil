@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, TextInput, EmailInput
 from django import forms
 import datetime
 from .models import Submit, Person
@@ -13,6 +13,22 @@ class NameSubmitForm(ModelForm):
         model = Submit
         exclude = ['category', 'user']
 
+        widgets = {
+            'name': TextInput(attrs={'placeholder': '예) 김민수'}),
+            'phone': TextInput(attrs={'placeholder': '예) 01012345678'}),
+            'email': EmailInput(attrs={'placeholder': '예) email@gmail.com'}),
+            'address': TextInput(attrs={'placeholder': '주소입력'}),
+            'first_name_ch': TextInput(attrs={'placeholder': '예) 金'}),
+            'first_name_kr': TextInput(attrs={'placeholder': '예) 김'}),
+            'first_name_bon': TextInput(attrs={'placeholder': '예) 김해김'}),
+            'fav_name': TextInput(attrs={'placeholder': '예) 철수,영수'}),
+            'avoid_name': TextInput(attrs={'placeholder': '예) 광수,정수'}),
+            'dad_name': TextInput(attrs={'placeholder': "아버지성함"}),
+            'mom_name': TextInput(attrs={'placeholder': "어머니성함"}),
+            'dolrim': TextInput(attrs={'placeholder': '필요한경우기재'}),
+            'wantdate': TextInput(attrs={'placeholder': '예) 24.05.05'}),
+        }
+
 class SajuSubmitForm(ModelForm):
 
     field_order = ['process', 'name', 'phone', 'visit', 'wantdate', 'email', 'adress', 'description']
@@ -20,6 +36,12 @@ class SajuSubmitForm(ModelForm):
     class Meta:
         model = Submit
         exclude = ['category', 'user']
+        widgets = {
+            'name': TextInput(attrs={'placeholder': '예) 김민수'}),
+            'phone': TextInput(attrs={'placeholder': '예) 01012345678'}),
+            'email': EmailInput(attrs={'placeholder': '예) email@gmail.com'}),
+            'wantdate': TextInput(attrs={'placeholder': '예) 24.05.05'}),
+        }
 
 
 class EtcSubmitForm(ModelForm):
@@ -29,6 +51,12 @@ class EtcSubmitForm(ModelForm):
     class Meta:
         model = Submit
         exclude = ['category', 'user']
+        widgets = {
+            'name': TextInput(attrs={'placeholder': '예) 김민수'}),
+            'phone': TextInput(attrs={'placeholder': '예) 01012345678'}),
+            'email': EmailInput(attrs={'placeholder': '예) email@gmail.com'}),
+            'wantdate': TextInput(attrs={'placeholder': '예) 24.05.05'}),
+        }
 
 
 class PersonForm(ModelForm):

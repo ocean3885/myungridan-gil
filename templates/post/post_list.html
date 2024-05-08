@@ -6,7 +6,32 @@
   <div class="flex flex-col">
     <div class="-m-1.5 overflow-x-auto">
       <div class="p-1.5 min-w-full inline-block align-middle">
-        <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-neutral-800 dark:border-neutral-700">
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+          <!-- Header -->
+            <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-neutral-700">
+              <div>
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-200">
+                  도원사주작명원 글목록
+                </h2>
+                <p class="text-sm text-gray-600 dark:text-neutral-400">
+                  사주학,성명학,작명사례,일주론 등
+                </p>
+              </div>
+
+              <form method="get">
+                <select class="select w-48" name="category_id" onchange="this.form.submit()">
+                    <!-- 전체 글 보기 옵션 추가 -->
+                    <option value="" {% if not request.GET.category_id %}selected{% endif %}>전체글</option>
+                    <!-- 기존 카테고리 옵션 -->
+                    {% for category in categories %}
+                    <option value="{{ category.id }}" {% if request.GET.category_id == category.id|stringformat:"s" %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+              </form>
+            </div>
+          <!-- End Header -->
           <!-- Table -->
           <div class="flex w-full overflow-x-auto px-5 py-5">
             <table class="table-compact table ">

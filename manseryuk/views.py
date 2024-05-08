@@ -1,5 +1,5 @@
 from .models import CalendaData
-from .calculator import find_ten_god, find_stem_branch_ten_god,descending_tens,to_hanja,generate_future_cycles,generate_baby_cycles
+from .calculator import find_ten_god, find_stem_branch_ten_god,descending_tens,gan_to_hanja,ji_to_hanja,generate_future_cycles,generate_baby_cycles
 
 class Msr_Calculator():
 
@@ -95,8 +95,8 @@ class Msr_Calculator():
                 data_ji.append(JIJI[start % 12])
                 start += 1
 
-            data_gan = to_hanja(data_gan)
-            data_ji = to_hanja(data_ji)
+            data_gan = gan_to_hanja(data_gan)
+            data_ji = ji_to_hanja(data_ji)
             data.append(list(reversed(data_gan)))
             data.append(list(reversed(data_ji)))
 
@@ -121,8 +121,8 @@ class Msr_Calculator():
             for i in range(10):
                 data_ji.append(JIJI[start % 12])
                 start -= 1
-            data_gan = to_hanja(data_gan)
-            data_ji = to_hanja(data_ji)
+            data_gan = gan_to_hanja(data_gan)
+            data_ji = ji_to_hanja(data_ji)
             data.append(list(reversed(data_gan)))
             data.append(list(reversed(data_ji)))
 

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.views.decorators.http import require_POST
 from .utils import resize_image 
-from .models import Post
+from .models import Post, Category
 from .forms import PostForm
 
 
@@ -81,7 +81,13 @@ def post_delete(request, post_id):
     return redirect('home')
 
 def post_list(request):
-    posts = Post.objects.all()  
+    category_id = request.GET.get('category_id')
+    if category_id:
+        posts = Post.objects.filter(category__id=category_id)  # 선택된 카테고리에 따라 포스트를 필터링합니다.
+    else:
+        posts = Post.objects.all()  # 모든 포스트를 가져옵니다.
+
+    categories = Category.objects.all()  # 모든 카테고리를 가져옵니다.
     posts = posts.order_by('-created_at')  
     count = posts.count()
     # 페이지네이션
@@ -92,5 +98,6 @@ def post_list(request):
     context = {
         'page_obj': page_obj,
         'count': count,
+        'categories': categories,
     }
     return render(request, 'post/post_list.html', context)

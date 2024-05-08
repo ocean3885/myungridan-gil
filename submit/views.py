@@ -203,7 +203,7 @@ def submit_list(request, status=''):
 @user_passes_test_with_request(staff_or_valid_session_check)
 def submit_edit(request, pk):
     submit = get_object_or_404(Submit, pk=pk)
-    category = submit.category
+    category = submit.category 
 
     # 폼 인스턴스를 선택하는 로직
     if submit.category == "sj":
@@ -233,7 +233,13 @@ def submit_edit(request, pk):
         if submitForm.is_valid() and (not person or personForm.is_valid()):
             submitForm.save()
             if person:
-                personForm.save()
+                obj = personForm.save(commit=False) 
+                data = Msr_Calculator()
+                time = determine_zodiac_hour_str(obj.hour, obj.min)
+                datas = data.getAll(obj.year, obj.month, obj.day,
+                            time, obj.sl, obj.gen)
+                obj.data = {'datas':datas}
+                obj.save()
             return redirect('submit-detail', pk=submit.pk)
     else:
         submitForm = submitFormClass(instance=submit)
