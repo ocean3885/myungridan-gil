@@ -72,35 +72,39 @@
       {% endfor %}
     </div>
     <div class='text-sm sm:text-md md:text-base mt-3 pl-3 pb-2'>세운(世運)</div> 
-    <div id="data-groups">
-      {% for group, visible in groups_with_visibility %}
-        <div class="data-group {% if not visible %}hidden{% endif %}" id="group-{{ forloop.counter0 }}">
-          <div class="grid grid-cols-10">
-            {% for data in group %}
-              <div class="table border flex-1">
-                <div class="py-0 text-[10px] sm:text-sm text-center bg-gray-200">{{ data.0 }}</div>
-                <div class="py-1 text-center {{ data.1|hanja_color }}">{{ data.1 }}</div>
-                <div class="py-1 text-center {{ data.2|hanja_color }}">{{ data.2 }}</div>
-              </div>
-            {% endfor %}
+      <div class="md:mb-10" id="data-groups">
+        {% for group, visible in groups_with_visibility %}
+          <div class="data-group {% if not visible %}hidden{% endif %}" id="group-{{ forloop.counter0 }}">
+            <div class="grid grid-cols-10">
+              {% for data in group %}
+                <div class="table border flex-1">
+                  <div class="py-0 text-[10px] sm:text-sm text-center bg-gray-200">{{ data.0 }}</div>
+                  <div class="py-1 text-center {{ data.1|hanja_color }}">{{ data.1 }}</div>
+                  <div class="py-1 text-center {{ data.2|hanja_color }}">{{ data.2 }}</div>
+                </div>
+              {% endfor %}
+            </div>
           </div>
-        </div>
-      {% endfor %}
-        
-      {% if all_false %}
-        <div class="data-group" id="group-11">
-          <div class="grid grid-cols-10">
-            {% for data in submit.data.datas.baby_10 %}
-              <div class="table border flex-1">
-                <div class="py-0 text-[10px] sm:text-sm text-center bg-gray-200">{{ data.0 }}</div>
-                <div class="py-1 text-center {{ data.1|hanja_color }}">{{ data.1 }}</div>
-                <div class="py-1 text-center {{ data.2|hanja_color }}">{{ data.2 }}</div>
-              </div>
-            {% endfor %}
+        {% endfor %}
+          
+        {% if all_false %}
+          <div class="data-group" id="group-11">
+            <div class="grid grid-cols-10">
+              {% for data in submit.data.datas.baby_10 %}
+                <div class="table border flex-1">
+                  <div class="py-0 text-[10px] sm:text-sm text-center bg-gray-200">{{ data.0 }}</div>
+                  <div class="py-1 text-center {{ data.1|hanja_color }}">{{ data.1 }}</div>
+                  <div class="py-1 text-center {{ data.2|hanja_color }}">{{ data.2 }}</div>
+                </div>
+              {% endfor %}
+            </div>
           </div>
-        </div>
-      {% endif %}
-    </div>
+        {% endif %}
+      </div>
+  </div>
+  <div class="hidden md:block">
+    {% include "section/reserve.html" %}
+    {% include "section/account_info.html" %}
   </div>
 </div>
 
