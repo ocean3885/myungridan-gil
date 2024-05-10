@@ -3,24 +3,37 @@ from .models import Profile
 from post.models import Post
 from .forms import ProfileForm
 from .utils import resize_image
+from django.core.paginator import Paginator
 
 
 def home(request):
     return render(request, 'base/home.html')
 
 def saju_base(request):
+    posts = Post.objects.all()
     posts1 = Post.objects.filter(is_first=True)
     posts2 = Post.objects.filter(is_second=True)
+    # 페이지네이션
+    paginator = Paginator(posts, 6)  # 페이지당 10개의 게시글을 보여줌
+    page_number = request.GET.get('page')  # URL에서 페이지 번호를 가져옴
+    page_obj = paginator.get_page(page_number)  # 해당 페이지의 게시글을 가져옴
     context = {
+        'page_obj' : page_obj,
         'posts1': posts1,
         'posts2': posts2,
     }
     return render(request, 'base/saju_base.html',context)
 
 def name_base(request):
+    posts = Post.objects.all()
     posts1 = Post.objects.filter(is_first=True)
     posts2 = Post.objects.filter(is_second=True)
+    # 페이지네이션
+    paginator = Paginator(posts, 6)  # 페이지당 10개의 게시글을 보여줌
+    page_number = request.GET.get('page')  # URL에서 페이지 번호를 가져옴
+    page_obj = paginator.get_page(page_number)  # 해당 페이지의 게시글을 가져옴
     context = {
+        'page_obj' : page_obj,
         'posts1': posts1,
         'posts2': posts2,
     }

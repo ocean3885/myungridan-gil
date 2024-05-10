@@ -18,21 +18,65 @@
                 <div>도원사주작명원 > 신청안내</div>
             </div>
             <p class="border p-3 rounded-md border-blue-300 mt-4 text-gray-700 text-sm lg:text-base font-normal">
-              무료로 현재 사용중인 이름이 본인의 사주에 적합한지 상담해드리고 있습니다. 현재 사용중인 이름의 한자와 뜻 그리고 개명동기를 상세히 기재해주시면 정확한 감명에 도움이 됩니다. 
-              무료감명 신청 내용은 <b>공개 및 답변완료 후 삭제가 불가</b>하므로 비공개 상담을 원할시 유료상담을 이용해주시기 바랍니다.
+              좋은이름을 작명하려면 사주명리학과 성명학에 대한 공부가 깊어야하며, 경력이 풍부해야 합니다. 
             </p>
-            <div class="relative">
-              <div class="absolute top-[8px] left-1 rounded-full size-4 border-4 border-blue-800/80"></div>
-              <h2 class="pl-7 mt-8 lg:mt-11 text-lg font-semibold text-gray-800">
-                신생아작명
-              </h2>              
-            </div>  
-            <ul class="list-disc space-y-2 ps-9 text-sm sm:text-base lg:text-lg text-gray-800">
-              <li class="ps-2">전주시 완산구 전주객사4길 46, 715호</li>
-              <li class="ps-2">TEL : 063-285-7255</li>
-              <li class="ps-2">Mobile : 010-5518-7255</li>
-              <li class="ps-2">모든 상담은 예약으로 이루어집니다</li>
-            </ul>
+            {% include 'section/naming_process.html' %}
+            <div class="grid sm:pl-6 sm:grid-cols-2">
+              <div class="space-y-6">
+                <div class="relative">
+                  <div class="absolute top-[6px] left-1 rounded-full size-4 border-4 border-blue-800/80"></div>
+                  <h2 class="pl-7 mt-8 lg:mt-11 text-lg font-semibold text-gray-800">
+                    신생아작명
+                  </h2>              
+                </div>  
+                <ul class="list-disc space-y-1 ps-9 text-sm sm:text-base lg:text-lg text-gray-800">
+                  <li class="ps-2">작명비용 : 15만원</li>
+                  <li class="ps-2">추천이름수 : 8개</li>
+                  <li class="ps-2">추가이름추천(상담)</li>
+                </ul>
+              </div>
+
+              <div class="space-y-6">
+                <div class="relative">
+                  <div class="absolute top-[6px] left-1 rounded-full size-4 border-4 border-blue-800/80"></div>
+                  <h2 class="pl-7 mt-8 lg:mt-11 text-lg font-semibold text-gray-800">
+                    개명
+                  </h2>              
+                </div>  
+                <ul class="list-disc space-y-1 ps-9 text-sm sm:text-base lg:text-lg text-gray-800">
+                  <li class="ps-2">개명비용 : 15만원</li>
+                  <li class="ps-2">추천이름수 : 8개</li>
+                  <li class="ps-2">추가이름추천(상담)</li>
+                </ul>
+              </div>
+
+              <div class="space-y-6">
+                <div class="relative">
+                  <div class="absolute top-[6px] left-1 rounded-full size-4 border-4 border-blue-800/80"></div>
+                  <h2 class="pl-7 mt-8 lg:mt-11 text-lg font-semibold text-gray-800">
+                    사주상담
+                  </h2>              
+                </div>  
+                <ul class="list-disc space-y-1 ps-9 text-sm sm:text-base lg:text-lg text-gray-800">
+                  <li class="ps-2">사주상담 : 5만원</li>
+                  <li class="ps-2">가족사주 : 10만원</li>
+                </ul>
+              </div>
+
+              <div class="space-y-6">
+                <div class="relative">
+                  <div class="absolute top-[6px] left-1 rounded-full size-4 border-4 border-blue-800/80"></div>
+                  <h2 class="pl-7 mt-8 lg:mt-11 text-lg font-semibold text-gray-800">
+                    기타상담
+                  </h2>              
+                </div>  
+                <ul class="list-disc space-y-1 ps-9 text-sm sm:text-base lg:text-lg text-gray-800">
+                  <li class="ps-2">궁합상담 : 10만원</li>
+                  <li class="ps-2">출산택일 : 10만원</li>
+                  <li class="ps-2">상호작명 : 15만원</li>
+                </ul>
+              </div>
+            </div>
             
             {% include "base/components/card_section.html" %}
 

@@ -1,5 +1,32 @@
 <div class="mt-6 grid gap-4 lg:gap-6">
-    <h2 class="mb-4 text-xl font-semibold text-gray-800">신청인 정보</h2>
+    <div class="flex justify-between">
+      <h2 class="mb-4 text-xl font-semibold text-gray-800">신청인 정보</h2>
+      <div>
+        {% if user.is_staff %}
+        <a href="{% url 'pay-no' submit.id %}">
+          <button
+            class="py-1 px-2 inline-flex justify-center items-center text-xs lg:text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+          >
+            입금전
+          </button>
+        </a>
+        <a href="{% url 'pay-ok' submit.id %}">
+          <button
+            class="py-1 px-2 inline-flex justify-center items-center text-xs lg:text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+          >
+            입금확인
+          </button>
+        </a>
+        <a href="{% url 'complete' submit.id %}">
+          <button
+            class="py-1 px-2 inline-flex justify-center items-center text-xs lg:text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+          >
+            완료
+          </button>
+        </a>
+        {% endif %}
+      </div>
+    </div>
     <!-- Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
       <div>

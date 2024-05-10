@@ -8,6 +8,13 @@
     <div>
       <span class="text-base lg:text-xl font-semibold text-amber-900">"{{submit.name}}"</span>님의 상담신청이 
       {% if submit.process == "1"%}<span class="text-base lg:text-xl font-semibold text-amber-900">"입금대기중"</span> 입니다. 입금이 확인되는대로 상담을 진행하도록 하겠습니다.
+      <div class="mt-8 lg:mt-10 flex justify-center">
+        <div
+        class="py-1 lg:py-2 cursor-pointer px-3 lg:px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+      >
+        결제하기
+        </div>
+      </div>
       {% elif submit.process == "2" %}입금확인후 <span class="text-base lg:text-xl font-semibold text-amber-900">"작명진행중"</span>입니다. 기타 추가 요청사항이 있을경우 유선(063-285-7255)으로 전화주시기 바랍니다.
       {% else %}<span class="text-base lg:text-xl font-semibold text-amber-900">"완료"</span>되었습니다. 이용해주셔서 감사합니다.{% endif %}
     </div>

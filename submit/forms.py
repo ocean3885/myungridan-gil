@@ -43,6 +43,12 @@ class SajuSubmitForm(ModelForm):
             'wantdate': TextInput(attrs={'placeholder': '예) 24.05.05'}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super(SajuSubmitForm, self).__init__(*args, **kwargs)
+        # 원하는 선택지만 포함시키기
+        self.fields['visit'].choices = [("call", "전화상담"),("visit", "방문상담")]
+    
+
 
 class EtcSubmitForm(ModelForm):
 
@@ -57,7 +63,10 @@ class EtcSubmitForm(ModelForm):
             'email': EmailInput(attrs={'placeholder': '예) email@gmail.com'}),
             'wantdate': TextInput(attrs={'placeholder': '예) 24.05.05'}),
         }
-
+    def __init__(self, *args, **kwargs):
+        super(EtcSubmitForm, self).__init__(*args, **kwargs)
+        # 원하는 선택지만 포함시키기
+        self.fields['visit'].choices = [("call", "전화상담"),("visit", "방문상담")]
 
 class PersonForm(ModelForm):
 
