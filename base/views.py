@@ -4,15 +4,23 @@ from post.models import Post
 from .forms import ProfileForm
 from .utils import resize_image
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 
 def home(request):
     return render(request, 'base/home.html')
 
 def saju_base(request):
-    posts = Post.objects.all()
-    posts1 = Post.objects.filter(is_first=True)
-    posts2 = Post.objects.filter(is_second=True)
+    posts1 = Post.objects.filter(
+        Q(category__name="성명학") | 
+        Q(category__name="작명사례")
+        ).order_by('-created_at')[:8]
+    posts = Post.objects.filter(
+        Q(category__name="일주론") | 
+        Q(category__name="사주학") | 
+        Q(category__name="유명인사주")
+        ).order_by('-created_at')
+    
     # 페이지네이션
     paginator = Paginator(posts, 6)  # 페이지당 10개의 게시글을 보여줌
     page_number = request.GET.get('page')  # URL에서 페이지 번호를 가져옴
@@ -20,14 +28,20 @@ def saju_base(request):
     context = {
         'page_obj' : page_obj,
         'posts1': posts1,
-        'posts2': posts2,
     }
     return render(request, 'base/saju_base.html',context)
 
 def name_base(request):
-    posts = Post.objects.all()
-    posts1 = Post.objects.filter(is_first=True)
-    posts2 = Post.objects.filter(is_second=True)
+    posts = Post.objects.filter(
+        Q(category__name="성명학") | 
+        Q(category__name="작명사례")
+        ).order_by('-created_at')
+    posts1 = Post.objects.filter(
+        Q(category__name="일주론") | 
+        Q(category__name="사주학") | 
+        Q(category__name="유명인사주")
+        ).order_by('-created_at')[:8]
+    
     # 페이지네이션
     paginator = Paginator(posts, 6)  # 페이지당 10개의 게시글을 보여줌
     page_number = request.GET.get('page')  # URL에서 페이지 번호를 가져옴
@@ -35,7 +49,6 @@ def name_base(request):
     context = {
         'page_obj' : page_obj,
         'posts1': posts1,
-        'posts2': posts2,
     }
     return render(request, 'base/name_base.html',context)
 
