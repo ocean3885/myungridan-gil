@@ -8,7 +8,11 @@ from django.db.models import Q
 
 
 def home(request):
-    return render(request, 'base/home.html')
+    posts = Post.objects.order_by('-created_at')[:4]
+    context = {
+        'posts': posts
+    }
+    return render(request, 'base/home.html', context)
 
 def saju_base(request):
     posts1 = Post.objects.filter(
