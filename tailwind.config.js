@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  rippleui: {
+		removeThemes: ["dark"],
+	},
   darkMode: 'selector',
   // important: "html",
   content: [

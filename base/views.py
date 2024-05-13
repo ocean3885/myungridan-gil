@@ -8,7 +8,7 @@ from django.db.models import Q
 
 
 def home(request):
-    posts = Post.objects.order_by('-created_at')[:4]
+    posts = Post.objects.order_by('-created_at')[:5]
     context = {
         'posts': posts
     }
