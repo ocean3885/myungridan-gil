@@ -1,20 +1,20 @@
 {% extends 'main.html' %} {% load widget_tweaks %}  {% block content %}
 
-<div class="h-full">
-  <div class="dark:bg-slate-900 bg-gray-100 flex h-full items-center py-16">
+<div class="h-full text-black">
+  <div class="bg-gray-100 flex h-full items-center py-16">
     <div class="w-full max-w-md mx-auto p-6">
       <div
         class="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm"
       >
         <div class="p-4 sm:p-7">
           <div class="text-center">
-            <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">
+            <h1 class="block text-2xl font-bold text-gray-800">
               로그인
             </h1>
-            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            <p class="mt-2 text-sm text-gray-600">
               아직 가입하지 않으셨나요?
               <a
-                class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                class="text-blue-600 decoration-2 hover:underline font-medium"
                 href="/accounts/signup/"
               >
                 회원가입
@@ -25,7 +25,7 @@
           <div class="mt-5"><a href="/accounts/google/login/">
             <button
               type="button"
-              class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+              class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
             >
               <svg
                 class="w-4 h-auto"
@@ -55,7 +55,7 @@
             </button></a>
 
             <div
-              class="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600"
+              class="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6"
             >
               Or
             </div>
@@ -67,7 +67,7 @@
               <div class="grid gap-y-4">
                 <!-- Form Group -->
                 <div>
-                  <label for="id_login" class="block text-sm mb-2 dark:text-white"
+                  <label for="id_login" class="block text-sm mb-2"
                     >Email 주소</label
                   >
                   <div class="relative">
@@ -101,11 +101,11 @@
                   <div class="flex justify-between items-center">
                     <label
                       for="id_password"
-                      class="block text-sm mb-2 dark:text-white"
+                      class="block text-sm mb-2"
                       >비밀번호</label
                     >
                     <a
-                      class="text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                      class="text-sm text-blue-600 decoration-2 hover:underline font-medium"
                       href="#"
                       >비밀번호를 잊어버렸나요?</a
                     >
@@ -161,7 +161,7 @@
                 {% comment %} {% endif %} {% endcomment %}
                 <button
                   type="submit"
-                  class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                  class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
                 >
                   로그인
                 </button>

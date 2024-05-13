@@ -3,7 +3,7 @@
   <div class="sticky top-0 start-0 py-8 lg:ps-8">
     <!-- Avatar Media -->
     <div
-      class="group flex items-center gap-x-3 border-b border-gray-200 pb-8 mb-8 dark:border-gray-700"
+      class="group flex items-center gap-x-3 border-b border-gray-200 pb-8 mb-8"
     >
       <a class="block flex-shrink-0" href="{% url 'view-profile' 'ocean3885' %}">
         <img
@@ -15,7 +15,7 @@
 
       <div class="group grow block">
         <h5
-          class="group-hover:text-gray-600 text-sm font-semibold text-gray-800 dark:group-hover:text-gray-400 dark:text-gray-200"
+          class="group-hover:text-gray-600 text-sm font-semibold text-gray-800"
         >
           도원사주작명원
         </h5>
@@ -27,7 +27,7 @@
           <a href="{% url "post-list" %}">
           <button
             type="button"
-            class="py-1.5 px-2.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+            class="py-1.5 px-2.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700"
           >
             글목록
           </button></a>
@@ -39,7 +39,7 @@
     <div class="space-y-6">
       <!-- Media -->
       {% for post in posts1 %}
-      <a class="group flex items-center" href="{% url 'post-detail' post.id %}">
+      <a class="group flex items-center text-black" href="{% url 'post-detail' post.id %}">
         <div class="grow pr-2">
           <div class="flex gap-2 py-2">
             <div

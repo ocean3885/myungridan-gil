@@ -1,7 +1,7 @@
 {% load custom_filters %}
 {% load static %}
 <!-- Card Blog -->
-<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto text-black">
     <!-- Grid -->
     <div class="grid lg:grid-cols-2 lg:gap-y-16 gap-10">
       <!-- Card -->
@@ -13,10 +13,10 @@
           </div>
   
           <div class="grow mt-4 sm:mt-0 sm:ms-6 px-1 sm:px-0 lg:mt-4 lg:ms-0 lg:px-1">
-            <h3 class="text-xl font-semibold text-gray-800 group-hover:text-gray-600 dark:text-neutral-300 dark:group-hover:text-white">
+            <h3 class="text-xl font-semibold text-gray-800 group-hover:text-gray-600">
               {{ post.title|truncatechars:20}}
             </h3>
-            <p class="mt-3 text-gray-600 dark:text-neutral-400">
+            <p class="mt-3 text-gray-600">
               {{ post.content|striptags|remove_html_entities|truncatechars:100 }}
             </p>
             <p class="mt-4 inline-flex items-center gap-x-1 text-blue-600 decoration-2 hover:underline font-medium">

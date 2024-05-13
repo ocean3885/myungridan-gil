@@ -1,9 +1,9 @@
 {% load widget_tweaks %} 
 <form method="POST" autocomplete="off" enctype="multipart/form-data">
   {% csrf_token %}
-    <div class="mt-6 grid gap-4 lg:gap-6">
+    <div class="mt-6 grid gap-4 lg:gap-6 text-black">
       <!-- Grid -->
-      <h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-gray-200">
+      <h2 class="mb-4 text-xl font-semibold text-gray-800">
         신청인 정보
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
@@ -11,7 +11,7 @@
           <label
             for="name"
             class="block mb-2 text-sm text-gray-700 font-medium"
-            >신청인이름</label
+            >신청인이름 <span class="text-red-600">(필수)</span></label
           >
           {% render_field submit.name id="name" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
         </div>
@@ -19,8 +19,8 @@
         <div>
           <label
             for="phone"
-            class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
-            >전화번호</label
+            class="block mb-2 text-sm text-gray-700 font-medium"
+            >전화번호 <span class="text-red-600">(필수)</span></label
           >
           {% render_field submit.phone id="phone" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
         </div>

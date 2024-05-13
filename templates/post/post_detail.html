@@ -1,12 +1,12 @@
 {% extends 'main.html' %} {% load widget_tweaks %} {% block content %}
 <!-- Blog Article -->
-<div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
+<div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto text-gray-800">
   <div class="grid lg:grid-cols-3 gap-y-8 lg:gap-y-0 lg:gap-x-6">
     <!-- Content -->
     <div class="lg:col-span-2">
       <div class="py-8 lg:pe-8">
         <div class="space-y-5 lg:space-y-8">
-          <h2 class="text-3xl font-bold lg:text-5xl dark:text-white">
+          <h2 class="text-3xl font-bold lg:text-5xl">
             {{post.title}}
           </h2>
 
@@ -17,7 +17,7 @@
             >
               {{post.category}}
             </a>
-            <p class="text-xs sm:text-sm text-gray-800 dark:text-gray-200">
+            <p class="text-xs sm:text-sm text-gray-800">
               {{ post.created_at|date:"Y-m-d" }}
             </p>
             <div class="grow">
