@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
@@ -34,3 +35,24 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
+
+class CustomBoard(models.Model):
+    name = models.CharField(max_length=20)
+    email = models.EmailField()
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    password = models.CharField(max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+    
+class CustomComment(models.Model):
+    board = models.ForeignKey(CustomBoard, on_delete=models.CASCADE, related_name='board_comments')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    password = models.CharField(max_length=20)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Comment by {self.user}'

@@ -9,8 +9,10 @@ from django.db.models import Q
 
 def home(request):
     posts = Post.objects.order_by('-created_at')[:5]
+    latest = posts.first()
     context = {
-        'posts': posts
+        'posts': posts,
+        'latest': latest
     }
     return render(request, 'base/home.html', context)
 
@@ -126,3 +128,29 @@ def edit_profile(request,username):
         'form': form
     }
     return render(request, 'base/profile/profile_form.html', context)
+
+
+
+def customer_list(request):
+    posts1 = Post.objects.filter(is_first=True)
+    posts2 = Post.objects.filter(is_second=True)
+    context = {
+        'posts1': posts1,
+        'posts2': posts2,
+    }
+    return render(request, 'base/customer_list.html',context)
+
+def customer_write(request):
+    pass
+
+def customer_delete(request,pk):
+    pass
+
+def customer_edit(request,pk):
+    pass
+
+def customer_comment_write(request,pk):
+    pass
+
+def customer_comment_delete(request,pk,c_pk):
+    pass
