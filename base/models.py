@@ -38,7 +38,7 @@ def save_user_profile(sender, instance, **kwargs):
 
 class CustomBoard(models.Model):
     name = models.CharField(max_length=20)
-    email = models.EmailField()
+    email = models.EmailField(blank=True)
     title = models.CharField(max_length=100)
     content = models.TextField()
     password = models.CharField(max_length=20)
@@ -50,7 +50,7 @@ class CustomBoard(models.Model):
 class CustomComment(models.Model):
     board = models.ForeignKey(CustomBoard, on_delete=models.CASCADE, related_name='board_comments')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    password = models.CharField(max_length=20)
+    password = models.CharField(max_length=20,blank=True)
     content = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 

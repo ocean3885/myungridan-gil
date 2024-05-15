@@ -1,11 +1,18 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Profile
+from .models import Profile, CustomBoard, CustomComment
 from post.models import Post
-from .forms import ProfileForm
+from .forms import ProfileForm, CustomCommentForm, CustomForm
 from .utils import resize_image
 from django.core.paginator import Paginator
 from django.db.models import Q
 
+def get_filtered_posts():
+    posts1 = Post.objects.filter(is_first=True)
+    posts2 = Post.objects.filter(is_second=True)
+    return {
+        'posts1': posts1,
+        'posts2': posts2,
+    }
 
 def home(request):
     posts = Post.objects.order_by('-created_at')[:5]
@@ -59,39 +66,19 @@ def name_base(request):
     return render(request, 'base/name_base.html',context)
 
 def dowon_qna(request):
-    posts1 = Post.objects.filter(is_first=True)
-    posts2 = Post.objects.filter(is_second=True)
-    context = {
-        'posts1': posts1,
-        'posts2': posts2,
-    }
+    context = get_filtered_posts()
     return render(request, 'base/dowon_qna.html',context)
 
 def submit_info(request):
-    posts1 = Post.objects.filter(is_first=True)
-    posts2 = Post.objects.filter(is_second=True)
-    context = {
-        'posts1': posts1,
-        'posts2': posts2,
-    }
+    context = get_filtered_posts()
     return render(request, 'base/submit_info.html',context)
 
 def about(request):
-    posts1 = Post.objects.filter(is_first=True)
-    posts2 = Post.objects.filter(is_second=True)
-    context = {
-        'posts1': posts1,
-        'posts2': posts2,
-    }
+    context = get_filtered_posts()
     return render(request, 'base/introduce.html', context)
 
 def dowon_map(request):
-    posts1 = Post.objects.filter(is_first=True)
-    posts2 = Post.objects.filter(is_second=True)
-    context = {
-        'posts1': posts1,
-        'posts2': posts2,
-    }
+    context = get_filtered_posts()
     return render(request, 'base/dowon_map.html', context)
 
 
@@ -132,16 +119,49 @@ def edit_profile(request,username):
 
 
 def customer_list(request):
-    posts1 = Post.objects.filter(is_first=True)
-    posts2 = Post.objects.filter(is_second=True)
-    context = {
-        'posts1': posts1,
-        'posts2': posts2,
-    }
+    context = get_filtered_posts()
+    posts = CustomBoard.objects.all()
+    count = posts.count()
+    context['count'] = count
+
+    # 페이지네이션
+    paginator = Paginator(posts, 20)  # 페이지당 10개의 게시글을 보여줌
+    page_number = request.GET.get('page')  # URL에서 페이지 번호를 가져옴
+    page_obj = paginator.get_page(page_number)  # 해당 페이지의 게시글을 가져옴
+    context['page_obj'] = page_obj
+
     return render(request, 'base/customer_list.html',context)
 
 def customer_write(request):
-    pass
+    context = get_filtered_posts()
+    customform = CustomForm(request.POST or None)
+    
+    if request.method == "POST":
+        # 제출된 폼 검증
+        if customform.is_valid(): 
+            obj = customform.save()            
+            return redirect('customer-detail', obj.pk)
+        else:
+            errors = customform.errors
+            context['customform'] = customform
+            context['errors'] = errors
+            return render(request, 'base/customer_write.html', context)
+
+    # GET 요청 또는 유효하지 않은 폼의 경우 초기 폼 표시
+    context['customform'] = customform
+    return render(request, 'base/customer_write.html',context)
+
+
+def customer_detail(request,pk):
+    context = get_filtered_posts()
+    post = get_object_or_404(CustomBoard, pk=pk)
+    comment_form = CustomForm()
+    comments = post.board_comments.all()
+    context['comments'] = comments
+    context['comment_form'] = comment_form
+    context['post'] = post
+
+    return render(request, 'base/customer_detail.html', context)
 
 def customer_delete(request,pk):
     pass
@@ -150,7 +170,17 @@ def customer_edit(request,pk):
     pass
 
 def customer_comment_write(request,pk):
-    pass
+    post = get_object_or_404(CustomBoard, pk=pk)
+    if request.method == 'POST':
+        form = CustomCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.board = post
+            comment.save()
+            return redirect('customer-detail', pk)
 
 def customer_comment_delete(request,pk,c_pk):
-    pass
+    comment = get_object_or_404(CustomComment,pk=c_pk)
+    comment.delete()
+    return redirect('customer-detail',pk)

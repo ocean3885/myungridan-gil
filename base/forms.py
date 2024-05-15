@@ -1,7 +1,8 @@
 from django.forms import ModelForm
 from django import forms
 import datetime
-from .models import Profile
+from .models import Profile, CustomBoard, CustomComment
+from django.core.validators import EmailValidator
 
 class ProfileForm(ModelForm):
 
@@ -51,3 +52,16 @@ class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         exclude = ['user','data','phone','bgimg','picture']
+
+
+class CustomForm (ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField(required=False, validators=[EmailValidator(message='유효한 이메일 주소를 입력해주세요.')])
+    class Meta:
+        model = CustomBoard
+        fields = ['name','email','title','content','password']
+
+class CustomCommentForm (ModelForm):
+    class Meta:
+        model = CustomComment
+        exclude = ['board','user','password']
