@@ -3,6 +3,7 @@ from django.db import models
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from django.contrib.auth.models import User
+from django.templatetags.static import static
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -22,7 +23,7 @@ class Profile(models.Model):
     day = models.CharField(max_length=2,blank=True)
     hour = models.CharField(max_length=2,blank=True)
     min = models.CharField(max_length=2,blank=True)
-
+        
     def __str__(self):
         return self.user.username
 

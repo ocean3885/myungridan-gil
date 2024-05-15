@@ -21,42 +21,42 @@
           </div>
         </div>
       </div>
-      <div class="grid place-items-center">
+      <div class="">
         <div class="prose lg:prose-xl">{{ post.content|safe}}</div>
       </div>
     </div>
 
-    <div class="flex justify-center items-center mt-5 mb-5">
+    <div class="flex justify-center items-center mt-16 lg:mt-24 mb-5">
       <div class="py-6 px-4 md:px-8 w-full rounded-[12px] bg-white shadow-md border">
         <p class="text-sm sm:text-base font-semibold">
-            원장님 답변
+            댓글
         </p> 
-          {% if comments %}
           {% for comment in comments %}
-            {% if user.is_staff %}<div class="flex justify-end mt-3 mr-3"><a href="{% url 'customer-comment-delete' post.id comment.id %}"><img class="h-4" src="{% static '/estimate/img/remove.png' %}"></a></div>{%endif%}
-            <div class="h-auto px-6 text-sm py-6 mt-5 outline-none border-gray-300 w-full resize-none border rounded-lg">{{comment.content|linebreaksbr}}</div>
+          <div class="flex justify-between mt-3 mr-3">
+            <div class="text-xs">{% if comment.user.profile.name %}{{comment.user.profile.name}}{%else%}{{comment.user}}{%endif%}</div>
+              {% if user.is_staff or comment.user == user%}
+              <a href="{% url 'customer-comment-delete' post.id comment.id %}">
+                <img class="h-4" src="{% static '/estimate/img/remove.png' %}">
+              </a>
+              {%endif%}
+            </div>
+            <div class="h-auto px-6 text-sm py-6 mt-5 outline-none border-gray-300 w-full resize-none border rounded-md">{{comment.content|linebreaksbr}}</div>
           {% endfor %}
-          {% else %}
-          {% if not user.is_staff %}
-          <textarea disabled class="h-40 px-3 text-sm py-1 mt-5 outline-none border-gray-300 w-full resize-none border rounded-lg placeholder:text-sm" placeholder="답변 대기중입니다."></textarea>  
-          <div class="flex justify-end mt-2 md:mt-4"> 
-            <button disabled class="p-2 md:p-3 bg-gray-300 text-xs md:text-sm text-gray-500 rounded-lg">
-                작성완료
-            </button>
-          </div>   
-          {% endif %}
-          {% endif %}
-          {% if user.is_staff %}
-            <form method="post" action="{% url 'customer-comment-write' post.id %}">
+          <form method="post" action="{% url 'customer-comment-write' post.id %}">
             {% csrf_token %}
-              {% render_field comment_form.content class="h-40 px-3 text-sm py-1 mt-5 outline-none border-gray-300 w-full resize-none border rounded-lg" %}
-              <div class="flex justify-end mt-2 md:mt-4"> 
+            {% render_field comment_form.content class="h-40 p-6 text-sm mt-5 outline-none border-gray-300 w-full resize-none border rounded-lg" placeholder="로그인 후 댓글 작성이 가능합니다." %}
+            <div class="flex justify-end mt-2 md:mt-4"> 
+                {% if user.is_authenticated %}
                 <button type="submit" class="p-2 md:p-3 bg-blue-600 text-white hover:bg-blue-700 text-xs md:text-sm rounded-lg">
-                    작성완료
+                    확인
                 </button>
+                {% else %}
+                <button class="pointer-events-none p-2 md:p-3 bg-gray-400 text-black text-xs md:text-sm rounded-lg">
+                  확인
+              </button>
+                {% endif %}
               </div>   
             </form>
-          {% endif %}
       </div>   
     </div>
 

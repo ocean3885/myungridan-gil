@@ -3787,6 +3787,10 @@ html {
   margin-top: auto;
 }
 
+.mt-16 {
+  margin-top: 4rem;
+}
+
 .block {
   display: block;
 }
@@ -4733,9 +4737,9 @@ html {
   background-color: rgb(255 255 255 / 0.9);
 }
 
-.bg-slate-300 {
+.bg-gray-400 {
   --tw-bg-opacity: 1;
-  background-color: rgb(203 213 225 / var(--tw-bg-opacity));
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50 {
@@ -4951,11 +4955,6 @@ html {
   padding-bottom: 2rem;
 }
 
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
 .pb-1 {
   padding-bottom: 0.25rem;
 }
@@ -5089,6 +5088,10 @@ html {
 
 .font-semibold {
   font-weight: 600;
+}
+
+.font-thin {
+  font-weight: 100;
 }
 
 .uppercase {
@@ -6462,6 +6465,10 @@ html {
     margin-top: 2rem;
   }
 
+  .lg\:mt-24 {
+    margin-top: 6rem;
+  }
+
   .lg\:block {
     display: block;
   }
@@ -6624,10 +6631,6 @@ html {
 
   .lg\:ps-8 {
     padding-inline-start: 2rem;
-  }
-
-  .lg\:pe-1 {
-    padding-inline-end: 0.25rem;
   }
 
   .lg\:text-2xl {
