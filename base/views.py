@@ -120,7 +120,9 @@ def edit_profile(request,username):
 
 def customer_list(request):
     context = get_filtered_posts()
-    posts = CustomBoard.objects.all()
+    posts = CustomBoard.objects.all().order_by('-created_at')
+    for post in posts:
+        post.comment_count = post.board_comments.count()
     count = posts.count()
     context['count'] = count
 

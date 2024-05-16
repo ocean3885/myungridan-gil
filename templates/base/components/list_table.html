@@ -43,6 +43,7 @@
                         <th>번호</th>
                         <th>이름</th>
                         <th>제목</th>
+                        <th>댓글</th>
                         <th>작성일</th>
                         </tr>
                     </thead>
@@ -52,6 +53,7 @@
                             <th>{{post.pk}}</th>
                             <td>{{post.name}}</td>
                             <td>{{post.title}}</td>
+                            <td>{{post.comment_count}}</td>
                             <td>{{post.created_at|date:"y.m.d"}}</td>
                         </a>
                         </tr>

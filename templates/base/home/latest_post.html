@@ -1,7 +1,8 @@
 {% load static %}
 <div class="grid md:grid-cols-2 max-w-[70rem] mx-auto">
-    <div class="flex flex-col gap-y-6 justify-center items-center mb-10">
-        <div class="font-semibold sm:text-xl">도원사주학·성명학 최신글</div>
+    <div class="relative flex flex-col gap-y-6 justify-center items-center mb-10">
+        <div class="flex items-center font-semibold sm:text-xl">도원사주학·성명학 최신글<div class="border inline-block rounded-sm border-gray-400 ml-4"><a href="{% url 'saju-base' %}"><img class="size-2 lg:size-3" src="{% static 'base/img/plus-sign.png' %}"></a></div></div>
+        
         <div class="flex flex-col sm:flex-row md:flex-col gap-y-5 sm:gap-x-8">
             <div class="bg-[url('{{latest.image.url}}')] bg-cover bg-center bg-no-repeat h-32 sm:w-40 sm:h-auto md:h-32 md:w-auto rounded-lg" ></div>
             <div class="space-y-3">
@@ -33,7 +34,7 @@
         </div>
     </div>
     <div class="flex flex-col gap-y-6 justify-center items-center mb-10">
-        <div class="font-semibold sm:text-xl">고객문의게시판</div>
+        <div class="flex items-center font-semibold sm:text-xl">고객문의게시판<div class="border inline-block rounded-sm border-gray-400 ml-4"><a href="{% url 'customer-list' %}"><img class="size-2 lg:size-3" src="{% static 'base/img/plus-sign.png' %}"></a></div></div>
         <div class="flex flex-col sm:flex-row md:flex-col gap-y-5 sm:gap-x-8">
             <div class="bg-[url('{% static 'base/img/customboard.jpg' %}')] bg-cover bg-center bg-no-repeat h-32 sm:w-40 sm:h-auto md:h-32 md:w-auto rounded-lg" ></div>
             <div class="space-y-3">
