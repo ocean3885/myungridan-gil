@@ -16,10 +16,14 @@ def get_filtered_posts():
 
 def home(request):
     posts = Post.objects.order_by('-created_at')[:5]
+    boards = CustomBoard.objects.order_by('-created_at')[:5]
+    for post in boards:
+        post.comment_count = post.board_comments.count()
     latest = posts.first()
     context = {
         'posts': posts,
-        'latest': latest
+        'latest': latest,
+        'boards': boards
     }
     return render(request, 'base/home.html', context)
 
@@ -166,10 +170,44 @@ def customer_detail(request,pk):
     return render(request, 'base/customer_detail.html', context)
 
 def customer_delete(request,pk):
-    pass
+    post = get_object_or_404(CustomBoard, pk=pk)
+    context = { 'delete': True}
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        if post.password == password:
+            post.delete()
+            return redirect('customer-list')
+        else:
+            context['error'] = True
+            return render(request,'base/verify_form.html', context)
+
+    else:
+        return render(request, 'base/verify_form.html', context)
 
 def customer_edit(request,pk):
-    pass
+    context = get_filtered_posts()
+    post = get_object_or_404(CustomBoard, pk=pk)
+    if request.method == 'POST':
+        customform =CustomForm(request.POST, instance=post)
+        if customform.is_valid():
+            customform.save()
+            return redirect('customer-detail', pk)
+    customform =CustomForm(instance=post)
+    context['customform'] = customform
+    context['error'] = False
+    return render(request, 'base/customer_write.html', context)
+
+def customer_edit_verify(request,pk):
+    post = get_object_or_404(CustomBoard, pk=pk)
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        if post.password == password:
+            return redirect('customer-edit', pk=pk)
+        else:
+            context = {'error': True}
+            return render(request,'base/verify_form.html', context)
+    else:
+        return render(request, 'base/verify_form.html')
 
 def customer_comment_write(request,pk):
     post = get_object_or_404(CustomBoard, pk=pk)

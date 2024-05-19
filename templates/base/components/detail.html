@@ -15,7 +15,7 @@
         </p>
         <div class="grow">
           <div class="flex gap-x-2 justify-end sm:px-3">
-            <a href="{% url 'customer-edit' post.id %}"><img class="h-4 sm:h-5" src="{% static '/estimate/img/edit.png' %}"></a>
+            <a href="{% url 'customer-edit-verify' post.id %}"><img class="h-4 sm:h-5" src="{% static '/estimate/img/edit.png' %}"></a>
             <a href="{% url 'customer-delete' post.id %}"><img class="h-4 sm:h-5" src="{% static '/estimate/img/delete.png' %}"></a>
             <a href="{% url 'customer-list' %}"><img class="h-4 sm:h-5" src="{% static '/estimate/img/listing.png' %}"></a>
           </div>
