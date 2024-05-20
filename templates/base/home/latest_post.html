@@ -19,9 +19,9 @@
                                 {{post.category}}
                             </div>
                             <span
-                            class="text-sm lg:text-base font-base text-gray-800 group-hover:text-blue-600 truncate"
+                            class="truncate text-sm lg:text-base font-base text-gray-800 group-hover:text-blue-600"
                             >
-                            {{post.title}}
+                            {{post.title|truncate_char:20}}
                             </span>
                             <div
                                 class="bg-gray-100 text-xs font-semibold rounded-sm px-1 group-hover:text-blue-600"
@@ -38,7 +38,7 @@
     <div class="flex flex-col gap-y-6 justify-center items-center mb-10">
         <div class="flex items-center font-semibold sm:text-xl">고객문의게시판<div class="border inline-block rounded-sm border-gray-400 ml-4"><a href="{% url 'customer-list' %}"><img class="size-2 lg:size-3" src="{% static 'base/img/plus-sign.png' %}"></a></div></div>
         <div class="flex flex-col sm:flex-row md:flex-col gap-y-5 sm:gap-x-8 w-full min-[400px]:w-[400px] sm:w-10/12 lg:max-w-[450px] px-8">
-            <div class="bg-[url('{% static 'base/img/customboard.jpg' %}')] bg-cover bg-center bg-no-repeat h-32 sm:w-40 sm:h-auto md:h-32 md:w-auto rounded-lg" ></div>
+            <div class="bg-[url('{% static 'base/img/customboard.jpg' %}')] bg-cover bg-center bg-no-repeat h-32 sm:w-40 sm:h-auto md:h-36 md:w-auto rounded-lg" ></div>
             <div class="space-y-3">
                 <!-- Media -->
                 {% for post in boards %}
@@ -46,14 +46,14 @@
                     <div class="">
                         <div class="flex items-center gap-3">
                             <div
-                                class="bg-gray-200 text-xs font-base rounded-sm px-1 group-hover:text-blue-600"
+                                class="flex-none bg-gray-200 text-xs font-base rounded-sm px-1 group-hover:text-blue-600"
                             >
                                 {{post.name|truncate_char:4}}
                             </div>
                             <div
-                            class="text-sm lg:text-base font-base text-gray-800 group-hover:text-blue-600"
+                            class="truncate text-sm lg:text-base font-base text-gray-800 group-hover:text-blue-600"
                             >
-                            {{post.title|truncate_char:20}} [{{post.comment_count}}]
+                            {{post.title|truncate_char:15}} [{{post.comment_count}}]
                             </div>
                             <div
                                 class="bg-gray-100 text-xs font-semibold rounded-sm px-1 group-hover:text-blue-600"

@@ -9,7 +9,17 @@ def truncate_char(value, max_length):
     Append '...' to the end if the string is truncated.
     """
     if len(value) > max_length:
-        return value[:max_length] + '...'
+        return value[:max_length] 
+    return value
+
+@register.filter
+def truncate_chars(value, max_length):
+    """
+    Truncate the string if it is longer than max_length.
+    Append '...' to the end if the string is truncated.
+    """
+    if len(value) > max_length:
+        return value[:max_length] + "..."
     return value
 
 
