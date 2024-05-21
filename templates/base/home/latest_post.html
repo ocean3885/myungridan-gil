@@ -1,7 +1,7 @@
 {% load static %}
 {% load base_tags %}
 
-<div class="grid md:grid-cols-2 max-w-[70rem] mx-auto">
+<div class="md:grid md:grid-cols-2 max-w-[70rem] mx-auto">
     <div class="w-full relative flex flex-col gap-y-6 justify-center items-center mb-10">
         <div class="flex items-center font-semibold sm:text-xl">도원사주학·성명학 최신글<div class="border inline-block rounded-sm border-gray-400 ml-4"><a href="{% url 'saju-base' %}"><img class="size-2 lg:size-3" src="{% static 'base/img/plus-sign.png' %}"></a></div></div>
         
@@ -21,7 +21,7 @@
                             <span
                             class="truncate text-sm lg:text-base font-base text-gray-800 group-hover:text-blue-600"
                             >
-                            {{post.title|truncate_char:20}}
+                            {{post.title|truncate_chars:15}}
                             </span>
                             <div
                                 class="bg-gray-100 text-xs font-semibold rounded-sm px-1 group-hover:text-blue-600"

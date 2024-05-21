@@ -33,7 +33,7 @@
         </p> 
           {% for comment in comments %}
           <div class="flex justify-between mt-5 mr-3">
-            <div class="flex justify-start"><img class="size-6 mr-2" src="{{comment.user.profile.image_thumb.url}}"/>{% if comment.user.profile.name %}{{comment.user.profile.name}}{%else%}{{comment.user}}{%endif%}</div>
+            <div class="flex justify-start"><img class="size-6 mr-2 rounded-full" src="{{comment.user.profile.image_thumb.url}}"/>{% if comment.user.profile.name %}{{comment.user.profile.name}}{%else%}{{comment.user}}{%endif%}</div>
               {% if user.is_staff or comment.user == user%}
               <a href="{% url 'customer-comment-delete' post.id comment.id %}">
                 <img class="h-4" src="{% static '/estimate/img/remove.png' %}">
