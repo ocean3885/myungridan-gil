@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Profile, CustomBoard, CustomComment
+from .models import Profile, CustomBoard, CustomComment, PageView
 from post.models import Post
 from .forms import ProfileForm, CustomCommentForm, CustomForm
 from .utils import resize_image
@@ -15,6 +15,7 @@ def get_filtered_posts():
     }
 
 def home(request):
+    page_view, created = PageView.objects.get_or_create(url=request.path)
     posts = Post.objects.order_by('-created_at')[:5]
     boards = CustomBoard.objects.order_by('-created_at')[:5]
     for post in boards:
@@ -23,7 +24,8 @@ def home(request):
     context = {
         'posts': posts,
         'latest': latest,
-        'boards': boards
+        'boards': boards,
+        'page_view': page_view
     }
     return render(request, 'base/home.html', context)
 

@@ -37,6 +37,13 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
+class PageView(models.Model):
+    url = models.CharField(max_length=200)
+    views = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.url
+
 class CustomBoard(models.Model):
     name = models.CharField(max_length=20)
     email = models.EmailField(blank=True)
