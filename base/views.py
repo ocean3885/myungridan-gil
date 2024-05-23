@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Profile, CustomBoard, CustomComment, PageView
+from django.utils import timezone
+from .models import Profile, CustomBoard, CustomComment, PageView, PageViewDetail
 from post.models import Post
 from .forms import ProfileForm, CustomCommentForm, CustomForm
 from .utils import resize_image
@@ -14,19 +15,29 @@ def get_filtered_posts():
         'posts2': posts2,
     }
 
+def my_view(request):
+    page_view = PageView.objects.get(url=request.path)
+    today = timezone.now().date()
+    page_view_detail = PageViewDetail.objects.get(page_view=page_view, date=today)
+
+    # 오늘의 방문자 수 가져오기
+    today_count = page_view_detail.views
+
+    # 날짜별 방문자 수 가져오기
+    # page_view_details = PageViewDetail.objects.filter(page_view=page_view).order_by('-date')
+    context = {'page_view':page_view, 'today_count':today_count}
+    return context
+    
 def home(request):
-    page_view, created = PageView.objects.get_or_create(url=request.path)
+    context = my_view(request)
     posts = Post.objects.order_by('-created_at')[:5]
     boards = CustomBoard.objects.order_by('-created_at')[:5]
     for post in boards:
         post.comment_count = post.board_comments.count()
     latest = posts.first()
-    context = {
-        'posts': posts,
-        'latest': latest,
-        'boards': boards,
-        'page_view': page_view
-    }
+    context['posts'] = posts
+    context['latest'] = latest
+    context['boards'] = boards    
     return render(request, 'base/home.html', context)
 
 def saju_base(request):

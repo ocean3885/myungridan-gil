@@ -39,11 +39,21 @@ def save_user_profile(sender, instance, **kwargs):
 
 class PageView(models.Model):
     url = models.CharField(max_length=200)
-    views = models.PositiveIntegerField(default=0)
+    total_views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.url
 
+class PageViewDetail(models.Model):
+    page_view = models.ForeignKey(PageView, on_delete=models.CASCADE)
+    date = models.DateField()
+    views = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        unique_together = ('page_view', 'date')
+    
+    def __str__(self):
+        return f"{self.page_view.url} - {self.date}"
 class CustomBoard(models.Model):
     name = models.CharField(max_length=20)
     email = models.EmailField(blank=True)
