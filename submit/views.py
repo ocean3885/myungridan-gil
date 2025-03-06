@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
-from .utils import staff_or_valid_session_check, user_passes_test_with_request, staff_check
+from django.http import HttpResponse
+from .utils import staff_or_valid_session_check, user_passes_test_with_request, staff_check, get_client_ip, is_rate_limited, update_last_post_time
 from manseryuk.views import Msr_Calculator
 from manseryuk.calculator import determine_zodiac_hour_str
 from django.core.paginator import Paginator
@@ -25,6 +26,26 @@ def submit_form(request, category):
         personForm = PersonForm(request.POST or None)
     
     if request.method == "POST":
+
+        # 작성 제한 시간 (예: 60초)
+        limit_seconds = 60
+
+        # IP 주소 가져오기
+        ip_address = get_client_ip(request)
+
+        # 캐시 키 설정 (IP 기반)
+        cache_key = f'post_limit_{ip_address}'
+
+        # 속도 제한 확인
+        is_limited, remaining_time = is_rate_limited(cache_key, limit_seconds)
+        if is_limited:
+            return HttpResponse("글 작성은 60초 후에 가능합니다.", status=429)
+
+        # 새 글 작성 로직
+        # 예: Post.objects.create(content=request.POST['content'])
+
+        # 작성 시간 갱신
+        update_last_post_time(cache_key, timeout=limit_seconds)
         # 제출된 폼 검증
         if submitForm.is_valid() and (personForm is None or personForm.is_valid()):
             obj = submitForm.save(commit=False)

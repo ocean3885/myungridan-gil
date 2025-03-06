@@ -1,4 +1,6 @@
 from django.shortcuts import redirect
+from datetime import datetime
+from django.core.cache import cache
 
 def staff_check(user):
     return user.is_authenticated and (user.is_superuser or user.is_staff)
@@ -21,3 +23,25 @@ def user_passes_test_with_request(test_func):
             return redirect('/')
         return _wrapped_view
     return decorator
+
+def get_client_ip(request):
+    """요청에서 클라이언트 IP 주소를 가져오는 함수"""
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+def is_rate_limited(cache_key, limit_seconds):
+    """속도 제한 여부를 확인하는 함수"""
+    last_post_time = cache.get(cache_key)
+    if last_post_time:
+        elapsed_time = (datetime.now() - last_post_time).total_seconds()
+        if elapsed_time < limit_seconds:
+            return True, limit_seconds - elapsed_time  # 제한 상태와 남은 시간 반환
+    return False, None
+
+def update_last_post_time(cache_key, timeout=30):
+    """현재 시간을 캐시에 갱신"""
+    cache.set(cache_key, datetime.now(), timeout=timeout)
