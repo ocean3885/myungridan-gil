@@ -44,8 +44,7 @@ def submit_form(request, category):
         # 새 글 작성 로직
         # 예: Post.objects.create(content=request.POST['content'])
 
-        # 작성 시간 갱신
-        update_last_post_time(cache_key, timeout=limit_seconds)
+        
         # 제출된 폼 검증
         if submitForm.is_valid() and (personForm is None or personForm.is_valid()):
             obj = submitForm.save(commit=False)
@@ -75,6 +74,8 @@ def submit_form(request, category):
             }
             send_response = requests.post(send_url, data=sms_data)  # send_url은 정의되어야 함
             print(send_response.json())
+            # 작성 시간 갱신
+            update_last_post_time(cache_key, timeout=limit_seconds)
             request.session['submit_name'] = obj.name
             return redirect('submit-detail', obj.id)
         else:
