@@ -184,11 +184,13 @@ def customer_detail(request,pk):
 
 def customer_delete(request,pk):
     post = get_object_or_404(CustomBoard, pk=pk)
-    context = { 'delete': True}
-    if request.method == 'POST':
-        if request.user.is_admin:  # Check if the user is an admin
+    if request.user.is_staff:  # Check if the user is an admin
             post.delete()
             return redirect('customer-list')
+    
+    context = { 'delete': True}
+    if request.method == 'POST':
+        
         
         password = request.POST.get('password')
         if post.password == password:
@@ -205,12 +207,6 @@ def customer_edit(request,pk):
     context = get_filtered_posts()
     post = get_object_or_404(CustomBoard, pk=pk)
     if request.method == 'POST':
-        if request.user.is_admin:  # Check if the user is an admin
-            customform = CustomForm(request.POST, instance=post)
-            if customform.is_valid():
-                customform.save()
-                return redirect('customer-detail', pk)
-
         customform =CustomForm(request.POST, instance=post)
         if customform.is_valid():
             customform.save()
@@ -222,6 +218,7 @@ def customer_edit(request,pk):
 
 def customer_edit_verify(request,pk):
     post = get_object_or_404(CustomBoard, pk=pk)
+
     if request.method == 'POST':
         password = request.POST.get('password')
         if post.password == password:
