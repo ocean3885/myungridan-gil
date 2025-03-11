@@ -14,11 +14,11 @@ class Estimate(models.Model):
     ]
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.SET_NULL)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     count = models.IntegerField(default=0)
-    phone = models.CharField(max_length=20)
+    phone = models.CharField(max_length=20, blank=True)
     email = models.EmailField(blank=True, max_length=254)
     description = models.TextField(blank=True)
     process = models.CharField(max_length=20, choices=PROCESS_CHOICES, blank=True, default="1")

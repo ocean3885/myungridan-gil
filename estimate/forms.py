@@ -50,24 +50,24 @@ class EstimateForm(ModelForm):
 
     class Meta:
         model = Estimate
-        exclude = ['user','count','data']
+        exclude = ['user','count','data','phone','description']
 
         widgets = {
-            "phone": forms.TextInput(
-                attrs={
-                    "placeholder": "전화번호",
-                }
-            ),
+            # "phone": forms.TextInput(
+            #     attrs={
+            #         "placeholder": "전화번호",
+            #     }
+            # ),
             "name": forms.TextInput(
                 attrs={
                     "placeholder": "이름",
                 }
             ),
-            "description": forms.Textarea(
-                attrs={
-                    "placeholder": "이름(한자) 및 개명동기 등",
-                }
-            ),
+            # "description": forms.Textarea(
+            #     attrs={
+            #         "placeholder": "이름(한자) 및 개명동기 등",
+            #     }
+            # ),
         }
 
 

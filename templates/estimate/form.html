@@ -15,40 +15,10 @@
           >
           {% render_field submit.name id="name" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
         </div>
-  
-        <div>
-          <label
-            for="phone"
-            class="block mb-2 text-sm text-gray-700 font-medium"
-            >전화번호</label
-          >
-          {% render_field submit.phone id="phone" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
-        </div>
       </div>
-      <!-- End Grid -->
-      {% if user.is_staff %}
-      <div>
-        <label
-          for="process"
-          class="block mb-2 text-sm text-gray-700 font-medium"
-          >진행상황</label
-        >
-        {% render_field submit.process type="text" id="process" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
-      </div>
-      {% endif %}
-      
-      <div>
-        <label
-          for="description"
-          class="block mb-2 text-sm text-gray-700 font-mediume"
-          >감명세부사항</label
-        >
-        {% render_field submit.description id="description" rows="6" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
-      </div>
-    
       <!-- End Grid -->
       <h2 class="text-xl font-semibold text-gray-800">
-        감명인 정보
+        사주관련정보
       </h2>
 
       <div class="grid grid-cols-2 gap-4 lg:gap-6">

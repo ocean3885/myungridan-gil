@@ -1,13 +1,7 @@
 {% load static %}
 <div class="text-black">
   <!-- 서브페이지 title start -->
-  <div class="flex rounded-md items-center justify-center h-28 bg-no-repeat bg-center bg-[url('{% static '/estimate/img/gammyung_title_bg.jpg' %}')]">
-    <div class="text-white rounded-lg px-4 py-2 text-base sm:text-xl bg-slate-500 bg-opacity-50">도원만세력</div>
-  </div>
-  <div class="flex items-center mt-4 pb-2 text-sm lg:text-base font-semibold border-b border-gray-200">
-    <div class="mt-[2px] mr-3 h-4 border-l-4 border-amber-900/70"></div>
-    <div>도원사주작명원 > 도원만세력</div>
-  </div>
+  
   <p class="mt-4 text-gray-700 text-sm lg:text-base font-normal">
     도원만세력 서비스는 사용자가 입력한 생년월일시를 바탕으로 정확한 만세력 정보를 제공합니다. 사주명리학에서 중요한 천간, 지지, 오행, 육십갑자 등의 정보를 신뢰할 수 있는 데이터로 변환하여 제공합니다.
   </p>
@@ -99,5 +93,14 @@
     </ul>
   </div>
   <!-- 명품작명이란? end -->
+  <div class="mt-6 grid">
+    <a href="{% url 'estimate-form' %}">
+    <button      
+      class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+    >
+      도원만세력
+    </button>
+    </a>
+  </div>
   
 </div>
