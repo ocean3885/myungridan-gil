@@ -12,8 +12,8 @@ class Profile(models.Model):
     name = models.CharField(max_length=20, blank=True)
     bio = models.TextField(max_length=500, blank=True)
     phone = models.CharField(max_length=15, blank=True)
-    bgimg = models.ImageField(upload_to='profile_pics/', null=True, blank=True, default='default_bg.jpg')
-    picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True, default='default_user.png')
+    bgimg = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
+    picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     image_thumb = ImageSpecField(source='picture',processors=[ResizeToFill(100, 100)],format='JPEG',options={'quality': 60})
     data = models.JSONField(default=dict,blank=True)
     gen = models.CharField(max_length=1,blank=True)
@@ -37,23 +37,23 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
-class PageView(models.Model):
-    url = models.CharField(max_length=200)
-    total_views = models.PositiveIntegerField(default=0)
+# class PageView(models.Model):
+#     url = models.CharField(max_length=200)
+#     total_views = models.PositiveIntegerField(default=0)
 
-    def __str__(self):
-        return self.url
+#     def __str__(self):
+#         return self.url
 
-class PageViewDetail(models.Model):
-    page_view = models.ForeignKey(PageView, on_delete=models.CASCADE)
-    date = models.DateField()
-    views = models.PositiveIntegerField(default=0)
+# class PageViewDetail(models.Model):
+#     page_view = models.ForeignKey(PageView, on_delete=models.CASCADE)
+#     date = models.DateField()
+#     views = models.PositiveIntegerField(default=0)
 
-    class Meta:
-        unique_together = ('page_view', 'date')
+#     class Meta:
+#         unique_together = ('page_view', 'date')
     
-    def __str__(self):
-        return f"{self.page_view.url} - {self.date}"
+#     def __str__(self):
+#         return f"{self.page_view.url} - {self.date}"
 class CustomBoard(models.Model):
     name = models.CharField(max_length=20)
     email = models.EmailField(blank=True)

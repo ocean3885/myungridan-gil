@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, CustomBoard, PageView, PageViewDetail
+from .models import Profile, CustomBoard
 
 
 class PageViewAdmin(admin.ModelAdmin):
@@ -13,5 +13,5 @@ class PageViewDetailAdmin(admin.ModelAdmin):
 
 admin.site.register(Profile)
 admin.site.register(CustomBoard)
-admin.site.register(PageView, PageViewAdmin)
-admin.site.register(PageViewDetail, PageViewDetailAdmin)
+# admin.site.register(PageView, PageViewAdmin)
+# admin.site.register(PageViewDetail, PageViewDetailAdmin)

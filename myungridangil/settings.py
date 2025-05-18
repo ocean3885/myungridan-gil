@@ -69,7 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 
-    'base.middleware.PageViewMiddleware',
+    # 'base.middleware.PageViewMiddleware',
     # Add the account middleware:
     "allauth.account.middleware.AccountMiddleware",
 

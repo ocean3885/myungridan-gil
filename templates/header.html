@@ -91,7 +91,7 @@
               href="{% url 'dowon-map' %}"
             >
               찾아오시는길
-            </a>      
+            </a>
             <a
               class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
               href="{% url 'dowon-qna' %}"
@@ -192,9 +192,23 @@
         <div
           class="flex items-center gap-x-2 h-8 font-medium md:border-s md:border-gray-300 md:ps-5"
           href="/accounts/logout"
-        ><a href="{% url 'view-profile' request.user.username %}">
-          <img class="h-5 rounded-full"src="{{ user.profile.image_thumb.url }}"/></a>
-          <a class="text-gray-500 hover:text-blue-600" href="/accounts/logout">로그아웃</a>
+        >
+          <a href="{% url 'view-profile' request.user.username %}">
+            {% if user.profile.picture %}
+            <img
+              class="h-5 rounded-full"
+              src="{{ user.profile.image_thumb.url }}"
+            />
+            {% else %}
+            <img
+              class="h-5 rounded-full"
+              src="{% static 'base/img/default_user.png' %}"
+            />
+            {% endif %}
+          </a>
+          <a class="text-gray-500 hover:text-blue-600" href="/accounts/logout"
+            >로그아웃</a
+          >
         </div>
         {% else %}
         <a
@@ -224,32 +238,23 @@
 {% if user.is_staff %}
 <!-- Nav -->
 <nav class="print:hidden max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
-  <div
-    class="flex flex-row justify-between items-center py-2 sm:py-4"
-  >
+  <div class="flex flex-row justify-between items-center py-2 sm:py-4">
     <div class="flex items-center">
-      <span
-        class="text-xs lg:text-sm text-gray-800"
-        >{% if page_view%}총:{{page_view.total_views}}명 , 오늘:{{today_count}}명{%else%}관리자모드{%endif%}</span
-      >
+      <span class="text-xs lg:text-sm text-gray-800">관리자모드</span>
     </div>
 
-    <div class="flex flex-row justify-end text-[11px] sm:text-sm md:text-base gap-x-3 md:gap-x-4">
-        <a
-          class="text-gray-800 hover:text-blue-600"
-          href="/post/create/"
-          >글쓰기</a
-        >
-        <a
-          class="text-gray-800 hover:text-blue-600"
-          href="/post/lists/"
-          >글목록</a
-        >
-        <a
-          class="text-gray-800 hover:text-blue-600"
-          href="/submit/list/"
-          >신청관리</a
-        >
+    <div
+      class="flex flex-row justify-end text-[11px] sm:text-sm md:text-base gap-x-3 md:gap-x-4"
+    >
+      <a class="text-gray-800 hover:text-blue-600" href="/post/create/"
+        >글쓰기</a
+      >
+      <a class="text-gray-800 hover:text-blue-600" href="/post/lists/"
+        >글목록</a
+      >
+      <a class="text-gray-800 hover:text-blue-600" href="/submit/list/"
+        >신청관리</a
+      >
     </div>
   </div>
 </nav>

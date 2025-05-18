@@ -1,76 +1,82 @@
 {% extends 'main.html' %} 
 {% block content %}
+{% load static %}
 
 <section class="py-10 my-auto text-black">
-    <div class="lg:w-[80%] md:w-[90%] w-[96%] mx-auto flex gap-4">
-        <div
-            class="md:w-[80%] sm:w-[88%] w-full mx-auto shadow-2xl p-4 sm:p-8 rounded-xl h-fit self-center">
-            <!--  -->
-            <div class="">
-                <h1
-                    class="lg:text-3xl text-2xl text-bold mb-5 text-center">
-                    프로필
-                </h1>
-                <div class="text-gray text-sm flex justify-end mb-4 gap-x-2">
-                {% if request.user == profile.user %}
-                <a href="{% url 'edit-profile' profile.user.username %}"><div>수정</div></a>
-                {% endif %}
-                <a href="javascript:history.back()"><div>이전</div></a>
-                <a href="{% url 'post-list' %}"><div>목록</div></a>
-                </div>
-                    <!-- Cover Image -->
-                <div
-                    class="py-7 w-full rounded-sm bg-[url('{{ profile.bgimg.url}}')] bg-cover bg-center bg-no-repeat items-center">
-                    <!-- Profile Image -->
-                    <div
-                        class="mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-[url('{{ profile.picture.url }}')] bg-cover bg-center bg-no-repeat">
-                    </div>
-                </div>
-
-              <!-- Grid -->
-                <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
-                  <div>
-                    <label for="name" class="block mb-2 text-sm text-gray-700 font-medium"
-                      >이름</label
-                    >
-                    <div
-                      id="name"
-                      class="py-3 px-4 h-12 block w-full bg-gray-100 rounded-md text-sm lg:text-base border-b-2"
-                    >
-                      {{profile.name}}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label for="phone" class="block mb-2 text-sm text-gray-700 font-medium"
-                      >이메일</label
-                    >
-                    <div
-                      id="phone"
-                      class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm lg:text-base border-b-2"
-                    >
-                      {{profile.user.email}}
-                    </div>
-                  </div>
-                </div>
-                <!-- End Grid -->
-                <div class="mt-10">
-                  <label
-                    for="description"
-                    class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
-                    >자기소개</label
-                  >
-                  <div
-                    id="description"
-                    rows="6"
-                    class="py-3 px-4 min-h-52 block w-full bg-gray-100 border-b-2 rounded-md text-sm lg:text-base"
-                  >
-                    {{profile.bio|linebreaks}}
-                  </div>
-                </div>
-            </div>
+  <div class="lg:w-[80%] md:w-[90%] w-[96%] mx-auto flex gap-4">
+    <div
+      class="md:w-[80%] sm:w-[88%] w-full mx-auto shadow-2xl p-4 sm:p-8 rounded-xl h-fit self-center"
+    >
+      <!--  -->
+      <div class="">
+        <h1 class="lg:text-3xl text-2xl text-bold mb-5 text-center">프로필</h1>
+        <div class="text-gray text-sm flex justify-end mb-4 gap-x-2">
+          {% if request.user == profile.user %}
+          <a href="{% url 'edit-profile' profile.user.username %}"
+            ><div>수정</div></a
+          >
+          {% endif %}
+          <a href="javascript:history.back()"><div>이전</div></a>
+          <a href="{% url 'post-list' %}"><div>목록</div></a>
         </div>
+        <!-- Cover Image -->
+        <div
+          class="py-7 w-full rounded-sm bg-[url('{% if profile.bgimg %}{{ profile.bgimg.url }}{% else %}{% static 'base/img/default_bg.jpg' %}{% endif %}')] bg-cover bg-center bg-no-repeat items-center"
+        >
+          <!-- Profile Image -->
+          <div
+            class="mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-[url('{% if profile.picture %}{{ profile.picture.url }}{% else %}{% static 'base/img/default_user.png' %}{% endif %}')] bg-cover bg-center bg-no-repeat"
+          ></div>
+        </div>
+
+        <!-- Grid -->
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+          <div>
+            <label
+              for="name"
+              class="block mb-2 text-sm text-gray-700 font-medium"
+              >이름</label
+            >
+            <div
+              id="name"
+              class="py-3 px-4 h-12 block w-full bg-gray-100 rounded-md text-sm lg:text-base border-b-2"
+            >
+              {{profile.name}}
+            </div>
+          </div>
+
+          <div>
+            <label
+              for="phone"
+              class="block mb-2 text-sm text-gray-700 font-medium"
+              >이메일</label
+            >
+            <div
+              id="phone"
+              class="py-3 px-4 block w-full bg-gray-100 rounded-md text-sm lg:text-base border-b-2"
+            >
+              {{profile.user.email}}
+            </div>
+          </div>
+        </div>
+        <!-- End Grid -->
+        <div class="mt-10">
+          <label
+            for="description"
+            class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
+            >자기소개</label
+          >
+          <div
+            id="description"
+            rows="6"
+            class="py-3 px-4 min-h-52 block w-full bg-gray-100 border-b-2 rounded-md text-sm lg:text-base"
+          >
+            {{profile.bio|linebreaks}}
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
 {% endblock content %}
