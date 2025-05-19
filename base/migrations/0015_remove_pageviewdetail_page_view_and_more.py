@@ -10,14 +10,14 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='pageviewdetail',
-            name='page_view',
-        ),
-        migrations.AlterUniqueTogether(
-            name='pageviewdetail',
-            unique_together=None,
-        ),
+        # migrations.RemoveField(
+        #     model_name='pageviewdetail',
+        #     name='page_view',
+        # ),
+        # migrations.AlterUniqueTogether(
+        #     name='pageviewdetail',
+        #     unique_together=None,
+        # ),
         migrations.DeleteModel(
             name='PageView',
         ),
