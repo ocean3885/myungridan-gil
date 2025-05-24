@@ -18,9 +18,10 @@
     <div
       class="flex flex-col min-h-28 sm:flex-row md:flex-col gap-y-5 sm:gap-x-8 w-full min-[400px]:w-[410px] sm:w-10/12 lg:max-w-[450px] px-6"
     >
-      <div
-        class="bg-[url('{{ latest.image.url }}')] bg-cover bg-center bg-no-repeat h-32 sm:w-40 sm:h-auto md:h-36 md:w-auto rounded-lg"
-      ></div>
+      <img
+        src="{{latest.image.url}}"
+        class="object-cover h-32 sm:w-40 sm:h-auto md:h-36 md:w-auto rounded-lg"
+      />
       <div class="space-y-3">
         <!-- Media -->
         {% for post in posts %}
@@ -72,9 +73,11 @@
     <div
       class="flex flex-col min-h-28 sm:flex-row md:flex-col gap-y-5 sm:gap-x-8 w-full min-[400px]:w-[410px] sm:w-10/12 lg:max-w-[450px] px-6"
     >
-      <div
-        class="bg-[url('{% static 'base/img/customboard.jpg' %}')] bg-cover bg-center bg-no-repeat h-32 sm:w-40 sm:h-auto md:h-36 md:w-auto rounded-lg"
-      ></div>
+      <img
+        class="object-cover h-32 sm:w-40 sm:h-auto md:h-36 md:w-auto rounded-lg"
+        src="{% static 'base/img/customboard.jpg' %}"
+        alt="Custom Board Image"
+      />
       <div class="space-y-3">
         <!-- Media -->
         {% for post in boards %}
