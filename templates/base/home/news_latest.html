@@ -1,0 +1,37 @@
+{% load static %}{% load base_tags %}
+<div class="max-w-[85rem] mx-auto mb-5">
+  <div
+    class="flex flex-col sm:flex-row items-center justify-center gap-10 rounded-lg p-4 md:p-8 lg:p-12"
+  >
+    <div class="w-full sm:w-1/2 flex justify-center">
+      <img
+        src="{% static 'section/img/news_dowon.png' %}"
+        alt="news"
+        class="w-full max-w-[500px] rounded-lg shadow-lg"
+      />
+    </div>
+
+    <div class="w-full sm:w-1/2 flex flex-col justify-center max-w-[500px] mx-auto">
+      <div class="text-2xl"><strong>상담/신청</strong>현황</div>
+      <div class="text-sm">도원사주작명원 상담 신청현황입니다.</div>
+      <div class="border-t-2 border-gray-500 mt-2 mb-2"></div>
+      {% for submit in submits %}
+      <div class="flex items-center text-black border-b-2 py-1 md:py-2">
+        <div class="flex items-center gap-3 w-full">
+          <!-- 왼쪽 category: 고정 너비 -->
+          <div class="truncate">{{submit.created|date:"m. d"}}</div>
+          <div class="bg-amber-500 text-white text-sm px-1 rounded-md">N</div>
+          <div>{{submit.name|mask_name}}</div>
+          <!-- 가운데 title: 유동 너비 + 글자 줄이기 허용 -->
+          <div class="flex-1 min-w-0 truncate">{{submit.get_category_display}}</div>
+
+          <!-- 오른쪽 created_at: 고정 너비 -->
+          <div class="bg-gray-500 rounded-sm px-2 py-1 text-white">
+            {{submit.get_process_display}}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 from django.shortcuts import redirect
 from datetime import datetime
+from functools import wraps
 from django.core.cache import cache
 
 def staff_check(user):
@@ -17,6 +18,7 @@ def staff_or_valid_session_check(user, request):
 def user_passes_test_with_request(test_func):
     """request 객체를 테스트 함수에 전달하기 위한 데코레이터를 생성하는 팩토리 함수"""
     def decorator(view_func):
+        @wraps(view_func)
         def _wrapped_view(request, *args, **kwargs):
             if test_func(request.user, request):
                 return view_func(request, *args, **kwargs)

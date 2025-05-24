@@ -24,39 +24,37 @@
     </div>
     <div class="grid grid-cols-2 divide-x divide-stone-400">
       <div class="py-0 sm:py-1 text-center">시간</div>
-      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.time_ji_ch}}시 [ {{submit.hour}}시 {{submit.min}}분 ] </div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.hour}}시 [ {{submit.data.datas.hour}}시 {{submit.data.datas.min}}분 ] </div>
     </div>
   </div>
 
-
-
   <div class="mt-6 bg-gray-100 border border-gray-500 divide-y divide-stone-400"> 
     <div class="text-sm sm:text-md md:text-base grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.time_gan10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.detail.time.gan.relation}}</div>
       <div class="py-0 sm:py-1 text-center">일간</div>
-      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.month_gan10}}</div>
-      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.year_gan10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.detail.month.gan.relation}}</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.detail.year.gan.relation}}</div>
     </div>
 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.time_gan_ch|hanja_color }}">{{submit.data.datas.time_gan_ch}}</div>
-      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.day_gan_ch|hanja_color }}">{{submit.data.datas.day_gan_ch}}</div>
-      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.month_gan_ch|hanja_color }}">{{submit.data.datas.month_gan_ch}}</div>
-      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.year_gan_ch|hanja_color }}">{{submit.data.datas.year_gan_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.detail.time.gan.name|hanja_color}}">{{submit.data.datas.detail.time.gan.name}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.detail.day.gan.name|hanja_color}}">{{submit.data.datas.detail.day.gan.name}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.detail.month.gan.name|hanja_color}}">{{submit.data.datas.detail.month.gan.name}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.detail.year.gan.name|hanja_color}}">{{submit.data.datas.detail.year.gan.name}}</div>
     </div>
 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.time_ji_ch|hanja_color }}">{{submit.data.datas.time_ji_ch}}</div>
-      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.day_ji_ch|hanja_color }}">{{submit.data.datas.day_ji_ch}}</div>
-      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.month_ji_ch|hanja_color }}">{{submit.data.datas.month_ji_ch}}</div>
-      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.year_ji_ch|hanja_color }}">{{submit.data.datas.year_ji_ch}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.detail.time.ji.name|hanja_color}}">{{submit.data.datas.detail.time.ji.name}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.detail.day.ji.name|hanja_color}}">{{submit.data.datas.detail.day.ji.name}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.detail.month.ji.name|hanja_color}}">{{submit.data.datas.detail.month.ji.name}}</div>
+      <div class="py-2 text-3xl font-semibold text-center {{submit.data.datas.detail.year.ji.name|hanja_color}}">{{submit.data.datas.detail.year.ji.name}}</div>
     </div>
 
     <div class="text-sm sm:text-md md:text-base grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.time_ji10}}</div>
-      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.day_ji10}}</div>
-      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.month_ji10}}</div>
-      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.year_ji10}}</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.detail.time.ji.relation}}</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.detail.day.ji.relation}}</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.detail.month.ji.relation}}</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.data.datas.detail.year.ji.relation}}</div>
     </div>
   </div>
 
@@ -90,7 +88,7 @@
         {% if all_false %}
           <div class="data-group" id="group-11">
             <div class="grid grid-cols-10">
-              {% for data in submit.data.datas.baby_10 %}
+              {% for data in nowcycle %}
                 <div class="table border flex-1">
                   <div class="py-0 text-[10px] sm:text-sm text-center bg-gray-200">{{ data.0 }}</div>
                   <div class="py-1 text-center {{ data.1|hanja_color }}">{{ data.1 }}</div>
@@ -123,8 +121,9 @@
 
       const targetId = element.getAttribute('data-target');
       const groups = document.querySelectorAll('.data-group');
+      const groupMapping = {'group-9':'group-0', 'group-8':'group-1', 'group-7':'group-2', 'group-6':'group-3', 'group-5':'group-4', 'group-4':'group-5', 'group-3':'group-6', 'group-2':'group-7', 'group-1':'group-8', 'group-0':'group-9'};
       groups.forEach(group => {
-        if(group.id === targetId) {
+        if(groupMapping[group.id] === targetId) {
           group.classList.remove('hidden');
         } else {
           group.classList.add('hidden');

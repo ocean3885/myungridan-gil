@@ -2,7 +2,8 @@ from django.forms import ModelForm
 from django import forms
 import datetime
 from .models import Profile, CustomBoard, CustomComment
-from django.core.validators import EmailValidator
+from django.core.validators import EmailValidator, MaxLengthValidator
+
 
 class ProfileForm(ModelForm):
 
@@ -57,6 +58,10 @@ class ProfileForm(ModelForm):
 class CustomForm (ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     email = forms.EmailField(required=False, validators=[EmailValidator(message='유효한 이메일 주소를 입력해주세요.')])
+    name = forms.CharField(
+        max_length=4,
+        validators=[MaxLengthValidator(4, message='이름은 최대 4글자까지 입력 가능합니다.')],
+    )
     class Meta:
         model = CustomBoard
         fields = ['name','email','title','content','password']

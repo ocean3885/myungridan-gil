@@ -27,3 +27,9 @@ def truncate_chars(value, max_length):
 def combine_strings(name, title, created_at, comment_count):
     combined = f"{name} {title} [{comment_count}] {created_at.strftime('%m.%d')}"
     return combined
+
+@register.filter
+def mask_name(name):
+    if not name:
+        return ''
+    return name[0] + 'ㅇ' * (len(name) - 1)

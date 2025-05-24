@@ -16,9 +16,9 @@ module.exports = {
     },
     extend: {
       screens: {
-        print: { raw: 'print' },
+        xs: '480px', 
       },
-    },
+    },    
   },
   plugins: [
     require('@tailwindcss/typography'),
