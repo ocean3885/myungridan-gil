@@ -12,7 +12,7 @@
       <div class="py-0 sm:py-1 text-center">신청인</div>
       <div class="py-0 sm:py-1 text-center">{{submit.name}}</div>
       <div class="py-0 sm:py-1 text-center">성별</div>
-      <div class="py-0 sm:py-1 text-center">{{submit.gen}}</div>
+      <div class="py-0 sm:py-1 text-center">{% if submit.gen == "male" %}남자{% else%}여자{% endif %}</div>
     </div>
     <div class="grid grid-cols-2 divide-x divide-stone-400">
       <div class="py-0 sm:py-1 text-center">양력</div>

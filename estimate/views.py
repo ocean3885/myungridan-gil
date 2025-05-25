@@ -74,13 +74,13 @@ def estimate_detail(request, pk):
         visible = any(year == current_year for year, _, _ in group)
         groups_with_visibility.append((group, visible))
         grouped_data_visibility.append(visible)
+    grouped_data_visibility.reverse()
     grouped_data = zip(
             descending_tens(submit.data['datas']['daewoon_num']),
             submit.data['datas']['daewoon'][1],
             submit.data['datas']['daewoon'][2],
             grouped_data_visibility
         )
-
     all_false = all(not value for value in grouped_data_visibility)
     context = {
         "submit": submit,

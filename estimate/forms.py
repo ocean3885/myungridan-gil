@@ -26,7 +26,7 @@ class EstimateForm(ModelForm):
     day = forms.ChoiceField(widget=forms.Select, choices=DAY_CHOICES,
                             initial=today.day, label="태어난 일(日) ")
 
-    GEN_CHOICES = [("남", "남"), ("여", "여")]
+    GEN_CHOICES = [("male", "남"), ("female", "여")]
     gen = forms.ChoiceField(widget=forms.Select,
                             choices=GEN_CHOICES, label="성 별 ")
     SL_CHOICES = [("solar", "양력"), ("lunar", "음력"), ("lunar_y", "음력윤달")]

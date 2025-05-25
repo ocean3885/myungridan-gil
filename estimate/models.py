@@ -24,7 +24,7 @@ class Estimate(models.Model):
     description = models.TextField(blank=True)
     process = models.CharField(max_length=20, choices=PROCESS_CHOICES, blank=True, default="1")
     data = models.JSONField(default=dict)
-    gen = models.CharField(max_length=1)
+    gen = models.CharField(max_length=10)
     sl = models.CharField(max_length=10)
     year = models.CharField(max_length=4)
     month = models.CharField(max_length=2)
