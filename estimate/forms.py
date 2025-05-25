@@ -29,7 +29,7 @@ class EstimateForm(ModelForm):
     GEN_CHOICES = [("남", "남"), ("여", "여")]
     gen = forms.ChoiceField(widget=forms.Select,
                             choices=GEN_CHOICES, label="성 별 ")
-    SL_CHOICES = [("양력", "양력"), ("음력", "음력"), ("음력윤달", "음력윤달")]
+    SL_CHOICES = [("solar", "양력"), ("lunar", "음력"), ("lunar_y", "음력윤달")]
     sl = forms.ChoiceField(widget=forms.Select,
                            choices=SL_CHOICES, label="양력/음력 ")
     

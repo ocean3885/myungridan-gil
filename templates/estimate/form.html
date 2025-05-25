@@ -1,123 +1,158 @@
 {% load widget_tweaks %} 
 <form method="POST" autocomplete="off" enctype="multipart/form-data">
   {% csrf_token %}
-    <div class="mt-6 grid gap-4 lg:gap-6 text-black">
-      <!-- Grid -->
-      <h2 class="mb-4 text-xl font-semibold text-gray-800">
-        신청인 정보
-      </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
-        <div>
-          <label
-            for="name"
-            class="block mb-2 text-sm text-gray-700 font-medium"
-            >신청인이름</label
-          >
+  <div class="mt-6 grid gap-4 lg:gap-6 text-black">
+    <!-- Grid -->
+    <h2 class="mb-4 text-xl font-semibold text-gray-800">
+      신청인 정보
+    </h2>
+    <div class="flex gap-4 lg:gap-6">
+      <div clss="flex-1">
+        <label
+          for="name"
+          class="block mb-2 text-sm text-gray-700 font-medium"
+          >신청인이름</label
+        >
+        <div class="flex gap-5 justify-center items-center">
           {% render_field submit.name id="name" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+          <button class="w-24 h-10 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700"type="button" id="openModalBtn">한자조회</button>
         </div>
       </div>
-      <!-- End Grid -->
-      <h2 class="text-xl font-semibold text-gray-800">
-        사주관련정보
-      </h2>
+      
+      <input type="hidden" name="name_hanja" id="name_hanja">
+      <!-- 모달start -->
+      <div id="hanjaModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+        <!-- ✅ 모달 컨테이너 -->
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-xs p-6 relative">
+          <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">한자 선택</h2>
 
-      <div class="grid grid-cols-2 gap-4 lg:gap-6">
-        <div>
-          <label
-            for="gen"
-            class="block mb-2 text-sm text-gray-700 font-medium"
-            >성별</label
-          >
-          {% render_field submit.gen id="gen" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
-        </div>
+          <!-- ✅ 한자 선택 영역 -->
+          <div id="hanjaSelectForm" class="flex flex-col space-y-2">
+            <!-- JS가 여기에 동적으로 select를 넣습니다 -->
+          </div>
 
-        <div>
-          <label
-            for="sl"
-            class="block mb-2 text-sm text-gray-700 font-medium"
-            >음력/양력</label
-          >
-          {% render_field submit.sl id="sl" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
-        </div>
-      </div>
-
-      <!-- Grid -->
-      <div class="grid grid-cols-2 gap-4 lg:gap-6">
-        <div>
-          <label
-            for="year"
-            class="block mb-2 text-sm text-gray-700 font-medium"
-            >년(年)</label
-          >
-          {% render_field submit.year id="year" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
-        </div>
-
-        <div>
-          <label
-            for="month"
-            class="block mb-2 text-sm text-gray-700 font-medium"
-            >월(月)</label
-          >
-          {% render_field submit.month id="month" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
-        </div>
-
-        <div>
-          <label
-            for="day"
-            class="block mb-2 text-sm text-gray-700 font-medium"
-            >일(日)</label
-          >
-          {% render_field submit.day id="day" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
-        </div>
-
-        <div>
-          <label
-            for="hour"
-            class="block mb-2 text-sm text-gray-700 font-medium"
-            >시(時)</label
-          >
-          {% render_field submit.hour id="hour" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
-        </div>
-
-        <div>
-          <label
-            for="min"
-            class="block mb-2 text-sm text-gray-700 font-medium"
-            >분(分)</label
-          >
-          {% render_field submit.min id="min" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500" %}
+          <!-- ✅ 버튼 영역 -->
+          <div class="mt-6 flex justify-end gap-3">
+            <button type="button"
+                    id="confirmHanjaBtn"
+                    class="inline-flex justify-center items-center rounded-lg border border-transparent bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+              선택 완료
+            </button>
+            <button type="button"
+                    onclick="document.getElementById('hanjaModal').classList.add('hidden')"
+                    class="inline-flex justify-center items-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+              닫기
+            </button>
+          </div>
         </div>
       </div>
-      <!-- End Grid -->
+      <!-- 모달end -->
+    </div>
+    <div id="selected_hanja" class="my-4 text-lg font-semibold text-blue-700"></div>
+    <!-- End Grid -->
+    <h2 class="text-xl font-semibold text-gray-800">
+      사주관련정보
+    </h2>
+
+    <div class="grid grid-cols-2 gap-4 lg:gap-6">
+      <div>
+        <label
+          for="gen"
+          class="block mb-2 text-sm text-gray-700 font-medium"
+          >성별</label
+        >
+        {% render_field submit.gen id="gen" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+      </div>
+
+      <div>
+        <label
+          for="sl"
+          class="block mb-2 text-sm text-gray-700 font-medium"
+          >음력/양력</label
+        >
+        {% render_field submit.sl id="sl" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+      </div>
     </div>
 
-    <!-- Checkbox -->
-    <div class="mt-3 flex">
-      <div class="flex">
-        <input
-          id="agree-term"
-          name="agree-term"
-          type="checkbox"
-          class="shrink-0 mt-1.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500"
-          required
-        />
+    <!-- Grid -->
+    <div class="grid grid-cols-2 gap-4 lg:gap-6">
+      <div>
+        <label
+          for="year"
+          class="block mb-2 text-sm text-gray-700 font-medium"
+          >년(年)</label
+        >
+        {% render_field submit.year id="year" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
       </div>
-      <div class="ms-3">
-        <label for="agree-term" class="text-sm text-gray-600"
-          >개인정보 제공에 동의합니다.
-        </label>
+
+      <div>
+        <label
+          for="month"
+          class="block mb-2 text-sm text-gray-700 font-medium"
+          >월(月)</label
+        >
+        {% render_field submit.month id="month" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+      </div>
+
+      <div>
+        <label
+          for="day"
+          class="block mb-2 text-sm text-gray-700 font-medium"
+          >일(日)</label
+        >
+        {% render_field submit.day id="day" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+      </div>
+
+      <div>
+        <label
+          for="hour"
+          class="block mb-2 text-sm text-gray-700 font-medium"
+          >시(時)</label
+        >
+        {% render_field submit.hour id="hour" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+      </div>
+
+      <div>
+        <label
+          for="min"
+          class="block mb-2 text-sm text-gray-700 font-medium"
+          >분(分)</label
+        >
+        {% render_field submit.min id="min" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500" %}
       </div>
     </div>
-    <!-- End Checkbox -->
+    <!-- End Grid -->
+  </div>
+
+  <!-- Checkbox -->
+  <div class="mt-3 flex">
+    <div class="flex">
+      <input
+        id="agree-term"
+        name="agree-term"
+        type="checkbox"
+        class="shrink-0 mt-1.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500"
+        required
+      />
+    </div>
+    <div class="ms-3">
+      <label for="agree-term" class="text-sm text-gray-600"
+        >개인정보 제공에 동의합니다.
+      </label>
+    </div>
+  </div>
+  <!-- End Checkbox -->
   
-    <div class="mt-6 grid">
-      <button
-        type="submit" id="submit-btn"
-        class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-      >
-        작성완료
-      </button>
-    </div>
-  </form>
+  <div class="mt-6 grid">
+    <button
+      type="submit" id="submit-btn"
+      class="w-full py-2 px-4 inline-flex justify-center items-center gap-x-2 text-base font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+    >
+      작성완료
+    </button>
+  </div>
+</form>
   
+
+
 

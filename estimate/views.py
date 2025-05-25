@@ -7,7 +7,20 @@ from .forms import EstimateForm, CommentForm
 from .models import Estimate, Comment
 from post.models import Post
 from datetime import datetime
+from django.http import JsonResponse
+from .models import InmyungHanja
 
+def get_hanja(request):
+    if request.method == 'GET':
+        name = request.GET.get('name', '')
+        result = []
+
+        for char in name:
+            hanja_list = list(
+                InmyungHanja.objects.filter(pron=char).values('char', 'main_mean')
+            )
+            result.append(hanja_list)        
+        return JsonResponse({'data': result})
 
 def estimate_form(request):
     submitForm = EstimateForm(request.POST or None)
