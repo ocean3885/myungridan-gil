@@ -63,6 +63,7 @@ def estimate_form(request, pk=None):
                 return render(request, "estimate/estimate_form.html", context)
             obj.data = {"datas": api_data, "hanja-info": json_output , "81suri": suri_detail}
             obj.save()
+            request.session[f'estimate_{obj.pk}_auth'] = True
             return redirect("estimate-detail", pk=obj.pk)
         else:
             errors = submitForm.errors
