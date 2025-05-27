@@ -29,8 +29,16 @@
   <!-- End Grid -->
 </div>
 
-<div class="md:hidden">
+<div class="mdplus-out">
   {% include "section/reserve.html" %}
   {% include "section/account_info.html" %}
 </div>
+
+<style>
+  @media (min-width: 880px) {
+    .mdplus-out {
+      display: none;
+    }
+  }
+</style>
 

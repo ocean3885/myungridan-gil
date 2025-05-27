@@ -3723,6 +3723,10 @@ html {
   margin-left: 1rem;
 }
 
+.ml-9 {
+  margin-left: 2.25rem;
+}
+
 .mr-2 {
   margin-right: 0.5rem;
 }
@@ -3901,6 +3905,11 @@ html {
 .size-full {
   width: 100%;
   height: 100%;
+}
+
+.size-3 {
+  width: 0.75rem;
+  height: 0.75rem;
 }
 
 .\!h-2\.5 {
@@ -4712,6 +4721,14 @@ html {
   border-top-width: 2px;
 }
 
+.border-l {
+  border-left-width: 1px;
+}
+
+.border-l-2 {
+  border-left-width: 2px;
+}
+
 .border-solid {
   border-style: solid;
 }
@@ -4786,6 +4803,11 @@ html {
   border-color: transparent;
 }
 
+.border-gray-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(75 85 99 / var(--tw-border-opacity, 1));
+}
+
 .border-b-yellow-900 {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(99 49 18 / var(--tw-border-opacity, 1));
@@ -4821,6 +4843,11 @@ html {
 
 .bg-blue-300\/20 {
   background-color: rgb(164 202 254 / 0.2);
+}
+
+.bg-blue-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(118 169 250 / var(--tw-bg-opacity, 1));
 }
 
 .bg-blue-500 {
@@ -4913,6 +4940,11 @@ html {
 
 .bg-white\/90 {
   background-color: rgb(255 255 255 / 0.9);
+}
+
+.bg-slate-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1));
 }
 
 .bg-opacity-50 {
@@ -5192,6 +5224,14 @@ html {
   padding-top: 50%;
 }
 
+.pl-4 {
+  padding-left: 1rem;
+}
+
+.pl-5 {
+  padding-left: 1.25rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -5413,16 +5453,6 @@ html {
 .text-yellow-950 {
   --tw-text-opacity: 1;
   color: rgb(66 32 6 / var(--tw-text-opacity, 1));
-}
-
-.text-red-800 {
-  --tw-text-opacity: 1;
-  color: rgb(155 28 28 / var(--tw-text-opacity, 1));
-}
-
-.text-red-700 {
-  --tw-text-opacity: 1;
-  color: rgb(200 30 30 / var(--tw-text-opacity, 1));
 }
 
 .decoration-2 {
@@ -6350,6 +6380,11 @@ html {
     display: flex;
   }
 
+  .sm\:size-8 {
+    width: 2rem;
+    height: 2rem;
+  }
+
   .sm\:h-24 {
     height: 6rem;
   }
@@ -6860,6 +6895,10 @@ html {
     margin-top: 2.75rem;
   }
 
+  .lg\:mt-20 {
+    margin-top: 5rem;
+  }
+
   .lg\:mt-24 {
     margin-top: 6rem;
   }
@@ -7296,3 +7335,4 @@ html {
     display: none;
   }
 }
+

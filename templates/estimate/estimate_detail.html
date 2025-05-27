@@ -7,13 +7,13 @@
   <div class="grid mdplus:grid-cols-2 items-start gap-12">
     
     {%include "./saju_view.html"%}
-
+    
     <div class="print:hidden relative">
       <!-- Form -->
       <div
-        class="flex flex-col border rounded-xl p-4 sm:p-6 lg:p-10"
+      class="flex flex-col border rounded-xl p-4 sm:p-6 lg:p-10"
       >
-        {% include "./detail_about.html"%}
+      {% include "./components/estimate_view.html"%}
       </div>
       <!-- End Form -->
     </div>
@@ -22,9 +22,18 @@
 </div>
 
 
-<div class="md:hidden">
+<div class="mdplus-out">
   {% include "section/reserve.html" %}
   {% include "section/account_info.html" %}
 </div>
 
+<style>
+  @media (min-width: 880px) {
+    .mdplus-out {
+      display: none;
+    }
+  }
+</style>
+
 {% endblock content %}
+

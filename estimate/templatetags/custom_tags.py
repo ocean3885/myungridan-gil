@@ -66,3 +66,13 @@ def last_two_digits(value):
     except (ValueError, TypeError):
         # 변환에 실패하면 원래 값을 그대로 반환
         return value
+    
+    
+@register.filter
+def good_bad(value):
+    if value == "길":
+        return "좋음"
+    elif value == "흉":
+        return "나쁨"
+    else:
+        return value

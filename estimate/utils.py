@@ -3,6 +3,47 @@ import json
 from .models import InmyungHanja
 from pathlib import Path
 
+ELEMENT_MAP = {
+    "甲": "목",
+    "乙": "목",
+    "丙": "화",
+    "丁": "화",
+    "戊": "토",
+    "己": "토",
+    "庚": "금",
+    "辛": "금",
+    "壬": "수",
+    "癸": "수",
+    # 지지도
+    "子": "수",
+    "丑": "토",
+    "寅": "목",
+    "卯": "목",
+    "辰": "토",
+    "巳": "화",
+    "午": "화",
+    "未": "토",
+    "申": "금",
+    "酉": "금",
+    "戌": "토",
+    "亥": "수",
+}
+
+def count_elements(chars: str) -> dict:
+    """
+    한문 8글자 입력 받아서 목화토금수 개수를 dict로 반환
+    chars: 문자열, 최대 8글자
+    """
+    counts = {"목": 0, "화": 0, "토": 0, "금": 0, "수": 0}
+    chars = chars[:8]  # 최대 8글자만 처리
+
+    for ch in chars:
+        element = ELEMENT_MAP.get(ch)
+        if element:
+            counts[element] += 1
+
+    return counts
+
 def fetch_estimate_data_from_api(year, month, day, hour, minute, sl, gen):
     """
     외부 express API에 요청 보내고 결과 JSON 반환

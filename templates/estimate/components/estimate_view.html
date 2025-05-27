@@ -1,0 +1,204 @@
+{% load static %}{% load custom_tags %}
+<div class="text-black">
+  <!-- 서브페이지 title start -->
+
+  <p class="mt-4 text-sm sm:text-base text-gray-700">
+    도원사주작명원의 <strong>무료 감명 서비스</strong>는 2025년 현재 지속적인
+    수정 및 업데이트 작업 중에 있어 정확도가 다소 떨어질 수 있습니다. 보다
+    신뢰도 높은 감명 정보를 원하시면 유선 상담을 통해
+    <strong>유료 서비스</strong>를 이용해 주시기 바랍니다.
+  </p>
+  <!-- 서브페이지 title end -->
+
+  <div class="relative">
+    <div
+      class="absolute top-[8px] left-1 rounded-full size-4 border-4 border-blue-800/80"
+    ></div>
+    <h2 class="pl-7 mt-8 lg:mt-11 text-lg font-semibold text-gray-800">
+      이름정보
+    </h2>
+  </div>
+
+  <div class="mt-4 text-gray-800 text-2xl">
+    <div class="flex gap-5 ml-9 items-center">
+      <div>{{submit.name.0}}</div>
+      <div>{{submit.name_hanja.0}}</div>
+      <div class="text-base">{{submit.data.hanjainfo.0.tot_stk}}획</div>
+      <div class="text-base">{{submit.data.hanjainfo.0.main_mean}}</div>
+    </div>
+    <div class="flex gap-5 ml-9 items-center">
+      <div>{{submit.name.1}}</div>
+      <div>{{submit.name_hanja.1}}</div>
+      <div class="text-base">{{submit.data.hanjainfo.1.tot_stk}}획</div>
+      <div class="text-base">{{submit.data.hanjainfo.1.main_mean}}</div>
+    </div>
+    <div class="flex gap-5 ml-9 items-center">
+      <div>{{submit.name.2}}</div>
+      <div>{{submit.name_hanja.2}}</div>
+      <div class="text-base">{{submit.data.hanjainfo.2.tot_stk}}획</div>
+      <div class="text-base">{{submit.data.hanjainfo.2.main_mean}}</div>
+    </div>
+  </div>
+
+  <div class="relative">
+    <div
+      class="absolute top-[8px] left-1 rounded-full size-4 border-4 border-blue-800/80"
+    ></div>
+    <h2 class="pl-7 mt-8 lg:mt-11 text-lg font-semibold text-gray-800">
+      오행분포표
+    </h2>
+  </div>
+  <canvas id="elementChart" class="w-full mt-4"></canvas>
+
+  <div class="relative">
+    <div
+      class="absolute top-[8px] left-1 rounded-full size-4 border-4 border-blue-800/80"
+    ></div>
+    <h2 class="pl-7 mt-8 lg:mt-11 text-lg font-semibold text-gray-800">
+      81수리분석
+    </h2>
+  </div>
+  <div class="mt-4 flex gap-4 flex-col">
+    <div class="flex justify-between">
+      <div class="font-medium text-lg"><img class="inline-block size-5 sm:size-8" src="{% static 'estimate/img/full-stop.png' %}" />초년운 : {{ submit.data.suri81.won.gyuk }} </div>
+      <div class="text-sm text-white bg-blue-400 p-1 rounded-md">{{ submit.data.suri81.won.outcome|good_bad}}</div>
+    </div>
+    <div class="font-normal pl-3">{{ submit.data.suri81.won.hanja_gyuk }}({{ submit.data.suri81.won.korean_gyuk }})</div>
+    <div class="font-normal p-1 bg-slate-100">{{ submit.data.suri81.won.description }}</div>
+    
+  </div>
+  <div class="mt-4 flex gap-4 flex-col">
+    <div class="flex justify-between ">
+    <div class="font-medium text-lg"><img class="inline-block size-5 sm:size-8" src="{% static 'estimate/img/full-stop.png' %}" />청년운 : {{ submit.data.suri81.hyung.gyuk }} </div>
+    <div class="text-sm text-white bg-blue-400 p-1 rounded-md">{{ submit.data.suri81.hyung.outcome|good_bad}}</div>
+    </div>
+    <div class="font-normal pl-3">{{ submit.data.suri81.hyung.hanja_gyuk }}({{ submit.data.suri81.hyung.korean_gyuk }})</div>
+    <div class="font-normal p-1 bg-slate-100">{{ submit.data.suri81.hyung.description }}</div>
+  </div>
+  <div class="mt-4 flex gap-4 flex-col">
+    <div class="flex justify-between">
+    <div class="font-medium text-lg"><img class="inline-block size-5 sm:size-8" src="{% static 'estimate/img/full-stop.png' %}" />중년운 : {{ submit.data.suri81.lee.gyuk }} </div>
+    <div class="text-sm text-white bg-blue-400 p-1 rounded-md">{{ submit.data.suri81.lee.outcome|good_bad}}</div>
+    </div>
+    <div class="font-normal pl-3">{{ submit.data.suri81.lee.hanja_gyuk }}({{ submit.data.suri81.lee.korean_gyuk }})</div>
+    <div class="font-normal p-1 bg-slate-100">{{ submit.data.suri81.lee.description }}</div>
+  </div>
+  <div class="mt-4 flex gap-4 flex-col">
+    <div class="flex justify-between">
+    <div class="font-medium text-lg"><img class="inline-block size-5 sm:size-8" src="{% static 'estimate/img/full-stop.png' %}" />말년운 : {{ submit.data.suri81.jeong.gyuk }} </div>
+    <div class="text-sm text-white bg-blue-400 p-1 rounded-md">{{ submit.data.suri81.jeong.outcome|good_bad}}</div>
+    </div>
+    <div class="font-normal pl-3">{{ submit.data.suri81.jeong.hanja_gyuk }}({{ submit.data.suri81.jeong.korean_gyuk }})</div>
+    <div class="font-normal p-1 bg-slate-100">{{ submit.data.suri81.jeong.description }}</div>
+  </div>
+  <div class="relative">
+    <div
+      class="absolute top-[8px] left-1 rounded-full size-4 border-4 border-blue-800/80"
+    ></div>
+    <h2 class="pl-7 mt-8 lg:mt-11 text-lg font-semibold text-gray-800">
+      음령오행
+    </h2>
+  </div>
+  <div class="relative">
+    <div
+      class="absolute top-[8px] left-1 rounded-full size-4 border-4 border-blue-800/80"
+    ></div>
+    <h2 class="pl-7 mt-8 lg:mt-11 text-lg font-semibold text-gray-800">
+      자원오행
+    </h2>
+  </div>
+  <div class="relative">
+    <div
+      class="absolute top-[8px] left-1 rounded-full size-4 border-4 border-blue-800/80"
+    ></div>
+    <h2 class="pl-7 mt-8 lg:mt-11 text-lg font-semibold text-gray-800">
+      희신분석
+    </h2>
+  </div>
+  <div class="relative">
+    <div
+      class="absolute top-[8px] left-1 rounded-full size-4 border-4 border-blue-800/80"
+    ></div>
+    <h2 class="pl-7 mt-8 lg:mt-11 text-lg font-semibold text-gray-800">
+      총평
+    </h2>
+  </div>
+  <div class="mt-4 pl-5 text-sm">해당 기능은 현재 개발 중입니다. 곧 만나보실 수 있어요!</div>
+  <div class="mt-7 flex justify-center gap-3">
+    <a href="{% url 'estimate-edit' submit.pk %}">
+      <button
+        class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+      >
+        수정
+      </button>
+    </a>
+    <a href="{% url 'estimate-delete' submit.pk %}">
+      <button
+        class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+      >
+        삭제
+      </button>
+    </a>
+    <a href="{% url 'estimate-list' %}">
+      <button
+        class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+      >
+        목록
+      </button>
+    </a>
+  </div>
+</div>
+
+<script>
+  // Python에서 전달받은 counts 예시 (직접 수정 가능)
+  const counts = {{ chartdata | safe }}
+
+  const ctx = document.getElementById('elementChart').getContext('2d');
+
+  const data = {
+      labels: Object.keys(counts),  // ["목", "화", "토", "금", "수"]
+      datasets: [{
+          label: '개수',
+          data: Object.values(counts),  // [2, 3, 1, 2, 0]
+          backgroundColor: [
+              'rgba(34, 139, 34, 0.7)',  // 목 - 녹색
+              'rgba(255, 69, 0, 0.7)',   // 화 - 빨강
+              'rgba(210, 180, 140, 0.7)', // 토 - 갈색
+              'rgba(192, 192, 192, 0.7)', // 금 - 은색
+              'rgba(30, 144, 255, 0.7)',  // 수 - 파랑
+          ],
+          borderColor: 'black',
+          borderWidth: 1
+      }]
+  };
+
+  const config = {
+      type: 'bar',
+      data: data,
+      options: {
+            plugins: {
+            legend: {
+                display: false
+            },
+        },
+          scales: {
+            x: {
+                ticks: {
+                    font: {
+                        size: 16  // x축 눈금 레이블 크기
+                    }
+                }
+            },
+              y: {
+                  beginAtZero: true,
+                  ticks: {
+                    stepSize: 1,  // 1 단위로 눈금 표시
+                    precision: 0  // 소수점 표시 없애기
+                }
+              }
+          }
+      }
+  };
+
+  new Chart(ctx, config);
+</script>

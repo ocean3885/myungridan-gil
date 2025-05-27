@@ -104,12 +104,19 @@
         {% endif %}
       </div>
   </div>
-  <div class="hidden md:block">
+  <div class="hidden mdplus-in">
     {% include "section/reserve.html" %}
     {% include "section/account_info.html" %}
   </div>
 </div>
 
+<style>
+  @media (min-width: 880px) {
+    .mdplus-in {
+      display: block;
+    }
+  }
+</style>
 
 
 <script>

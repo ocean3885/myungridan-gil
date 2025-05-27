@@ -8,7 +8,7 @@ from post.models import Post
 from datetime import datetime
 from django.http import JsonResponse
 from .models import InmyungHanja
-from .utils import get_hanja_details_as_json, get_name_suri_details
+from .utils import get_hanja_details_as_json, get_name_suri_details, count_elements
 from django.contrib import messages
 
 def get_hanja(request):
@@ -53,14 +53,14 @@ def estimate_form(request, pk=None):
                 obj.min,
                 obj.sl,
                 obj.gen,
-            )
+            )            
             json_output = get_hanja_details_as_json(obj.name_hanja)
             suri_detail = get_name_suri_details(json_output)
             if api_data is None:
                 errors = {"api": "외부 API 호출 실패"}
                 context = {"submit": submitForm, "errors": errors}
                 return render(request, "estimate/estimate_form.html", context)
-            obj.data = {"datas": api_data, "hanja-info": json_output , "81suri": suri_detail}
+            obj.data = {"datas": api_data, "hanjainfo": json_output , "suri81": suri_detail}
             obj.save()
             request.session[f'estimate_{obj.pk}_auth'] = True
             return redirect("estimate-detail", pk=obj.pk)
@@ -101,6 +101,7 @@ def estimate_detail(request, pk):
             grouped_data_visibility
         )
     all_false = all(not value for value in grouped_data_visibility)
+    chars = submit.data['datas']['year_hgan'] + submit.data['datas']['month_hgan'] + submit.data['datas']['day_hgan'] + submit.data['datas']['time_hgan'] + submit.data['datas']['year_hji'] + submit.data['datas']['month_hji'] + submit.data['datas']['day_hji'] + submit.data['datas']['time_hji'] 
     context = {
         "submit": submit,
         'grouped_data': grouped_data,
@@ -109,6 +110,7 @@ def estimate_detail(request, pk):
         "comments": comments,
         "comment_form": comment_form,
         'nowcycle': nowcycle,
+        'chartdata': count_elements(chars)
     }
     return render(request, "estimate/estimate_detail.html", context)
 

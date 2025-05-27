@@ -6,8 +6,8 @@
       <h2 class="mb-4 text-sm sm:text-base md:text-xl font-semibold text-gray-800">감명요청사항</h2>
       <div class="flex flex-row gap-3 mr-3">
         {% if not submit.process == "2" %}
-        <a href="{% url 'verify-edit' submit.id %}"><img class="h-4 sm:h-5" src="{% static '/estimate/img/edit.png' %}"></a>
-        <a href="{% url 'verify-delete' submit.id %}"><img class="h-4 sm:h-5" src="{% static '/estimate/img/delete.png' %}"></a>
+        <a href=""><img class="h-4 sm:h-5" src="{% static '/estimate/img/edit.png' %}"></a>
+        <a href=""><img class="h-4 sm:h-5" src="{% static '/estimate/img/delete.png' %}"></a>
         {% endif %}
         <a href="{% url 'estimate-list' %}"><img class="h-4 sm:h-5" src="{% static '/estimate/img/listing.png' %}"></a>
       </div>
