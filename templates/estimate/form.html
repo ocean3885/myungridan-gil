@@ -1,5 +1,5 @@
 {% load widget_tweaks %}
-<form method="POST" autocomplete="off" enctype="multipart/form-data">
+<form id="estimateForm" method="POST" autocomplete="off" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="mt-6 grid gap-4 lg:gap-6 text-black font-medium">
     <!-- Grid -->
@@ -30,7 +30,7 @@
         <input type="password" required name="password" id="password" class="mt-2 py-3 px-4 border border-gray-300 rounded-lg w-full text-sm" />
       </div>
       
-      <input type="hidden" name="name_hanja" id="name_hanja" value="{{ name_hanja|default:''}}">
+      <input type="hidden" name="name_hanja" id="name_hanja" value="{{ name_hanja|default:''}}" />
       <!-- 모달start -->
       <div id="hanjaModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
         <!-- ✅ 모달 컨테이너 -->
@@ -59,8 +59,11 @@
       </div>
       <!-- 모달end -->
     </div>
-    
-    <div id="selected_hanja" class="my-4 text-lg font-semibold text-blue-700">{% if submit.name_hanja %}선택한 한자 이름 : {{name_hanja}}{%endif%}</div>
+    {% if name_hanja %}
+    <div id="selected_hanja" class="my-4 text-lg font-semibold text-blue-700">선택한 한자 이름 : {{name_hanja}}</div>
+    {% else %}
+    <div id="selected_hanja" class="my-4 text-lg font-semibold text-blue-700"></div>
+    {% endif %}
     <!-- End Grid -->
     <h2 class="text-xl font-semibold text-gray-800">
       사주관련정보
@@ -177,6 +180,19 @@
   </div>
 </form>
 
+
+<script>
+document.getElementById('estimateForm').addEventListener('submit', function(event) {
+  const nameHanja = document.getElementById('name_hanja').value.trim();
+
+  if (!nameHanja) {
+    event.preventDefault(); // 폼 제출 막기
+    alert('한자 이름을 입력해주세요.');
+  }
+});
+</script>
+
+
 {% comment %} <script>
   document.addEventListener('DOMContentLoaded', function () {
     const checkbox = document.getElementById('is_secret');
@@ -200,6 +216,5 @@
     checkbox.addEventListener('change', togglePasswordField);
   });
 </script> {% endcomment %}
-
 
 
