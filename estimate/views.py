@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
-from manseryuk.views import Msr_Calculator
-from manseryuk.calculator import determine_zodiac_hour_str, descending_tens, generate_baby_cycles
+from manseryuk.calculator import descending_tens, generate_baby_cycles
 from .utils import fetch_estimate_data_from_api
 from .forms import EstimateForm, CommentForm
 from .models import Estimate, Comment

@@ -44,8 +44,8 @@
               <tr class="cursor-pointer" onclick="window.location.href='{% url 'estimate-detail' submit.pk %}';">
                   <th>{{submit.pk}}</th>
                   <td class="flex items-center gap-2"><div>{{submit.name|mask_name}}{% if submit.is_secret %}</div><img class="size-4" src="{% static 'estimate/img/lock.png' %}" alt="Lock icon">{% endif %}</td>
-                  <td>{{submit.year}}{{submit.month}}{{submit.day}}</td>
-                  <td>{{submit.created|date:"y.m.d"}}</td>
+                  <td>{{submit.year|two_digits}}.{{submit.month|zeropad}}.{{submit.day|zeropad}}</td>
+                  <td>{{submit.created|date:"m.d"}}</td>
                   <td>{{submit.count}}</td>
                 </a>
               </tr>

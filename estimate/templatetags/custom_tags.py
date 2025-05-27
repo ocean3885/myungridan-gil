@@ -38,3 +38,31 @@ def mask_name(name):
         return ''
     return ''.join(char if i % 2 == 0 else 'ㅇ' for i, char in enumerate(name))
 
+@register.filter(name='zeropad')
+def zeropad(value):
+    """
+    한 자리 숫자를 2자리로 만들어주는 필터. (예: 1 -> "01", 10 -> "10")
+    숫자가 아닌 값이 들어올 경우를 대비하여 예외 처리를 포함합니다.
+    """
+    try:
+        # 값을 문자열로 변환한 뒤, zfill(2)를 사용하여 전체 길이를 2로 만들고
+        # 부족한 앞자리를 '0'으로 채웁니다.
+        return str(value).zfill(2)
+    except (ValueError, TypeError):
+        # 만약 값이 숫자나 문자열로 변환될 수 없는 경우, 원래 값을 그대로 반환
+        return value
+    
+@register.filter(name='two_digits')
+def last_two_digits(value):
+    """
+    값(숫자 또는 문자)을 문자열로 변환하여 마지막 두 자리만 반환하는 필터.
+    (예: 2024 -> "24", 1998 -> "98")
+    """
+    try:
+        # 값을 문자열로 변환
+        s = str(value)
+        # 문자열 슬라이싱을 사용하여 뒤에서부터 2개의 문자를 가져옴
+        return s[-2:]
+    except (ValueError, TypeError):
+        # 변환에 실패하면 원래 값을 그대로 반환
+        return value

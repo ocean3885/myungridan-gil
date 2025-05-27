@@ -2,6 +2,7 @@ from django.forms import ModelForm, TextInput, EmailInput
 from django import forms
 import datetime
 from .models import Submit, Person
+import re
 
 class NameSubmitForm(ModelForm):
 
@@ -12,7 +13,7 @@ class NameSubmitForm(ModelForm):
     class Meta:
         model = Submit
         exclude = ['category', 'user']
-
+        
         widgets = {
             'name': TextInput(attrs={'placeholder': '예) 김민수'}),
             'phone': TextInput(attrs={'placeholder': '예) 01012345678'}),
@@ -28,6 +29,15 @@ class NameSubmitForm(ModelForm):
             'dolrim': TextInput(attrs={'placeholder': '필요한경우기재'}),
             'wantdate': TextInput(attrs={'placeholder': '예) 24.05.05'}),
         }
+        
+    def clean_phone(self): # NameSubmitForm과 동일한 로직
+        phone_number = self.cleaned_data.get('phone')
+        if phone_number:
+            if re.search(r'[- ]', phone_number):
+                raise forms.ValidationError("전화번호에는 하이픈(-)이나 공백을 포함할 수 없습니다.")
+            if not phone_number.isdigit():
+                raise forms.ValidationError("전화번호는 숫자만 입력해야 합니다. (하이픈, 공백 제외)")
+        return phone_number
 
 class SajuSubmitForm(ModelForm):
 
@@ -47,6 +57,15 @@ class SajuSubmitForm(ModelForm):
         super(SajuSubmitForm, self).__init__(*args, **kwargs)
         # 원하는 선택지만 포함시키기
         self.fields['visit'].choices = [("call", "전화상담"),("visit", "방문상담")]
+        
+    def clean_phone(self): 
+        phone_number = self.cleaned_data.get('phone')
+        if phone_number:
+            if re.search(r'[- ]', phone_number):
+                raise forms.ValidationError("전화번호에는 하이픈(-)이나 공백을 포함할 수 없습니다.")
+            if not phone_number.isdigit():
+                raise forms.ValidationError("전화번호는 숫자만 입력해야 합니다. (하이픈, 공백 제외)")
+        return phone_number
     
 
 
@@ -67,6 +86,15 @@ class EtcSubmitForm(ModelForm):
         super(EtcSubmitForm, self).__init__(*args, **kwargs)
         # 원하는 선택지만 포함시키기
         self.fields['visit'].choices = [("call", "전화상담"),("visit", "방문상담")]
+        
+    def clean_phone(self): 
+        phone_number = self.cleaned_data.get('phone')
+        if phone_number:
+            if re.search(r'[- ]', phone_number):
+                raise forms.ValidationError("전화번호에는 하이픈(-)이나 공백을 포함할 수 없습니다.")
+            if not phone_number.isdigit():
+                raise forms.ValidationError("전화번호는 숫자만 입력해야 합니다. (하이픈, 공백 제외)")
+        return phone_number
 
 class PersonForm(ModelForm):
 

@@ -9,6 +9,8 @@ from .utils import generate_virtual_submits
 from .utils import resize_image
 from django.core.paginator import Paginator
 from django.db.models import Q
+from submit.utils import get_client_ip, is_rate_limited, update_last_post_time
+from django.http import HttpResponse
 
 
 def get_filtered_posts():
@@ -180,9 +182,22 @@ def customer_write(request):
     customform = CustomForm(request.POST or None)
 
     if request.method == "POST":
+        
+        # 작성 제한 시간 (예: 60초)
+        limit_seconds = 60
+        # IP 주소 가져오기
+        ip_address = get_client_ip(request)
+        # 캐시 키 설정 (IP 기반)
+        cache_key = f'post_limit_{ip_address}'
+        # 속도 제한 확인
+        is_limited, remaining_time = is_rate_limited(cache_key, limit_seconds)
+        if is_limited:
+            return HttpResponse("글 작성은 60초 후에 가능합니다.", status=429)
+        
         # 제출된 폼 검증
         if customform.is_valid():
             obj = customform.save()
+            update_last_post_time(cache_key, timeout=limit_seconds)
             return redirect("customer-detail", obj.pk)
         else:
             errors = customform.errors

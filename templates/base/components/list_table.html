@@ -1,7 +1,7 @@
 {% load static%}
 {% load base_tags %}
 <div class="space-y-5 lg:space-y-8">
-    <div class="flex rounded-md items-center justify-center h-28 bg-no-repeat bg-center bg-[url('{% static '/base/img/qna.jpg' %}')]">
+    <div class="flex rounded-md items-center justify-center h-28 bg-cover bg-no-repeat bg-center bg-[url('{% static '/base/img/qna.jpg' %}')]">
         <div class="text-white rounded-lg px-4 py-2 text-base sm:text-xl bg-slate-400 bg-opacity-50">고객게시판</div>
     </div>
     <div class="flex items-center mt-2 text-sm lg:text-base font-semibold pl-3 py-1 border-b border-gray-200">
@@ -51,7 +51,7 @@
                                 {% for post in page_obj %}
                                 <tr class="cursor-pointer" onclick="window.location.href='{% url 'customer-detail' post.pk %}';">
                                     <th>{{post.pk}}</th>
-                                    <td>{{post.name|truncate_char:4}}</td>
+                                    <td>{{post.name|mask_name|truncate_char:3}}</td>
                                     <td>{{post.title|truncate_chars:20}}</td>
                                     <td>{{post.comment_count}}</td>
                                     <td>{{post.created_at|date:"y.m.d"}}</td>

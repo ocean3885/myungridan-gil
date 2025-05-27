@@ -72,7 +72,7 @@ def submit_form(request, category):
             request.session['submit_name'] = obj.name
             return redirect('submit-detail', obj.id)
         else:
-            context = {'submit': submitForm, 'person': personForm}
+            context = {'submit': submitForm, 'person': personForm, 'category': category}
             return render(request, 'submit/submit_form.html', context)
 
     # GET 요청 또는 유효하지 않은 폼의 경우 초기 폼 표시
@@ -167,7 +167,7 @@ def submit_verify(request):
             person = Person.objects.get(submit__id=submit.id)
             request.session['submit_name'] = submit.name
             request.session.pop('submit_phone', None)
-            return render(request,'submit/submit_detail.html',{'submit': submit, 'person': person}) 
+            return redirect('submit-detail', pk=submit.pk)
         else:
             # 쿼리셋에 여러 객체가 있는 경우
             request.session['submit_name'] = submit_name
@@ -260,7 +260,7 @@ def submit_edit(request, pk):
         submitForm = submitFormClass(instance=submit)
         if person:
             personForm = PersonForm(instance=person)
-        context = {'submit': submitForm, 'person': personForm if person else None, 'category': category}
+    context = {'submit': submitForm, 'person': personForm if person else None, 'category': category}
     return render(request, 'submit/submit_form.html', context)
 
 
