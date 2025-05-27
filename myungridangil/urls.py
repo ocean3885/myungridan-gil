@@ -7,7 +7,6 @@ from post.utils import CustomImageUploadView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    # path('msr/', include('mrdg.urls')),
     path('post/', include('post.urls')),
     path('submit/', include('submit.urls')),
     path('estimate/', include('estimate.urls')),

@@ -93,12 +93,26 @@
     </ul>
   </div>
   <!-- 명품작명이란? end -->
-  <div class="mt-6 grid">
-    <a href="{% url 'estimate-form' %}">
+  <div class="mt-6 flex justify-center gap-3">
+    <a href="{% url 'estimate-edit' submit.pk %}">
     <button      
       class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
     >
-      도원만세력
+      수정
+    </button>
+    </a>
+    <a href="{% url 'estimate-delete' submit.pk %}">
+    <button      
+      class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+    >
+      삭제
+    </button>
+    </a>
+    <a href="{% url 'estimate-list' %}">
+    <button      
+      class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+    >
+      목록
     </button>
     </a>
   </div>

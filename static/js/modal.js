@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
   const openBtn = document.getElementById("openModalBtn");
   const modal = document.getElementById("hanjaModal");
   const hanjaForm = document.getElementById("hanjaSelectForm");
@@ -57,3 +58,4 @@ document.addEventListener("DOMContentLoaded", function () {
     modal.classList.add("hidden");
   });
 });
+

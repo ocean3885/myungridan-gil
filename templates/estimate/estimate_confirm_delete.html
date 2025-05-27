@@ -1,0 +1,39 @@
+{% extends 'main.html' %} 
+{% load widget_tweaks %} 
+{% block content %}
+
+
+<div class="w-full max-w-md min-h-96 mx-auto p-6 text-black">
+    <div
+      class="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm"
+    >
+      <div class="p-4 sm:p-7">
+        <div class="text-center">
+          <h1 class="block text-xl font-semibold text-gray-800">
+            정말 삭제하시겠습니까?
+          </h1>
+        </div>
+
+        <div class="mt-5">
+          <!-- Form -->
+          <form method="POST" autocomplete="off" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="flex gap-4">              
+              <button
+                type="submit"
+                class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700"
+              >
+                삭제
+              </button>
+              <a class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700" href="{% url 'estimate-detail' submit.pk %}">취소</a>
+            </div>
+          </form>
+          <!-- End Form -->
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

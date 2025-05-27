@@ -1,4 +1,5 @@
 from django import template
+import re
 
 register = template.Library()
 
@@ -30,3 +31,10 @@ def get_class_by_element(element):
     '亥': 'bg-blue-100 text-black',
     }
     return class_map.get(element, 'bg-gray-300 text-black') # 기본값 설정
+
+@register.filter
+def mask_name(name):
+    if not name:
+        return ''
+    return ''.join(char if i % 2 == 0 else 'ㅇ' for i, char in enumerate(name))
+

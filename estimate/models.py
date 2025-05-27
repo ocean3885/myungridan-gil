@@ -32,7 +32,7 @@ class Estimate(models.Model):
     hour = models.CharField(max_length=2)
     min = models.CharField(max_length=2)
     password = models.CharField(max_length=128, blank=True, null=True)
-    is_public = models.BooleanField(default=True)
+    is_secret = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

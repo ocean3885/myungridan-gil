@@ -59,7 +59,7 @@
             class="flex items-center w-full text-gray-500 hover:text-gray-400 font-medium"
             id="menu1"
           >
-            작명원소개
+            도원소개
             <svg
               class="ms-2 size-2.5 text-gray-600"
               width="16"
@@ -104,12 +104,7 @@
             >
               고객게시판
             </a>
-            <a
-              class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
-              href="{% url 'estimate-form' %}"
-            >
-              도원감명소
-            </a>
+            
           </div>
         </div>
 
@@ -180,10 +175,16 @@
               사주상담
             </a>
             <a
-              class="flex items-center gap-x-3.5 pt-2 md:py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
+              class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
               href="/submit/form/etc/"
             >
               기타상담
+            </a>
+            <a
+              class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
+              href="{% url 'estimate-form' %}"
+            >
+              무료감명
             </a>
           </div>
         </div>
@@ -244,7 +245,7 @@
     </div>
 
     <div
-      class="flex flex-row justify-end text-[11px] sm:text-sm md:text-base gap-x-3 md:gap-x-4"
+      class="flex flex-row justify-end gap-x-3 md:gap-x-4"
     >
       <a class="text-gray-800 hover:text-blue-600" href="/post/create/"
         >글쓰기</a

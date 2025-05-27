@@ -9,6 +9,8 @@ from post.models import Post
 from datetime import datetime
 from django.http import JsonResponse
 from .models import InmyungHanja
+from .utils import get_hanja_details_as_json, get_name_suri_details
+from django.contrib import messages
 
 def get_hanja(request):
     if request.method == 'GET':
@@ -22,8 +24,20 @@ def get_hanja(request):
             result.append(hanja_list)        
         return JsonResponse({'data': result})
 
-def estimate_form(request):
-    submitForm = EstimateForm(request.POST or None)
+def estimate_form(request, pk=None):
+    if pk:
+        obj = get_object_or_404(Estimate, pk=pk)
+        # 운영자가 아니고, 세션 인증이 없으면 비밀번호 페이지로 리다이렉트
+        if not (request.user.is_staff or request.user.is_superuser):
+            if not request.session.get(f'estimate_{pk}_auth'):
+                return redirect('estimate-password', pk=pk)
+        submitForm = EstimateForm(request.POST or None, instance=obj)
+        name_hanja = obj.name_hanja
+        pk_number = pk
+    else:
+        submitForm = EstimateForm(request.POST or None)
+        name_hanja = ''
+        pk_number = None
 
     if request.method == "POST":
         # 제출된 폼 검증
@@ -31,7 +45,7 @@ def estimate_form(request):
             obj = submitForm.save(commit=False)
             if request.user.is_authenticated:
                 obj.user = request.user
-                # utils.py 함수 호출해서 데이터 가져오기
+            # utils.py 함수 호출해서 데이터 가져오기
             api_data = fetch_estimate_data_from_api(
                 obj.year,
                 obj.month,
@@ -41,12 +55,13 @@ def estimate_form(request):
                 obj.sl,
                 obj.gen,
             )
-
+            json_output = get_hanja_details_as_json(obj.name_hanja)
+            suri_detail = get_name_suri_details(json_output)
             if api_data is None:
                 errors = {"api": "외부 API 호출 실패"}
                 context = {"submit": submitForm, "errors": errors}
                 return render(request, "estimate/estimate_form.html", context)
-            obj.data = {"datas": api_data}
+            obj.data = {"datas": api_data, "hanja-info": json_output , "81suri": suri_detail}
             obj.save()
             return redirect("estimate-detail", pk=obj.pk)
         else:
@@ -55,12 +70,16 @@ def estimate_form(request):
             return render(request, "estimate/estimate_form.html", context)
 
     # GET 요청 또는 유효하지 않은 폼의 경우 초기 폼 표시
-    context = {"submit": submitForm}
+    context = {"submit": submitForm, "name_hanja": name_hanja, "pk_number": pk_number}
     return render(request, "estimate/estimate_form.html", context)
 
 
 def estimate_detail(request, pk):
     submit = get_object_or_404(Estimate, pk=pk)
+    if submit.is_secret:
+        # 세션에 인증 기록이 없으면 비밀번호 페이지로 리다이렉트
+        if not request.session.get(f'estimate_{pk}_auth'):
+            return redirect('estimate-password', pk=pk)
     submit.count += 1
     submit.save()
     comments = submit.comments.all()
@@ -94,6 +113,19 @@ def estimate_detail(request, pk):
     return render(request, "estimate/estimate_detail.html", context)
 
 
+def estimate_password(request, pk):
+    post = get_object_or_404(Estimate, pk=pk)
+    if request.method == 'POST':
+        input_password = request.POST.get('password')
+        if input_password == post.password:  # 실제 암호 비교 로직
+            # 세션에 인증 표시
+            request.session[f'estimate_{pk}_auth'] = True
+            return redirect('estimate-detail', pk=pk)
+        else:
+            error = '비밀번호가 틀렸습니다.'
+            return render(request, 'estimate/verify_form.html', {'submit': post, 'error': error})
+    return render(request, 'estimate/verify_form.html', {'submit': post})
+
 def estimate_list(request):
     submits = Estimate.objects.all()
     count = submits.count()
@@ -102,7 +134,7 @@ def estimate_list(request):
     posts2 = Post.objects.filter(is_second=True)
 
     # 페이지네이션
-    paginator = Paginator(submits, 20)  # 페이지당 10개의 게시글을 보여줌
+    paginator = Paginator(submits, 15)  # 페이지당 10개의 게시글을 보여줌
     page_number = request.GET.get("page")  # URL에서 페이지 번호를 가져옴
     page_obj = paginator.get_page(page_number)  # 해당 페이지의 게시글을 가져옴
 
@@ -116,53 +148,22 @@ def estimate_list(request):
     return render(request, "estimate/estimate_list.html", context)
 
 
-def estimate_edit(request, pk):
-    submit = get_object_or_404(Estimate, pk=pk)
+def estimate_delete(request, pk):
+    obj = get_object_or_404(Estimate, pk=pk)
+    
+    # 권한 체크: 운영자 아니고, 세션 인증 없으면 비밀번호 페이지로 리다이렉트
+    if not (request.user.is_staff or request.user.is_superuser):
+        if not request.session.get(f'estimate_{pk}_auth'):
+            return redirect('estimate-password', pk=pk)
+    
     if request.method == "POST":
-        submitForm = EstimateForm(request.POST, instance=submit)
-        if submitForm.is_valid():
-            obj = submitForm.save(commit=False)
-            if request.user.is_authenticated:
-                obj.user = request.user
-            data = Msr_Calculator()
-            time = determine_zodiac_hour_str(obj.hour, obj.min)
-            datas = data.getAll(obj.year, obj.month, obj.day, time, obj.sl, obj.gen)
-            obj.data = {"datas": datas}
-            obj.save()
-            return redirect("estimate-detail", pk)
-    else:
-        submitForm = EstimateForm(instance=submit)
-        context = {"submit": submitForm}
-    return render(request, "estimate/estimate_form.html", context)
+        obj.delete()
+        messages.success(request, "감명신청이 삭제되었습니다.")
+        return redirect('estimate-list')  # 리스트 페이지 이름으로 바꾸세요
+    
+    # GET 요청이면 삭제 확인 페이지 보여주기
+    return render(request, 'estimate/estimate_confirm_delete.html', {'submit': obj})
 
-
-def verify_edit(request, pk):
-    if request.method == "POST":
-        submit = get_object_or_404(Estimate, pk=pk)
-        estimate_name = request.POST.get("estimate_name")
-        estimate_phone = request.POST.get("estimate_phone")
-        if submit.name == estimate_name and submit.phone == estimate_phone:
-            request.session["estimate_name"] = estimate_name
-            request.session["estimate_phone"] = estimate_phone
-            return redirect("estimate-edit", pk)
-        else:
-            return render(request, "estimate/verify_form.html", {"wrong": True})
-    else:
-        return render(request, "estimate/verify_form.html")
-
-
-def verify_delete(request, pk):
-    if request.method == "POST":
-        submit = get_object_or_404(Estimate, pk=pk)
-        estimate_name = request.POST.get("estimate_name")
-        estimate_phone = request.POST.get("estimate_phone")
-        if submit.name == estimate_name and submit.phone == estimate_phone:
-            submit.delete()
-            return redirect("estimate-list")
-        else:
-            return render(request, "estimate/verify_form.html", {"wrong": True})
-    else:
-        return render(request, "estimate/verify_form.html", {"delete": True})
 
 
 def add_comment(request, pk):

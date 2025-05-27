@@ -1,25 +1,36 @@
-{% load widget_tweaks %} 
+{% load widget_tweaks %}
 <form method="POST" autocomplete="off" enctype="multipart/form-data">
   {% csrf_token %}
-  <div class="mt-6 grid gap-4 lg:gap-6 text-black">
+  <div class="mt-6 grid gap-4 lg:gap-6 text-black font-medium">
     <!-- Grid -->
     <h2 class="mb-4 text-xl font-semibold text-gray-800">
       신청인 정보
     </h2>
-    <div class="flex gap-4 lg:gap-6">
+    <div class="flex flex-col gap-4 lg:gap-6">
       <div clss="flex-1">
         <label
           for="name"
-          class="block mb-2 text-sm text-gray-700 font-medium"
+          class="block mb-2 text-gray-700"
           >신청인이름</label
         >
         <div class="flex gap-5 justify-center items-center">
-          {% render_field submit.name id="name" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+          {% render_field submit.name required="required" id="name" class="py-3 px-4 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500" %}
           <button class="w-24 h-10 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700"type="button" id="openModalBtn">한자조회</button>
         </div>
       </div>
+      <div class="flex gap-2">
+        <div class="text-gray-700">감명신청 비공개</div>
+        <div class="flex justify-center items-center">
+          {% render_field submit.is_secret id="is_secret" class="p-2 border-gray-400 text-sm focus:border-blue-500 focus:ring-blue-500" %}
+        </div>
+      </div>
+      <!-- 비밀번호 입력 필드 -->
+      <div id="password_field" class="mt-2">
+        <label for="password" class="block font-medium text-gray-700">비밀번호</label>
+        <input type="password" required name="password" id="password" class="mt-2 py-3 px-4 border border-gray-300 rounded-lg w-full text-sm" />
+      </div>
       
-      <input type="hidden" name="name_hanja" id="name_hanja">
+      <input type="hidden" name="name_hanja" id="name_hanja" value="{{ name_hanja|default:''}}">
       <!-- 모달start -->
       <div id="hanjaModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
         <!-- ✅ 모달 컨테이너 -->
@@ -48,77 +59,78 @@
       </div>
       <!-- 모달end -->
     </div>
-    <div id="selected_hanja" class="my-4 text-lg font-semibold text-blue-700"></div>
+    
+    <div id="selected_hanja" class="my-4 text-lg font-semibold text-blue-700">{% if submit.name_hanja %}선택한 한자 이름 : {{name_hanja}}{%endif%}</div>
     <!-- End Grid -->
     <h2 class="text-xl font-semibold text-gray-800">
       사주관련정보
     </h2>
 
-    <div class="grid grid-cols-2 gap-4 lg:gap-6">
+    <div class="grid grid-cols-2 text-sm gap-4 lg:gap-6">
       <div>
         <label
           for="gen"
-          class="block mb-2 text-sm text-gray-700 font-medium"
+          class="block mb-2 text-gray-700 font-medium"
           >성별</label
         >
-        {% render_field submit.gen id="gen" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+        {% render_field submit.gen id="gen" class="py-3 px-4 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
       </div>
 
       <div>
         <label
           for="sl"
-          class="block mb-2 text-sm text-gray-700 font-medium"
+          class="block mb-2 text-gray-700 font-medium"
           >음력/양력</label
         >
-        {% render_field submit.sl id="sl" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+        {% render_field submit.sl id="sl" class="py-3 px-4 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
       </div>
     </div>
 
     <!-- Grid -->
-    <div class="grid grid-cols-2 gap-4 lg:gap-6">
+    <div class="grid grid-cols-2 text-sm gap-4 lg:gap-6">
       <div>
         <label
           for="year"
-          class="block mb-2 text-sm text-gray-700 font-medium"
+          class="block mb-2 text-gray-700 font-medium"
           >년(年)</label
         >
-        {% render_field submit.year id="year" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+        {% render_field submit.year id="year" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
       </div>
 
       <div>
         <label
           for="month"
-          class="block mb-2 text-sm text-gray-700 font-medium"
+          class="block mb-2 text-gray-700 font-medium"
           >월(月)</label
         >
-        {% render_field submit.month id="month" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+        {% render_field submit.month id="month" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
       </div>
 
       <div>
         <label
           for="day"
-          class="block mb-2 text-sm text-gray-700 font-medium"
+          class="block mb-2 text-gray-700 font-medium"
           >일(日)</label
         >
-        {% render_field submit.day id="day" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+        {% render_field submit.day id="day" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
       </div>
 
       <div>
         <label
           for="hour"
-          class="block mb-2 text-sm text-gray-700 font-medium"
+          class="block mb-2 text-gray-700 font-medium"
           >시(時)</label
         >
-        {% render_field submit.hour id="hour" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+        {% render_field submit.hour id="hour" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
       </div>
 
       <div>
         <label
           for="min"
-          class="block mb-2 text-sm text-gray-700 font-medium"
+          class="block mb-2 text-gray-700 font-medium"
           >분(分)</label
         >
-        {% render_field submit.min id="min" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500" %}
+        {% render_field submit.min id="min" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500" %}
       </div>
     </div>
     <!-- End Grid -->
@@ -131,7 +143,7 @@
         id="agree-term"
         name="agree-term"
         type="checkbox"
-        class="shrink-0 mt-1.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500"
+        class="shrink-0 mt-1.5 border-gray-400 rounded text-blue-600 focus:ring-blue-500"
         required
       />
     </div>
@@ -143,16 +155,51 @@
   </div>
   <!-- End Checkbox -->
   
-  <div class="mt-6 grid">
+  <div class="mt-6 flex text-sm sm:text-base justify-center gap-4">
     <button
       type="submit" id="submit-btn"
-      class="w-full py-2 px-4 inline-flex justify-center items-center gap-x-2 text-base font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+      class="w-full max-w-52 mx-auto py-2 px-4 inline-flex justify-center items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
     >
-      작성완료
+      완료
     </button>
+    {% if pk_number %}
+    <a href="{% url 'estimate-delete' pk_number %}"
+      class="w-full max-w-52 mx-auto py-2 px-4 inline-flex justify-center items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+    >
+      삭제
+    </a>
+    {% endif %}
+    <a href="{% url 'estimate-list' %}"
+      class="w-full max-w-52 mx-auto py-2 px-4 inline-flex justify-center items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+    >
+      목록
+    </a>
   </div>
 </form>
-  
+
+{% comment %} <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const checkbox = document.getElementById('is_secret');
+    const passwordField = document.getElementById('password_field');
+    const passwordInput = passwordField.querySelector('input');
+
+    function togglePasswordField() {
+      if (checkbox.checked) {
+        passwordField.classList.remove('hidden');
+        passwordInput.setAttribute('required', 'required');
+      } else {
+        passwordField.classList.add('hidden');
+        passwordInput.removeAttribute('required');
+      }
+    }
+
+    // 초기 상태 확인
+    togglePasswordField();
+
+    // 체크 상태 변경 시
+    checkbox.addEventListener('change', togglePasswordField);
+  });
+</script> {% endcomment %}
 
 
 

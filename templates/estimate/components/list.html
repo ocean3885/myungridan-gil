@@ -1,3 +1,5 @@
+{% load custom_tags %}
+{% load static %}
 <!-- Card -->
 <div class="flex flex-col">
   <div class="-m-1.5 overflow-x-auto">
@@ -32,17 +34,17 @@
               <tr>
                 <th>번호</th>
                 <th>이름</th>
-                <th>진행상황</th>
+                <th>생년월일</th>
                 <th>작성일</th>
-                <th>조회</th>
+                <th>조회수</th>
               </tr>
             </thead>
             <tbody>
               {% for submit in page_obj %}
               <tr class="cursor-pointer" onclick="window.location.href='{% url 'estimate-detail' submit.pk %}';">
                   <th>{{submit.pk}}</th>
-                  <td>{{submit.name}}</td>
-                  <td>{{submit.get_process_display}}</td>
+                  <td class="flex items-center gap-2"><div>{{submit.name|mask_name}}{% if submit.is_secret %}</div><img class="size-4" src="{% static 'estimate/img/lock.png' %}" alt="Lock icon">{% endif %}</td>
+                  <td>{{submit.year}}{{submit.month}}{{submit.day}}</td>
                   <td>{{submit.created|date:"y.m.d"}}</td>
                   <td>{{submit.count}}</td>
                 </a>
@@ -97,4 +99,3 @@
   </div>
 </div>
 <!-- End Card -->
-

@@ -2,15 +2,19 @@
 {% load static %}
 <div class="text-black">
   <div class="print:hidden flex rounded-md items-center justify-center h-28 bg-no-repeat bg-center bg-[url('{% static '/estimate/img/gammyung_title_bg.jpg' %}')]">
-    <div class="text-white rounded-lg px-4 py-2 text-base sm:text-xl bg-slate-500 bg-opacity-50">도원만세력</div>
+    <div class="text-white rounded-lg px-4 py-2 text-base sm:text-xl bg-slate-500 bg-opacity-50">도원감명소</div>
   </div>
   <div class="mt-6 text-right text-xs text-gray-800">
     {{submit.created}}
   </div>
   <div class="text-sm sm:text-md md:text-base mt-2 border border-gray-500 divide-y divide-stone-400"> 
     <div class="grid grid-cols-4 divide-x divide-stone-400">
-      <div class="py-0 sm:py-1 text-center">신청인</div>
+      <div class="py-0 sm:py-1 text-center">이름(한글)</div>
       <div class="py-0 sm:py-1 text-center">{{submit.name}}</div>
+      <div class="py-0 sm:py-1 text-center">이름(한자)</div>
+      <div class="py-0 sm:py-1 text-center">{{submit.name_hanja}}</div>
+    </div>
+    <div class="grid grid-cols-2 divide-x divide-stone-400">
       <div class="py-0 sm:py-1 text-center">성별</div>
       <div class="py-0 sm:py-1 text-center">{% if submit.gen == "male" %}남자{% else%}여자{% endif %}</div>
     </div>
