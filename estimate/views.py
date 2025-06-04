@@ -8,34 +8,48 @@ from post.models import Post
 from datetime import datetime
 from django.http import JsonResponse
 from .models import InmyungHanja
-from .utils import get_hanja_details_as_json, get_name_suri_details, count_elements
+from .utils import (
+    get_hanja_details_as_json,
+    get_name_suri_details,
+    count_elements,
+    get_name_five_elements_string,
+    get_suri_ohaeng_combination,
+    analyze_ohaeng_harmony,
+    extract_tot_stk_values,
+    extract_main_elems,
+    extract_outcomes,
+    evaluate_name
+)
 from django.contrib import messages
 
+
 def get_hanja(request):
-    if request.method == 'GET':
-        name = request.GET.get('name', '')
+    if request.method == "GET":
+        name = request.GET.get("name", "")
         result = []
 
         for char in name:
             hanja_list = list(
-                InmyungHanja.objects.filter(pron=char).values('char', 'main_mean')
+                InmyungHanja.objects.filter(pron=char).values("char", "main_mean")
             )
-            result.append(hanja_list)        
-        return JsonResponse({'data': result})
+            result.append(hanja_list)
+        return JsonResponse({"data": result})
+
 
 def estimate_form(request, pk=None):
+    # pk가 주어지면 해당 객체를 가져오고, 아니면 새로 생성
     if pk:
         obj = get_object_or_404(Estimate, pk=pk)
         # 운영자가 아니고, 세션 인증이 없으면 비밀번호 페이지로 리다이렉트
         if not (request.user.is_staff or request.user.is_superuser):
-            if not request.session.get(f'estimate_{pk}_auth'):
-                return redirect('estimate-password', pk=pk)
+            if not request.session.get(f"estimate_{pk}_auth"):
+                return redirect("estimate-password", pk=pk)
         submitForm = EstimateForm(request.POST or None, instance=obj)
         name_hanja = obj.name_hanja
         pk_number = pk
     else:
         submitForm = EstimateForm(request.POST or None)
-        name_hanja = ''
+        name_hanja = ""
         pk_number = None
 
     if request.method == "POST":
@@ -53,16 +67,31 @@ def estimate_form(request, pk=None):
                 obj.min,
                 obj.sl,
                 obj.gen,
-            )            
+            )
             json_output = get_hanja_details_as_json(obj.name_hanja)
             suri_detail = get_name_suri_details(json_output)
+            suri_isgood = extract_outcomes(suri_detail)
+            sound_elem = get_name_five_elements_string(obj.name)
+            sound_elem_isgood = analyze_ohaeng_harmony(sound_elem)
+            suri_ohaeng_elem = get_suri_ohaeng_combination(extract_tot_stk_values(json_output))
+            suri_ohaeng_elem_isgood = analyze_ohaeng_harmony(suri_ohaeng_elem)
+            jawon_isgood = analyze_ohaeng_harmony(extract_main_elems(json_output))
+            evaluatename = evaluate_name(suri_isgood, sound_elem_isgood, suri_ohaeng_elem_isgood, jawon_isgood)
             if api_data is None:
                 errors = {"api": "외부 API 호출 실패"}
                 context = {"submit": submitForm, "errors": errors}
                 return render(request, "estimate/estimate_form.html", context)
-            obj.data = {"datas": api_data, "hanjainfo": json_output , "suri81": suri_detail}
+            obj.data = {
+                "datas": api_data,
+                "hanjainfo": json_output,
+                "suri81": suri_detail,
+                "sound_elem": [sound_elem, sound_elem_isgood],
+                "suri_ohaeng_elem": [suri_ohaeng_elem, suri_ohaeng_elem_isgood],
+                "jawon_isgood": jawon_isgood,
+                "evaluatename": evaluatename
+            }
             obj.save()
-            request.session[f'estimate_{obj.pk}_auth'] = True
+            request.session[f"estimate_{obj.pk}_auth"] = True
             return redirect("estimate-detail", pk=obj.pk)
         else:
             errors = submitForm.errors
@@ -78,13 +107,14 @@ def estimate_detail(request, pk):
     submit = get_object_or_404(Estimate, pk=pk)
     if submit.is_secret:
         # 세션에 인증 기록이 없으면 비밀번호 페이지로 리다이렉트
-        if not request.session.get(f'estimate_{pk}_auth'):
-            return redirect('estimate-password', pk=pk)
+        if not (request.user.is_staff or request.user.is_superuser):
+            if not request.session.get(f"estimate_{pk}_auth"):
+                return redirect("estimate-password", pk=pk)
     submit.count += 1
     submit.save()
     comments = submit.comments.all()
     comment_form = CommentForm()
-    grouped_chunks = submit.data['datas']['decadeCycles']
+    grouped_chunks = submit.data["datas"]["decadeCycles"]
     current_year = datetime.now().year
     nowcycle = generate_baby_cycles(current_year)
     groups_with_visibility = []
@@ -95,38 +125,50 @@ def estimate_detail(request, pk):
         grouped_data_visibility.append(visible)
     grouped_data_visibility.reverse()
     grouped_data = zip(
-            descending_tens(submit.data['datas']['daewoon_num']),
-            submit.data['datas']['daewoon'][1],
-            submit.data['datas']['daewoon'][2],
-            grouped_data_visibility
-        )
+        descending_tens(submit.data["datas"]["daewoon_num"]),
+        submit.data["datas"]["daewoon"][1],
+        submit.data["datas"]["daewoon"][2],
+        grouped_data_visibility,
+    )
     all_false = all(not value for value in grouped_data_visibility)
-    chars = submit.data['datas']['year_hgan'] + submit.data['datas']['month_hgan'] + submit.data['datas']['day_hgan'] + submit.data['datas']['time_hgan'] + submit.data['datas']['year_hji'] + submit.data['datas']['month_hji'] + submit.data['datas']['day_hji'] + submit.data['datas']['time_hji'] 
+    chars = (
+        submit.data["datas"]["year_hgan"]
+        + submit.data["datas"]["month_hgan"]
+        + submit.data["datas"]["day_hgan"]
+        + submit.data["datas"]["time_hgan"]
+        + submit.data["datas"]["year_hji"]
+        + submit.data["datas"]["month_hji"]
+        + submit.data["datas"]["day_hji"]
+        + submit.data["datas"]["time_hji"]
+    )
     context = {
         "submit": submit,
-        'grouped_data': grouped_data,
+        "grouped_data": grouped_data,
         "groups_with_visibility": groups_with_visibility,
         "all_false": all_false,
         "comments": comments,
         "comment_form": comment_form,
-        'nowcycle': nowcycle,
-        'chartdata': count_elements(chars)
+        "nowcycle": nowcycle,
+        "chartdata": count_elements(chars),
     }
     return render(request, "estimate/estimate_detail.html", context)
 
 
 def estimate_password(request, pk):
     post = get_object_or_404(Estimate, pk=pk)
-    if request.method == 'POST':
-        input_password = request.POST.get('password')
+    if request.method == "POST":
+        input_password = request.POST.get("password")
         if input_password == post.password:  # 실제 암호 비교 로직
             # 세션에 인증 표시
-            request.session[f'estimate_{pk}_auth'] = True
-            return redirect('estimate-detail', pk=pk)
+            request.session[f"estimate_{pk}_auth"] = True
+            return redirect("estimate-detail", pk=pk)
         else:
-            error = '비밀번호가 틀렸습니다.'
-            return render(request, 'estimate/verify_form.html', {'submit': post, 'error': error})
-    return render(request, 'estimate/verify_form.html', {'submit': post})
+            error = "비밀번호가 틀렸습니다."
+            return render(
+                request, "estimate/verify_form.html", {"submit": post, "error": error}
+            )
+    return render(request, "estimate/verify_form.html", {"submit": post})
+
 
 def estimate_list(request):
     submits = Estimate.objects.all()
@@ -152,20 +194,19 @@ def estimate_list(request):
 
 def estimate_delete(request, pk):
     obj = get_object_or_404(Estimate, pk=pk)
-    
+
     # 권한 체크: 운영자 아니고, 세션 인증 없으면 비밀번호 페이지로 리다이렉트
     if not (request.user.is_staff or request.user.is_superuser):
-        if not request.session.get(f'estimate_{pk}_auth'):
-            return redirect('estimate-password', pk=pk)
-    
+        if not request.session.get(f"estimate_{pk}_auth"):
+            return redirect("estimate-password", pk=pk)
+
     if request.method == "POST":
         obj.delete()
         messages.success(request, "감명신청이 삭제되었습니다.")
-        return redirect('estimate-list')  # 리스트 페이지 이름으로 바꾸세요
-    
-    # GET 요청이면 삭제 확인 페이지 보여주기
-    return render(request, 'estimate/estimate_confirm_delete.html', {'submit': obj})
+        return redirect("estimate-list")  # 리스트 페이지 이름으로 바꾸세요
 
+    # GET 요청이면 삭제 확인 페이지 보여주기
+    return render(request, "estimate/estimate_confirm_delete.html", {"submit": obj})
 
 
 def add_comment(request, pk):

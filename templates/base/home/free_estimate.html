@@ -1,0 +1,86 @@
+{% load static%}
+<div
+  class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto bg-stone-100 mb-10"
+>
+  <div
+    class="flex flex-col md:flex-row justify-center items-center gap-10 lg:gap-20"
+  >
+    <div>
+      <img
+        class="w-full rounded-lg object-cover max-w-[350px] max-h-[500px]"
+        src="{% static 'base/img/estimate_section_bg.png'%}"
+        alt="family with baby"
+      />
+    </div>
+    <div class="flex-1 max-w-[600px] p-4">
+      <div>
+        <!-- Title -->
+        <div class="space-y-5">
+          <h2 class="font-bold text-3xl lg:text-4xl text-gray-800 mb-8">
+            무료 이름 감명 서비스
+          </h2>
+          <div class="flex flex-col xs-flexrow mdplus-flexrow items-start gap-y-5 gap-x-2">
+            <div class="flex-1 bg-stone-200 p-4 rounded-lg">
+              <h3 class="text-xl font-semibold mb-2">3분 완성</h3>
+              <p>
+                단 3분 만에 완성되는 이름 분석으로 이름의 속성을 분석하고
+                가능성을 확인하세요!
+              </p>
+            </div>
+            <div class="flex-1 bg-stone-200 p-4 rounded-lg w-full">
+              <h3 class="text-xl font-semibold mb-2">음양오행 분석</h3>
+              <p>
+                나만의 운명에 맞는 이름을 찾아 타고난 기질과 운을 조화롭게
+                이끌어보세요.
+              </p>
+            </div>
+          </div>
+          <div class="bg-stone-200 p-4 rounded-lg">
+            <h3 class="text-xl font-semibold">즉시 결과 확인</h3>
+            <p>
+              지금 클릭하면 즉시 분석 결과를 받아보실 수 있습니다. 더 나은
+              미래를 위한 첫 걸음 무료로 시작하세요.
+            </p>
+          </div>
+          <h3></h3>
+          <p></p>
+        </div>
+        <!-- End Title -->
+         <a
+            class="tracking-wide py-2 px-4 inline-flex items-center gap-x-2 text-base font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+            href="{% url 'estimate-form' %}"
+          >
+            무료감명바로가기
+            <svg
+              class="flex-shrink-0 size-4"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+@media (min-width: 440px) and (max-width: 768px) {
+  .xs-flexrow {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 830px) {
+  .mdplus-flexrow {
+    flex-direction: row;
+  }
+}
+</style>

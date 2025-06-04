@@ -3,10 +3,7 @@
   <!-- 서브페이지 title start -->
 
   <p class="mt-4 text-sm sm:text-base text-gray-700">
-    도원사주작명원의 <strong>무료 감명 서비스</strong>는 2025년 현재 지속적인
-    수정 및 업데이트 작업 중에 있어 정확도가 다소 떨어질 수 있습니다. 보다
-    신뢰도 높은 감명 정보를 원하시면 유선 상담을 통해
-    <strong>유료 서비스</strong>를 이용해 주시기 바랍니다.
+    <strong>실제 작명</strong> 시에는 기본적인 감명 요소 외에도, 사주를 분석하여 희신(喜神)과 기신(忌神)을 판별하고 이름 한자로 부족한 기운을 보완하는 작업을 진행합니다. 보다 <strong>정확한 감명 및 작명</strong>을 원하시면 전문가와 직접 유선 상담을 받으시길 적극 권해드립니다.
   </p>
   <!-- 서브페이지 title end -->
 
@@ -32,12 +29,22 @@
       <div class="text-base">{{submit.data.hanjainfo.1.tot_stk}}획</div>
       <div class="text-base">{{submit.data.hanjainfo.1.main_mean}}</div>
     </div>
-    <div class="flex gap-5 ml-9 items-center">
-      <div>{{submit.name.2}}</div>
-      <div>{{submit.name_hanja.2}}</div>
-      <div class="text-base">{{submit.data.hanjainfo.2.tot_stk}}획</div>
-      <div class="text-base">{{submit.data.hanjainfo.2.main_mean}}</div>
-    </div>
+    {% if submit.name.2 %}
+      <div class="flex gap-5 ml-9 items-center">
+        <div>{{submit.name.2}}</div>
+        <div>{{submit.name_hanja.2}}</div>
+        <div class="text-base">{{submit.data.hanjainfo.2.tot_stk}}획</div>
+        <div class="text-base">{{submit.data.hanjainfo.2.main_mean}}</div>
+      </div>
+    {% endif %}
+    {% if submit.name.3 %}
+      <div class="flex gap-5 ml-9 items-center">
+        <div>{{submit.name.3}}</div>
+        <div>{{submit.name_hanja.3}}</div>
+        <div class="text-base">{{submit.data.hanjainfo.3.tot_stk}}획</div>
+        <div class="text-base">{{submit.data.hanjainfo.3.main_mean}}</div>
+      </div>
+    {% endif %}
   </div>
 
   <div class="relative">
@@ -59,34 +66,34 @@
     </h2>
   </div>
   <div class="mt-4 flex gap-4 flex-col">
-    <div class="flex justify-between">
+    <div class="flex justify-between items-center">
       <div class="font-medium text-lg"><img class="inline-block size-5 sm:size-8" src="{% static 'estimate/img/full-stop.png' %}" />초년운 : {{ submit.data.suri81.won.gyuk }} </div>
-      <div class="text-sm text-white bg-blue-400 p-1 rounded-md">{{ submit.data.suri81.won.outcome|good_bad}}</div>
+      <div class="text-sm text-white p-1 {% if submit.data.suri81.won.outcome == "길" %}bg-blue-400{%else%}bg-red-500{%endif%} rounded-md">{{ submit.data.suri81.won.outcome|good_bad}}</div>
     </div>
     <div class="font-normal pl-3">{{ submit.data.suri81.won.hanja_gyuk }}({{ submit.data.suri81.won.korean_gyuk }})</div>
     <div class="font-normal p-1 bg-slate-100">{{ submit.data.suri81.won.description }}</div>
     
   </div>
   <div class="mt-4 flex gap-4 flex-col">
-    <div class="flex justify-between ">
-    <div class="font-medium text-lg"><img class="inline-block size-5 sm:size-8" src="{% static 'estimate/img/full-stop.png' %}" />청년운 : {{ submit.data.suri81.hyung.gyuk }} </div>
-    <div class="text-sm text-white bg-blue-400 p-1 rounded-md">{{ submit.data.suri81.hyung.outcome|good_bad}}</div>
+    <div class="flex justify-between items-center">
+      <div class="font-medium text-lg"><img class="inline-block size-5 sm:size-8" src="{% static 'estimate/img/full-stop.png' %}" />청년운 : {{ submit.data.suri81.hyung.gyuk }} </div>
+      <div class="text-sm text-white {% if submit.data.suri81.hyung.outcome == "길" %}bg-blue-400{%else%}bg-red-500{%endif%} p-1 rounded-md">{{ submit.data.suri81.hyung.outcome|good_bad}}</div>
     </div>
     <div class="font-normal pl-3">{{ submit.data.suri81.hyung.hanja_gyuk }}({{ submit.data.suri81.hyung.korean_gyuk }})</div>
     <div class="font-normal p-1 bg-slate-100">{{ submit.data.suri81.hyung.description }}</div>
   </div>
   <div class="mt-4 flex gap-4 flex-col">
-    <div class="flex justify-between">
-    <div class="font-medium text-lg"><img class="inline-block size-5 sm:size-8" src="{% static 'estimate/img/full-stop.png' %}" />중년운 : {{ submit.data.suri81.lee.gyuk }} </div>
-    <div class="text-sm text-white bg-blue-400 p-1 rounded-md">{{ submit.data.suri81.lee.outcome|good_bad}}</div>
+    <div class="flex justify-between items-center">
+      <div class="font-medium text-lg"><img class="inline-block size-5 sm:size-8" src="{% static 'estimate/img/full-stop.png' %}" />중년운 : {{ submit.data.suri81.lee.gyuk }} </div>
+      <div class="text-sm text-white {% if submit.data.suri81.lee.outcome == "길" %}bg-blue-400{%else%}bg-red-500{%endif%} p-1 rounded-md">{{ submit.data.suri81.lee.outcome|good_bad}}</div>
     </div>
     <div class="font-normal pl-3">{{ submit.data.suri81.lee.hanja_gyuk }}({{ submit.data.suri81.lee.korean_gyuk }})</div>
     <div class="font-normal p-1 bg-slate-100">{{ submit.data.suri81.lee.description }}</div>
   </div>
   <div class="mt-4 flex gap-4 flex-col">
-    <div class="flex justify-between">
-    <div class="font-medium text-lg"><img class="inline-block size-5 sm:size-8" src="{% static 'estimate/img/full-stop.png' %}" />말년운 : {{ submit.data.suri81.jeong.gyuk }} </div>
-    <div class="text-sm text-white bg-blue-400 p-1 rounded-md">{{ submit.data.suri81.jeong.outcome|good_bad}}</div>
+    <div class="flex justify-between items-center">
+      <div class="font-medium text-lg"><img class="inline-block size-5 sm:size-8" src="{% static 'estimate/img/full-stop.png' %}" />말년운 : {{ submit.data.suri81.jeong.gyuk }} </div>
+      <div class="text-sm text-white {% if submit.data.suri81.jeong.outcome == "길" %}bg-blue-400{%else%}bg-red-500{%endif%} p-1 rounded-md">{{ submit.data.suri81.jeong.outcome|good_bad}}</div>
     </div>
     <div class="font-normal pl-3">{{ submit.data.suri81.jeong.hanja_gyuk }}({{ submit.data.suri81.jeong.korean_gyuk }})</div>
     <div class="font-normal p-1 bg-slate-100">{{ submit.data.suri81.jeong.description }}</div>
@@ -99,6 +106,20 @@
       음령오행
     </h2>
   </div>
+  <div class="flex justify-between items-center mt-4">
+    <div class="text-2xl font-semibold flex gap-3">
+      <div class="bg-slate-200 p-3 rounded-md">{{submit.data.sound_elem.0.0}}</div>
+      <div class="bg-slate-200 p-3 rounded-md">{{submit.data.sound_elem.0.1}}</div>
+      {% if submit.data.sound_elem.0.2 %}
+        <div class="bg-slate-200 p-3 rounded-md">{{submit.data.sound_elem.0.2}}</div>
+      {% endif %}
+      {% if submit.data.sound_elem.0.3 %}
+        <div class="bg-slate-200 p-3 rounded-md">{{submit.data.sound_elem.0.3}}</div>
+      {% endif %}
+    </div>
+    <div class="text-sm text-white {%if submit.data.sound_elem.1 == "좋음"%}bg-blue-400{%else%}bg-red-500{%endif%} p-1 rounded-md">{{submit.data.sound_elem.1}}</div>
+  </div>
+  <div class="mt-4 pl-3">음령오행은 이름 각 글자 한글 발음의 초성에 오행(목,화,토,금,수)을 부여하고, 이 오행들이 순서대로 서로 상생하는지를 따져 이름 소리의 좋고 나쁨을 판단합니다.</div>
   <div class="relative">
     <div
       class="absolute top-[8px] left-1 rounded-full size-4 border-4 border-blue-800/80"
@@ -107,14 +128,42 @@
       자원오행
     </h2>
   </div>
+  <div class="flex justify-between items-center mt-4">
+    <div class="text-2xl font-semibold flex gap-3">
+      <div class="bg-slate-200 p-3 rounded-md">{{submit.data.hanjainfo.0.main_elem}}</div>
+      <div class="bg-slate-200 p-3 rounded-md">{{submit.data.hanjainfo.1.main_elem}}</div>
+      {% if submit.data.hanjainfo.2.main_elem %}
+        <div class="bg-slate-200 p-3 rounded-md">{{submit.data.hanjainfo.2.main_elem}}</div>
+      {% endif %}
+      {% if submit.data.hanjainfo.3.main_elem %}
+        <div class="bg-slate-200 p-3 rounded-md">{{submit.data.hanjainfo.3.main_elem}}</div>
+      {% endif %}
+    </div>
+    <div class="text-sm text-white {%if submit.data.jawon_isgood == "좋음"%}bg-blue-400{%else%}bg-red-500{%endif%} p-1 rounded-md">{{submit.data.jawon_isgood}}</div>
+  </div>
+  <div class="mt-4 pl-3">자원오행은 한자 자체의 의미나 글자 모양(부수 등)에서 나타나는 오행을 따져, 각 오행 간의 생극 관계를 분석하여 전체적인 조화를 판단하는 성명학 방법입니다.</div>
   <div class="relative">
     <div
       class="absolute top-[8px] left-1 rounded-full size-4 border-4 border-blue-800/80"
     ></div>
     <h2 class="pl-7 mt-8 lg:mt-11 text-lg font-semibold text-gray-800">
-      희신분석
+      수리오행
     </h2>
   </div>
+  <div class="flex justify-between items-center mt-4">
+    <div class="text-2xl font-semibold flex gap-3">
+      <div class="bg-slate-200 p-3 rounded-md">{{submit.data.suri_ohaeng_elem.0.0}}</div>
+      <div class="bg-slate-200 p-3 rounded-md">{{submit.data.suri_ohaeng_elem.0.1}}</div>
+      {% if submit.data.suri_ohaeng_elem.0.2 %}
+        <div class="bg-slate-200 p-3 rounded-md">{{submit.data.suri_ohaeng_elem.0.2}}</div>
+      {% endif %}
+      {% if submit.data.suri_ohaeng_elem.0.3 %}
+        <div class="bg-slate-200 p-3 rounded-md">{{submit.data.suri_ohaeng_elem.0.3}}</div>
+      {% endif %}
+    </div>
+    <div class="text-sm text-white {%if submit.data.suri_ohaeng_elem.1 == "좋음"%}bg-blue-400{%else%}bg-red-500{%endif%} p-1 rounded-md">{{submit.data.suri_ohaeng_elem.1}}</div>
+  </div>
+  <div class="mt-4 pl-3">성명학에서 수리오행은 이름 한자 획수에 음양오행을 적용, 각 오행 간의 상생·상극 관계를 분석하여 이름의 길흉화복과 전체적인 조화를 판단하는 핵심 원리입니다.</div>
   <div class="relative">
     <div
       class="absolute top-[8px] left-1 rounded-full size-4 border-4 border-blue-800/80"
@@ -123,8 +172,8 @@
       총평
     </h2>
   </div>
-  <div class="mt-4 pl-5 text-sm">해당 기능은 현재 개발 중입니다. 곧 만나보실 수 있어요!</div>
-  <div class="mt-7 flex justify-center gap-3">
+  <div class="mt-4 pl-3">{{submit.data.evaluatename}}</div>
+  <div class="mt-10 flex justify-center gap-3">
     <a href="{% url 'estimate-edit' submit.pk %}">
       <button
         class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
