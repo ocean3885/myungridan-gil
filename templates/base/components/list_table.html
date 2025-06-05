@@ -70,31 +70,42 @@
                             </p>
                         </div>
             
-                        <div class="inline-flex gap-x-2">
-                            {% if page_obj.has_previous %}
-                            <a href="?page={{ page_obj.previous_page_number }}">
-                            <button type="button" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
-                                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                                Prev
-                            </button>
-                            </a>
-                            {% endif %}
-                            {% with current=page_obj.number total_pages=page_obj.paginator.num_pages %}
-                                {% for num in page_obj.paginator.page_range %}
-                                    {% if num >= current|add:'-2' and num <= current|add:'2' %}
-                                        <a href="?page={{ num }}" {% if num == current %}class="active"{% endif %}>{{ num }}</a>
-                                        {% if not forloop.last %}, {% endif %}  <!-- 여기에 콤마 추가 -->
+                        <div class="flex justify-center items-center">
+                            <div class="flex justify-center items-center gap-x-3">
+                                {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}">
+                                <button type="button" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
+                                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                                    Prev
+                                </button>
+                                </a>
+                                {% endif %}
+                                    {% with current=page_obj.number total_pages=page_obj.paginator.num_pages %}
+                                        {% for num in page_obj.paginator.page_range %}
+                                            {% if num >= current|add:'-2' and num <= current|add:'2' %}
+                                                <a href="?page={{ num }}" {% if num == current %}class="active"{% endif %}>
+                                                    {{ num }}
+                                                </a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endwith %}
+
+                                {% if page_obj.paginator.num_pages > 5 %}
+                                    {% if page_obj.number < page_obj.paginator.num_pages|add:'-2' %}
+                                        <span class="text-gray-500">...</span>
+                                        <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
                                     {% endif %}
-                                {% endfor %}
-                            {% endwith %}
-                            {% if page_obj.has_next %}
-                            <a href="?page={{ page_obj.next_page_number }}">
-                            <button type="button" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
-                                Next
-                                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                            </button>
-                            </a>
-                            {% endif %}
+                                {% endif %}
+
+                                {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">
+                                    <button type="button" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
+                                        Next
+                                        <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                                    </button>
+                                </a>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                     <!-- End Footer -->

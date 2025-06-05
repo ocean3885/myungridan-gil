@@ -33,29 +33,5 @@
   </div>
   <!-- End Card Blog -->
 
-  <div class="flex justify-center">
-    <div class="inline-flex gap-x-2 items-center">
-      {% if page_obj.has_previous %}
-      <a href="?page={{ page_obj.previous_page_number }}">
-        <button type="button" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-blue-500 text-white shadow-sm hover:bg-blue-600">
-          이전
-        </button>
-      </a>
-      {% endif %}
-      {% with current=page_obj.number total_pages=page_obj.paginator.num_pages %}
-          {% for num in page_obj.paginator.page_range %}
-              {% if num >= current|add:'-2' and num <= current|add:'2' %}
-                  <a href="?page={{ num }}" {% if num == current %}class="active"{% endif %}>{{ num }}</a>
-                  {% if not forloop.last %}, {% endif %}  <!-- 여기에 콤마 추가 -->
-              {% endif %}
-          {% endfor %}
-      {% endwith %}
-      {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}">
-        <button type="button" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-blue-500 text-white shadow-sm hover:bg-blue-600">
-          다음
-        </button>
-      </a>
-      {% endif %}
-    </div>
-  </div>
+{% include 'paginator.html' %}
+  

@@ -69,11 +69,18 @@
               </div>
             </div>
           </div>
-          <div class="flex flex-col gap-3 md:gap-5 max-w-2xl justify-center items-center mx-auto">
+          <div class="relative flex flex-col gap-3 md:gap-5 max-w-2xl justify-center items-center mx-auto">
             <img src="{{ post.image.url }}" alt="" />
             <div class="prose md:prose-xl">{{ post.content|safe}}</div>
+            <div class="h-5"></div>
+            <button id="scrollToTopBtn" class="absolute text-sm bottom-0 right-3 px-2 py-1 bg-gray-600 text-white rounded-full">
+                ↑
+            </button>
+            
           </div>
+          
         </div>
+        
       </div>
     </div>
     <!-- End Content -->
@@ -84,6 +91,19 @@
   </div>
 </div>
 <!-- End Blog Article -->
+
+<script>
+    // 버튼 요소
+    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+    // 버튼 클릭 시 부드럽게 위로 스크롤
+    scrollToTopBtn.addEventListener("click", function() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+</script>
 
 
 {% endblock content %}
