@@ -7,7 +7,7 @@
         class="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm"
       >
         <div class="p-4 sm:p-7">
-          <div class="text-center">
+          <div class="text-center mb-5">
             <h1 class="block text-2xl font-bold text-gray-800">
               로그인
             </h1>
@@ -22,7 +22,7 @@
             </p>
           </div>
 
-          <div class="mt-5"><a href="/accounts/google/login/">
+          {% comment %} <div class="mt-5"><a href="/accounts/google/login/">
             <button
               type="button"
               class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
@@ -58,12 +58,12 @@
               class="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6"
             >
               Or
-            </div>
+            </div> {% endcomment %}
 
             <!-- Form -->
             <form class="login" method="post" action="{% url 'account_login' %}">
               {% csrf_token %}
-              {{ form.non_field_errors | safe }}
+              <div class="text-red-500 text-center py-4">{{ form.non_field_errors | safe }}</div>
               <div class="grid gap-y-4">
                 <!-- Form Group -->
                 <div>
@@ -172,6 +172,6 @@
         </div>
       </div>
     </div>
-  </divy>
+  </div>
 </div>
 {% endblock content %}

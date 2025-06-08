@@ -11,10 +11,10 @@
         <label
           for="name"
           class="block mb-2 text-gray-700"
-          >신청인이름</label
+          >신청인이름<span class="text-red-500"> (필수)</span></label
         >
         <div class="flex gap-5 justify-center items-center">
-          {% render_field submit.name required="required" id="name" class="py-3 px-4 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500" %}
+          {% render_field submit.name autocomplete="off" required="required" id="name" class="py-3 px-4 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500" %}
           <button class="w-24 h-10 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700"type="button" id="openModalBtn">한자조회</button>
         </div>
       </div>
@@ -26,8 +26,8 @@
       </div>
       <!-- 비밀번호 입력 필드 -->
       <div id="password_field" class="mt-2">
-        <label for="password" class="block font-medium text-gray-700">비밀번호</label>
-        <input type="password" required name="password" id="password" class="mt-2 py-3 px-4 border border-gray-300 rounded-lg w-full text-sm" />
+        <label for="password" class="block font-medium text-gray-700">비밀번호<span class="text-red-500"> (필수)</span></label>
+        <input type="password" autocomplete="new-password" required name="password" id="password" class="mt-2 py-3 px-4 border border-gray-300 rounded-lg w-full text-sm" />
       </div>
       
       <input type="hidden" name="name_hanja" id="name_hanja" value="{{ name_hanja|default:''}}" />
