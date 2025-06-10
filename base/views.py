@@ -213,6 +213,14 @@ def customer_write(request):
 def customer_detail(request, pk):
     context = get_filtered_posts()
     post = get_object_or_404(CustomBoard, pk=pk)
+    if not request.user.is_staff and post.is_secret:
+        verification_key = f'post_{pk}_verified_for_view'
+        if not request.session.get(verification_key):
+            return redirect('customer-password-check', pk=pk, action='view')
+        else:
+            # 인증 정보를 확인했으면 바로 삭제
+            del request.session[verification_key] 
+        
     comment_form = CustomForm()
     comments = post.board_comments.all()
     context["comments"] = comments
@@ -224,51 +232,69 @@ def customer_detail(request, pk):
 
 def customer_delete(request, pk):
     post = get_object_or_404(CustomBoard, pk=pk)
+    
+    # 관리자라면 바로 삭제
     if request.user.is_staff:
-        # Check if the user is an admin
         post.delete()
         return redirect("customer-list")
-
-    context = {"delete": True}
+    
+    verification_key = f'post_{pk}_verified_for_delete'
+    if not request.session.get(verification_key):
+        return redirect('customer-password-check', pk=pk, action='delete')
+    
     if request.method == "POST":
         password = request.POST.get("password")
         if post.password == password:
             post.delete()
+            del request.session[verification_key]
             return redirect("customer-list")
         else:
-            context["error"] = True
+            context = {"error":True, "action": "delete"}
             return render(request, "base/verify_form.html", context)
-
-    else:
-        return render(request, "base/verify_form.html", context)
+    context = { "action": "delete"}
+    return render(request, "base/verify_form.html", context)
 
 
 def customer_edit(request, pk):
     context = get_filtered_posts()
     post = get_object_or_404(CustomBoard, pk=pk)
+    verification_key = f'post_{pk}_verified_for_edit'
+    if not request.session.get(verification_key):
+        return redirect('customer-password-check', pk=pk, action='edit')
+    # 인증 정보를 사용한 후에는 삭제하여 재사용 방지
     if request.method == "POST":
         customform = CustomForm(request.POST, instance=post)
         if customform.is_valid():
             customform.save()
+            if verification_key in request.session:
+                del request.session[verification_key]
+            request.session[f'post_{pk}_verified_for_view'] = True
             return redirect("customer-detail", pk)
     customform = CustomForm(instance=post)
     context["customform"] = customform
-    context["error"] = False
+    # context["error"] = False
     return render(request, "base/customer_write.html", context)
 
 
-def customer_edit_verify(request, pk):
+def customer_password_check(request, pk, action):
     post = get_object_or_404(CustomBoard, pk=pk)
 
     if request.method == "POST":
         password = request.POST.get("password")
         if post.password == password:
-            return redirect("customer-edit", pk=pk)
+            request.session[f'post_{pk}_verified_for_{action}'] = True
+            if action == 'view':
+                return redirect('customer-detail', pk=pk)
+            elif action == 'edit':
+                return redirect('customer-edit', pk=pk)
+            elif action == 'delete':
+                return redirect('customer-delete', pk=pk)
         else:
-            context = {"error": True}
+            context = {"error": True, "action": action}
             return render(request, "base/verify_form.html", context)
     else:
-        return render(request, "base/verify_form.html")
+        context = {"action":action}
+        return render(request, "base/verify_form.html", context)
 
 
 def customer_comment_write(request, pk):

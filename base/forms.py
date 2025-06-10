@@ -62,9 +62,14 @@ class CustomForm (ModelForm):
         max_length=4,
         validators=[MaxLengthValidator(4, message='이름은 최대 4글자까지 입력 가능합니다.')],
     )
+    is_secret = forms.BooleanField(
+        required=False,
+        label="비밀글",
+        help_text="체크하면 비밀글로 작성됩니다.",
+    )
     class Meta:
         model = CustomBoard
-        fields = ['name','email','title','content','password']
+        fields = ['name','email','title','content','password', 'is_secret']
 
 class CustomCommentForm (ModelForm):
     class Meta:

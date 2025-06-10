@@ -15,7 +15,7 @@
         </p>
         <div class="grow">
           <div class="flex gap-x-4 justify-end sm:px-3">
-            <a href="{% url 'customer-edit-verify' post.id %}"><img class="h-4 sm:h-5" src="{% static '/estimate/img/edit.png' %}"></a>
+            <a href="{% url 'customer-edit' post.id %}"><img class="h-4 sm:h-5" src="{% static '/estimate/img/edit.png' %}"></a>
             <a href="{% url 'customer-delete' post.id %}"><img class="h-4 sm:h-5" src="{% static '/estimate/img/delete.png' %}"></a>
             <a href="{% url 'customer-list' %}"><img class="h-4 sm:h-5" src="{% static '/estimate/img/listing.png' %}"></a>
           </div>
@@ -46,9 +46,9 @@
           <form method="post" action="{% url 'customer-comment-write' post.id %}">
             {% csrf_token %}
             {% if not user.is_staff %}
-                {% render_field comment_form.content class="h-40 p-6 text-sm mt-5 outline-none border-gray-300 w-full resize-none border rounded-lg" placeholder="로그인 후 댓글 작성이 가능합니다." disabled=disbled %}
+                {% render_field comment_form.content class="h-40 p-6 text-sm mt-5 outline-none border-gray-300 w-full resize-none border rounded-lg" placeholder="운영자만 댓글 작성이 가능합니다." disabled=disbled %}
             {% else %}
-                {% render_field comment_form.content class="h-40 p-6 text-sm mt-5 outline-none border-gray-300 w-full resize-none border rounded-lg" placeholder="로그인 후 댓글 작성이 가능합니다." %}
+                {% render_field comment_form.content class="h-40 p-6 text-sm mt-5 outline-none border-gray-300 w-full resize-none border rounded-lg" placeholder="운영자만 댓글 작성이 가능합니다." %}
             {% endif %}
             <div class="flex justify-end mt-2 md:mt-4"> 
                 {% if user.is_staff %}

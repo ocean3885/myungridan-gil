@@ -97,7 +97,7 @@
             <span
               class="flex-1 min-w-0 truncate text-sm lg:text-base font-base text-gray-800 group-hover:text-blue-600"
             >
-              {{ post.title }}
+              {% if post.is_secret %}<img class="size-3 inline-block mb-1" src="{% static 'estimate/img/lock.png' %}" alt="Lock icon">{% endif %} {{ post.title }}
             </span>
 
             <!-- 오른쪽 created_at: 고정 너비 -->

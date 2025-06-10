@@ -1,3 +1,4 @@
+APScheduler==3.11.0
 asgiref==3.8.1
 certifi==2024.2.2
 cffi==1.16.0
@@ -7,6 +8,7 @@ defusedxml==0.7.1
 Django==5.0.3
 django-allauth==0.61.1
 django-appconf==1.0.6
+django-apscheduler==0.7.0
 django-browser-reload==1.12.1
 django-ckeditor==6.7.1
 django-compressor==4.4
@@ -25,4 +27,5 @@ requests==2.31.0
 requests-oauthlib==2.0.0
 rjsmin==1.2.1
 sqlparse==0.4.4
+tzlocal==5.3.1
 urllib3==2.2.1

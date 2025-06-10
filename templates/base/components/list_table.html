@@ -10,7 +10,7 @@
     </div>
 
     <!-- Card -->
-    <div class="flex flex-col">
+    <div class="flex flex-col min-w-[440px]">
         <div class="-m-1.5 overflow-x-auto">
             <div class="p-1.5 min-w-full inline-block align-middle">
                 <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
@@ -36,15 +36,13 @@
                     <!-- End Header -->
         
                     <!-- Table -->
-                    <div class="flex w-full overflow-x-auto px-5 py-5">
-                        <table class="table-compact table">
-                            <thead>
+                     <div class="flex w-full overflow-x-auto px-5 py-5">
+                        <table class="table-compact table w-full table-fixed"> <thead>
                                 <tr>
-                                    <th>번호</th>
-                                    <th>이름</th>
-                                    <th>제목</th>
-                                    <th>댓글</th>
-                                    <th>작성일</th>
+                                    <th class="w-[8%]">번호</th>
+                                    <th class="w-[15%]">이름</th>
+                                    <th class="w-auto text-center">제목</th> 
+                                    <th class="w-[15%]">작성일</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,14 +50,22 @@
                                 <tr class="cursor-pointer" onclick="window.location.href='{% url 'customer-detail' post.pk %}';">
                                     <th>{{post.pk}}</th>
                                     <td>{{post.name|mask_name|truncate_char:3}}</td>
-                                    <td>{{post.title|truncate_chars:20}}</td>
-                                    <td>{{post.comment_count}}</td>
-                                    <td>{{post.created_at|date:"y.m.d"}}</td>
+                                    <td class="flex items-center justify-between">
+                                        <div class="truncate">
+                                            {% if post.is_secret %}
+                                                <img class="size-3 inline-block mb-1 mr-1" src="{% static 'estimate/img/lock.png' %}" alt="Lock icon">
+                                            {% endif %}
+                                            <span>{{ post.title }}</span>
+                                        </div>
+                                        <div class="ml-2 flex-shrink-0">[{{ post.comment_count }}]</div>
+                                    </td>
+                                    <td>{{post.created_at|date:"m.d"}}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                     </div>
+                    
                     <!-- End Table -->
         
                     <!-- Footer -->

@@ -23,19 +23,19 @@
         {% csrf_token %}
         <div class="grid gap-4 lg:gap-6">
           <div>
-            <label for="title" class="block mb-2 text-sm text-gray-700 font-medium">제목</span></label>
-            {% render_field customform.title id="title" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+            <label for="title" class="block mb-2 text-gray-700">제목</span></label>
+            {% render_field customform.title id="title" class="py-3 px-4 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500" %}
           </div>
           <!-- Grid -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
             <div>
-              <label for="name" class="block mb-2 text-sm text-gray-700 font-medium">이름</span></label>
-              {% render_field customform.name id="name" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+              <label for="name" class="block mb-2 text-gray-700">이름</span></label>
+              {% render_field customform.name id="name" class="py-3 px-4 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500" %}
             </div>
 
             <div>
-              <label for="password" class="block mb-2 text-sm text-gray-700 font-medium">비밀번호</span></label>
-              {% render_field customform.password id="password" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+              <label for="password" class="block mb-2 text-gray-700">비밀번호</span></label>
+              {% render_field customform.password id="password" class="py-3 px-4 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500" %}
             </div>
           </div>
           <!-- End Grid -->
@@ -43,26 +43,33 @@
           <!-- Grid -->
           <div class="grid">
             <div>
-              <label for="email" class="block mb-2 text-sm text-gray-700 font-medium">이메일<span class="text-blue-500"> (선택)</span></label>
-              {% render_field customform.email id="email" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+              <label for="email" class="block mb-2 text-gray-700">이메일<span class="text-blue-500"> (선택)</span></label>
+              {% render_field customform.email id="email" class="py-3 px-4 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
             </div>
           </div>
           <!-- End Grid -->
 
+          <!-- Grid -->
+          <div class="flex justify-start items-center gap-4 mb-1">
+              <label for="is_secret" class="text-gray-700">비공개</label>
+              {% render_field customform.is_secret id="is_secret" class="border-gray-400 rounded-sm focus:border-blue-500 focus:ring-blue-500" %}
+          </div>
+          <!-- End Grid -->
+
           <div>
-            <label for="content" class="block mb-2 text-sm text-gray-700 font-medium">내용</label>
-            {% render_field customform.content id="content" rows="6" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
+            <label for="content" class="block mb-2 text-gray-700">내용</label>
+            {% render_field customform.content id="content" rows="6" class="py-3 px-4 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" %}
           </div>
         </div>
         <!-- End Grid -->
 
         <div class="mt-6 flex justify-center gap-2">
-          <button type="submit" class="py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">확인</button>
-          <button onclick="window.history.back()" class="py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">이전</button>
+          <button type="submit" class="py-2 px-4 inline-flex justify-center items-center gap-x-2 font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">확인</button>
+          <button onclick="window.history.back()" class="py-2 px-4 inline-flex justify-center items-center gap-x-2 font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">이전</button>
         </div>
 
         <div class="mt-3 text-center">
-          <p class="text-sm text-gray-500 dark:text-neutral-500">
+          <p class="text-gray-700">
             빠른 시간 내 답변 드리도록 하겠습니다.
           </p>
         </div>

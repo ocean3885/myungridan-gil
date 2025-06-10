@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'widget_tweaks',
+    'django_apscheduler',
     
     'allauth',
     'allauth.account',

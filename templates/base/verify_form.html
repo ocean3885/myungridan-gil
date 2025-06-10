@@ -1,5 +1,4 @@
 {% extends 'main.html' %} 
-{% load widget_tweaks %} 
 {% block content %}
 
 
@@ -9,7 +8,11 @@
     >
       <div class="p-4 sm:p-7">
         <div class="text-center text-xl font-bold text-gray-700">
-          {% if delete %}
+          {% if action == "view" %}
+          <h1>
+            비밀번호 확인
+          </h1>
+          {% elif action == "delete" %}
           <h1>
             글 삭제하기
           </h1>
