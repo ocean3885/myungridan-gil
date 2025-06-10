@@ -198,6 +198,7 @@ def customer_write(request):
         if customform.is_valid():
             obj = customform.save()
             update_last_post_time(cache_key, timeout=limit_seconds)
+            request.session[f'post_{obj.pk}_verified_for_view'] = True
             return redirect("customer-detail", obj.pk)
         else:
             errors = customform.errors
