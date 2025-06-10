@@ -1,5 +1,3 @@
-# your_app/scheduler.py
-
 from apscheduler.schedulers.background import BackgroundScheduler
 from django.core.management import call_command
 from django_apscheduler.jobstores import DjangoJobStore
@@ -25,27 +23,23 @@ def start():
     scheduler.add_jobstore(DjangoJobStore(), "default")
 
     # 작업 등록
-    # 1. 게시글 발행 작업: 매일 1회 (예: 오전 9시) 실행
+    # 1. 게시글 발행 작업: 매일 1회 실행
     scheduler.add_job(
         publish_post_job,
         'cron',
+        # day='*/2',
         hour=9,
-        minute=0,
-        id='publish_post_job',          # 고유 ID
+        id='publish_post_job',        
         replace_existing=True,
     )
     
-    # "1~2일에 한번"을 정확히 구현하려면 day='*/1' 또는 day='*/2'를 사용합니다.
-    # 예: 이틀에 한번 오전 9시에 실행
-    # scheduler.add_job(..., trigger='cron', day='*/2', hour=9, ...)
-
-    # 2. 댓글 발행 작업: 매 시간 1회 실행
+    # 2. 댓글 발행 작업: 매일 1회 실행
     scheduler.add_job(
         publish_comment_job,
         'cron',
-        hour='*', # 매 시간
-        minute=5, # 매 시간 5분에 실행 (포스트 발행과 시간차를 두기 위함)
-        id='publish_comment_job',     # 고유 ID
+        hour=10, 
+        minute=5, 
+        id='publish_comment_job',     
         replace_existing=True,
     )
 

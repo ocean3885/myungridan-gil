@@ -1,17 +1,16 @@
 from django.contrib import admin
-from .models import Profile, CustomBoard
+from .models import Profile, CustomBoard, CustomComment, ScheduledItem
 
 
-class PageViewAdmin(admin.ModelAdmin):
-    list_display = ('url', 'total_views')
-    search_fields = ('url',)
+# CustomComment 모델을 CustomBoard와 함께 표시하려면 Inline 클래스를 정의합니다.
+class CustomCommentInline(admin.TabularInline):  
+    model = CustomComment
+    extra = 1  
 
-class PageViewDetailAdmin(admin.ModelAdmin):
-    list_display = ('page_view', 'date', 'views')
-    list_filter = ('date',)
-    search_fields = ('page_view__url',)
+class CustomBoardAdmin(admin.ModelAdmin):
+    inlines = [CustomCommentInline]  # CustomBoard 내에서 CustomComment를 표시
 
+# 모델을 등록합니다.
 admin.site.register(Profile)
-admin.site.register(CustomBoard)
-# admin.site.register(PageView, PageViewAdmin)
-# admin.site.register(PageViewDetail, PageViewDetailAdmin)
+admin.site.register(CustomBoard, CustomBoardAdmin)
+admin.site.register(ScheduledItem)
