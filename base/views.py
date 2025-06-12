@@ -73,7 +73,7 @@ def saju_base(request):
     ).order_by("-created_at")
 
     # 페이지네이션
-    paginator = Paginator(posts, 6)  # 페이지당 10개의 게시글을 보여줌
+    paginator = Paginator(posts, 10)  # 페이지당 10개의 게시글을 보여줌
     page_number = request.GET.get("page")  # URL에서 페이지 번호를 가져옴
     page_obj = paginator.get_page(page_number)  # 해당 페이지의 게시글을 가져옴
     context = {
@@ -94,7 +94,7 @@ def name_base(request):
     ).order_by("-created_at")[:8]
 
     # 페이지네이션
-    paginator = Paginator(posts, 6)  # 페이지당 10개의 게시글을 보여줌
+    paginator = Paginator(posts, 10)  # 페이지당 10개의 게시글을 보여줌
     page_number = request.GET.get("page")  # URL에서 페이지 번호를 가져옴
     page_obj = paginator.get_page(page_number)  # 해당 페이지의 게시글을 가져옴
     context = {
@@ -232,12 +232,7 @@ def customer_detail(request, pk):
 
 
 def customer_delete(request, pk):
-    post = get_object_or_404(CustomBoard, pk=pk)
-    
-    # 관리자라면 바로 삭제
-    if request.user.is_staff:
-        post.delete()
-        return redirect("customer-list")
+    post = get_object_or_404(CustomBoard, pk=pk)    
     
     verification_key = f'post_{pk}_verified_for_delete'
     if not request.session.get(verification_key):

@@ -41,7 +41,7 @@
               {%endif%}
             </div>
             <div class="mt-3">{{comment.content|linebreaksbr}}</div>
-            <div class="text-xs mt-3">{{comment.created}}</div>
+            <div class="text-xs mt-3">{{comment.created|date:"Y-m-d"}}</div>
           {% endfor %}
           <form method="post" action="{% url 'customer-comment-write' post.id %}">
             {% csrf_token %}

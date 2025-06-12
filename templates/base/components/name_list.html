@@ -1,4 +1,5 @@
 {% load custom_filters %}
+{% load thumbnail %}
 {% load static %}
 <!-- Card Blog -->
 <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto text-black">
@@ -9,7 +10,9 @@
       <a class="group rounded-xl overflow-hidden" href="{% url 'post-detail' post.id %}">
         <div class="sm:flex lg:block">
           <div class="flex-shrink-0 relative rounded-xl overflow-hidden w-full sm:w-56 lg:w-full h-44">
-            <img class="group-hover:scale-105 transition-transform duration-500 ease-in-out size-full absolute top-0 start-0 object-cover rounded-xl" src="{{post.image.url}}" alt="Image Description">
+            {% thumbnail post.image "400x400" crop="center" quality=85 as im %}
+            <img class="group-hover:scale-105 transition-transform duration-500 ease-in-out size-full absolute top-0 start-0 object-cover rounded-xl" src="{{im.url}}" alt="Image Description">
+            {% endthumbnail %}
           </div>
   
           <div class="grow mt-4 sm:mt-0 sm:ms-6 px-1 sm:px-0 lg:mt-4 lg:ms-0 lg:px-1">
