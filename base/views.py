@@ -14,14 +14,17 @@ from django.http import HttpResponse
 
 
 def get_filtered_posts():
-    posts1 = Post.objects.filter(is_first=True)
-    posts2 = Post.objects.filter(is_second=True)
+    isAll = Post.objects.filter(is_all=True)
+    isSide = Post.objects.filter(is_side=True)
     return {
-        "posts1": posts1,
-        "posts2": posts2,
+        "posts1": isAll,
+        "posts2": isSide,
     }
 
 def home(request):
+    # 홈 화면에 표시할 게시글 필터링
+    display_posts = Post.objects.filter(is_home__isnull=False).exclude(is_home='')
+    
     # 최신 게시글 5개 추출
     posts = Post.objects.order_by("-created_at")[:5]
 
@@ -58,6 +61,8 @@ def home(request):
         "boards": boards,
         "submits": submits,
     }
+    for post in display_posts:
+        context[f'post_{post.is_home}'] = post
 
     return render(request, "base/home.html", context)
 

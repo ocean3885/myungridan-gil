@@ -3988,6 +3988,10 @@ html {
   height: 15rem;
 }
 
+.h-7 {
+  height: 1.75rem;
+}
+
 .h-72 {
   height: 18rem;
 }
@@ -4120,6 +4124,10 @@ html {
   width: 25rem;
 }
 
+.w-\[40\%\] {
+  width: 40%;
+}
+
 .w-\[90rem\] {
   width: 90rem;
 }
@@ -4154,6 +4162,10 @@ html {
 
 .min-w-\[440px\] {
   min-width: 440px;
+}
+
+.min-w-\[500px\] {
+  min-width: 500px;
 }
 
 .min-w-full {

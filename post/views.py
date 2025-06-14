@@ -40,8 +40,8 @@ def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)   
     post.count += 1
     post.save() 
-    posts1 = Post.objects.filter(is_first=True).exclude(pk=post_id)
-    posts2 = Post.objects.filter(is_second=True).exclude(pk=post_id)
+    posts1 = Post.objects.filter(is_all=True).exclude(pk=post_id)
+    posts2 = Post.objects.filter(is_side=True).exclude(pk=post_id)
     context = {
         'post': post,
         'posts1': posts1,
@@ -51,13 +51,13 @@ def post_detail(request, post_id):
 
 def post_always(request, post_id):
     post = get_object_or_404(Post, pk=post_id)   
-    post.is_first = not post.is_first
+    post.is_all = not post.is_all
     post.save()
     return redirect('post-detail', post_id)
 
 def post_sideview(request, post_id):
     post = get_object_or_404(Post, pk=post_id)   
-    post.is_second = not post.is_second
+    post.is_side = not post.is_side
     post.save()
     return redirect('post-detail', post_id)
 

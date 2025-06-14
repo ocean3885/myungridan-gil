@@ -36,17 +36,23 @@
 
         <div class="flex gap-x-3 items-center mb-4 sm:mb-8">
           <label
-            for="is_first"
+            for="is_all"
             class="block text-sm font-medium dark:text-white"
-            >항상</label
+            >All</label
           >
-          {% render_field post_form.is_first type="checkbox" id="is_first"%}
+          {% render_field post_form.is_all type="checkbox" id="is_all"%}
           <label
-            for="is_second"
+            for="is_side"
             class="block text-sm font-medium dark:text-white"
-            >PC</label
+            >Side</label
           >
-          {% render_field post_form.is_second type="checkbox" id="is_second"%}
+          {% render_field post_form.is_side type="checkbox" id="is_side"%}
+          <label
+            for="is_homde"
+            class="block text-sm font-medium dark:text-white"
+            >Home</label
+          >
+          {% render_field post_form.is_home type="text" id="is_home" class="h-7"%}
         </div>
 
         <div class="mb-4 sm:mb-8">

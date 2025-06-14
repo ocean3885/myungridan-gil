@@ -18,8 +18,9 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     content = RichTextUploadingField()
     count = models.IntegerField(default=0)
-    is_first = models.BooleanField(default=False)
-    is_second = models.BooleanField(default=False)
+    is_all = models.BooleanField(default=False)
+    is_side = models.BooleanField(default=False)
+    is_home = models.CharField(max_length=10, null=True, blank=True)  
     image = models.ImageField(upload_to='post_img/')
     image_thumb = ImageSpecField(source='image',processors=[ResizeToFill(100, 100)],format='JPEG',options={'quality': 60})
     created_at = models.DateTimeField(auto_now_add=True)  # 포스트가 생성될 때의 날짜/시간 자동 저장
