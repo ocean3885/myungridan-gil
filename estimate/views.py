@@ -174,8 +174,8 @@ def estimate_list(request):
     submits = Estimate.objects.all()
     count = submits.count()
     submits = submits.order_by("-created")
-    posts1 = Post.objects.filter(is_first=True)
-    posts2 = Post.objects.filter(is_second=True)
+    posts1 = Post.objects.filter(is_all=True)
+    posts2 = Post.objects.filter(is_side=True)
 
     # 페이지네이션
     paginator = Paginator(submits, 15)  # 페이지당 10개의 게시글을 보여줌

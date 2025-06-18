@@ -1,9 +1,12 @@
 from django.core.management.base import BaseCommand
-from django.db import transaction
+from django.db import transaction, IntegrityError, DatabaseError
 from django.contrib.auth.models import User
 from base.models import ScheduledItem, CustomComment
+import logging
+import traceback
 
 
+logger = logging.getLogger(__name__) # 모듈 레벨 로거
 class Command(BaseCommand):
     help = "글이 발행된 아이템의 예약 댓글을 발행합니다."
 
@@ -25,8 +28,12 @@ class Command(BaseCommand):
             return
 
         for item in items_to_process:
+            if not item.published_board or not item.comment_content:
+                self.stderr.write(self.style.ERROR(f"아이템 {item.id}에 필수 값이 누락되었습니다."))
+                continue
             try:
                 with transaction.atomic():
+                    
                     # 실제 CustomComment 객체 생성 (작성자는 admin_user로 고정)
                     new_comment = CustomComment.objects.create(
                         board=item.published_board,
@@ -35,9 +42,9 @@ class Command(BaseCommand):
                     )
 
                     # 아이템의 상태를 '전체 발행 완료'로 변경
-                    item.status = ScheduledItem.Status.ALL_PUBLISHED
-                    item.published_comment = new_comment  # 생성된 댓글과 연결
-                    item.save()
+                    # item.status = ScheduledItem.Status.ALL_PUBLISHED
+                    # item.published_comment = new_comment  # 생성된 댓글과 연결
+                    # item.save()
 
                 self.stdout.write(
                     self.style.SUCCESS(
@@ -45,9 +52,15 @@ class Command(BaseCommand):
                     )
                 )
 
+            except IntegrityError as e:
+                self.stderr.write(self.style.ERROR(f"무결성 오류 발생 on item {item.id}: {e}"))
+                logger.exception(f"무결성 오류 발생 on item {item.id}")
+            except DatabaseError as e:
+                self.stderr.write(self.style.ERROR(f"데이터베이스 오류 발생 on item {item.id}: {e}"))
+                logger.exception(f"데이터베이스 오류 발생 on item {item.id}")
             except Exception as e:
                 item.status = ScheduledItem.Status.ERROR
                 item.save()
-                self.stderr.write(
-                    self.style.ERROR(f"댓글 발행 중 오류 발생 on item {item.id}: {e}")
-                )
+                error_traceback = traceback.format_exc()
+                self.stderr.write(self.style.ERROR(f"댓글 발행 중 오류 발생 on item {item.id}: {e}\n{error_traceback}"))
+                logger.exception(f"댓글 발행 중 오류 발생 on item {item.id}")
