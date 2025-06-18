@@ -164,7 +164,6 @@ def submit_verify(request):
         elif len(submits) == 1:
             # 쿼리셋에 객체가 하나만 있는 경우
             submit = submits.first()
-            person = Person.objects.get(submit__id=submit.id)
             request.session['submit_name'] = submit.name
             request.session.pop('submit_phone', None)
             return redirect('submit-detail', pk=submit.pk)
