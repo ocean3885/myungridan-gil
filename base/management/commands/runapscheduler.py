@@ -1,4 +1,4 @@
-# from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
 # from apscheduler.triggers.cron import CronTrigger
 from apscheduler.schedulers.background import BackgroundScheduler
 from django.core.management import call_command
@@ -28,7 +28,7 @@ class Command(BaseCommand):
     help = "Runs APScheduler."
 
     def handle(self, *args, **options):
-        scheduler = BackgroundScheduler()
+        scheduler = BlockingScheduler()
         scheduler.add_jobstore(DjangoJobStore(), "default")
 
         # 1. 게시글 발행 작업: 매일 1회 실행
@@ -36,7 +36,7 @@ class Command(BaseCommand):
             publish_post_job,
             'interval',
             # hour=9,  # 매일 오전 9시에 실행
-            minute=1,
+            minutes=1,
             id='publish_post_job',   
             replace_existing=True,
         )
@@ -46,7 +46,7 @@ class Command(BaseCommand):
             publish_comment_job,
             'interval',
             # hour=10, # 매일 오전 10시 5분에 실행
-            minute=2, 
+            minutes=2, 
             id='publish_comment_job',     
             replace_existing=True,
         )
