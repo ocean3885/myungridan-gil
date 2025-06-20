@@ -36,7 +36,7 @@ class Command(BaseCommand):
             publish_post_job,
             'interval',
             # hour=9,  # 매일 오전 9시에 실행
-            minutes=1,
+            minute=1,
             id='publish_post_job',   
             replace_existing=True,
         )
@@ -46,7 +46,7 @@ class Command(BaseCommand):
             publish_comment_job,
             'interval',
             # hour=10, # 매일 오전 10시 5분에 실행
-            minutes=2, 
+            minute=2, 
             id='publish_comment_job',     
             replace_existing=True,
         )
