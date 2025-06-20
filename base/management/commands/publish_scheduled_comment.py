@@ -42,9 +42,9 @@ class Command(BaseCommand):
                     )
 
                     # 아이템의 상태를 '전체 발행 완료'로 변경
-                    # item.status = ScheduledItem.Status.ALL_PUBLISHED
-                    # item.published_comment = new_comment  # 생성된 댓글과 연결
-                    # item.save()
+                    item.status = ScheduledItem.Status.ALL_PUBLISHED
+                    item.published_comment = new_comment  # 생성된 댓글과 연결
+                    item.save()
 
                 self.stdout.write(
                     self.style.SUCCESS(
