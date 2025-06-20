@@ -1,6 +1,6 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 # from apscheduler.triggers.cron import CronTrigger
-from apscheduler.schedulers.background import BackgroundScheduler
+# from apscheduler.schedulers.background import BackgroundScheduler
 from django.core.management import call_command
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -35,8 +35,7 @@ class Command(BaseCommand):
         scheduler.add_job(
             publish_post_job,
             'interval',
-            # hour=9,  # 매일 오전 9시에 실행
-            minutes=1,
+            hours=36,  # 36시간 간격으로 실행
             id='publish_post_job',   
             replace_existing=True,
         )
@@ -45,8 +44,8 @@ class Command(BaseCommand):
         scheduler.add_job(
             publish_comment_job,
             'interval',
-            # hour=10, # 매일 오전 10시 5분에 실행
-            minutes=2, 
+            hour=9, 
+            minute=5,  # 매일 오전 9시 5분에 실행
             id='publish_comment_job',     
             replace_existing=True,
         )
