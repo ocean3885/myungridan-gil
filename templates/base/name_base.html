@@ -17,6 +17,20 @@
                 <div class="mt-[2px] mr-3 h-4 border-l-4 border-amber-900/70"></div>
                 <div>작명원소개 > 도원성명학</div>
             </div>  
+            <div class="flex justify-end">
+              <form method="get">
+                  <select class="select w-48" name="category_id" onchange="this.form.submit()">
+                      <!-- 전체 글 보기 옵션 추가 -->
+                      <option value="" {% if not request.GET.category_id %}selected{% endif %}>전체글</option>
+                      <!-- 기존 카테고리 옵션 -->
+                      {% for category in categories %}
+                      <option value="{{ category.id }}" {% if request.GET.category_id == category.id|stringformat:"s" %}selected{% endif %}>
+                          {{ category.name }}
+                      </option>
+                      {% endfor %}
+                  </select>
+              </form>
+            </div>
             {% include 'base/components/name_list.html' %}
         </div>
       </div>

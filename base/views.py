@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from datetime import timedelta
 from .models import Profile, CustomBoard, CustomComment
-from post.models import Post
+from post.models import Post, Category
 from submit.models import Submit
 from .forms import ProfileForm, CustomCommentForm, CustomForm
 from .utils import generate_virtual_submits
@@ -11,7 +11,6 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from submit.utils import get_client_ip, is_rate_limited, update_last_post_time
 from django.http import HttpResponse
-
 
 def get_filtered_posts():
     isAll = Post.objects.filter(is_all=True)
@@ -52,9 +51,8 @@ def home(request):
             submits,
             key=lambda x: x.created if hasattr(x, "created") else x["created"],
             reverse=True,
-        )[:5]
-        
-    # Context 딕셔너리 생성
+        )[:5]        
+    
     context = {
         "posts": posts,
         "latest": latest,
@@ -68,14 +66,27 @@ def home(request):
 
 
 def saju_base(request):
+    # 사이드바에 표시할 게시글 필터링 (성명학 관련 포스트만 표시되게)
     posts1 = Post.objects.filter(
         Q(category__name="성명학") | Q(category__name="작명사례")
     ).order_by("-created_at")[:8]
-    posts = Post.objects.filter(
+    
+    category_id = request.GET.get('category_id')
+    if category_id:
+        posts = Post.objects.filter(category__id=category_id).order_by("-created_at")  # 선택된 카테고리에 따라 포스트를 필터링합니다.
+    else:        
+        posts = Post.objects.filter(
         Q(category__name="일주론")
         | Q(category__name="사주학")
         | Q(category__name="유명인사주")
-    ).order_by("-created_at")
+        ).order_by("-created_at")
+
+    categories = Category.objects.filter(
+        Q(name="일주론")
+        | Q(name="사주학")
+        | Q(name="유명인사주")
+        | Q(name="맹파명리")
+        )
 
     # 페이지네이션
     paginator = Paginator(posts, 10)  # 페이지당 10개의 게시글을 보여줌
@@ -84,19 +95,31 @@ def saju_base(request):
     context = {
         "page_obj": page_obj,
         "posts1": posts1,
+        "categories": categories,
     }
     return render(request, "base/saju_base.html", context)
 
-
 def name_base(request):
-    posts = Post.objects.filter(
-        Q(category__name="성명학") | Q(category__name="작명사례")
-    ).order_by("-created_at")
+    # 사이드바에 표시할 게시글 필터링 (사주학 관련 포스트만 표시되게)    
     posts1 = Post.objects.filter(
         Q(category__name="일주론")
         | Q(category__name="사주학")
         | Q(category__name="유명인사주")
     ).order_by("-created_at")[:8]
+    
+    category_id = request.GET.get('category_id')
+    if category_id:
+        posts = Post.objects.filter(category__id=category_id).order_by("-created_at")  # 선택된 카테고리에 따라 포스트 필터링.
+    else:        
+        posts = Post.objects.filter(
+        Q(category__name="성명학")
+        | Q(category__name="작명사례")
+        ).order_by("-created_at")
+
+    categories = Category.objects.filter(
+        Q(name="성명학")
+        | Q(name="작명사례")
+        )
 
     # 페이지네이션
     paginator = Paginator(posts, 10)  # 페이지당 10개의 게시글을 보여줌
@@ -105,6 +128,7 @@ def name_base(request):
     context = {
         "page_obj": page_obj,
         "posts1": posts1,
+        "categories": categories,
     }
     return render(request, "base/name_base.html", context)
 
