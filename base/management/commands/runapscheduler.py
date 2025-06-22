@@ -35,7 +35,7 @@ class Command(BaseCommand):
         scheduler.add_job(
             publish_post_job,
             'interval',
-            hours=36,  # 36시간 간격으로 실행
+            hours=33,  # 36시간 간격으로 실행
             id='publish_post_job',   
             replace_existing=True,
         )
@@ -43,7 +43,7 @@ class Command(BaseCommand):
         # 2. 댓글 발행 작업: 매일 1회 실행
         scheduler.add_job(
             publish_comment_job,
-            'interval',
+            'cron',
             hour=9, 
             minute=5,  # 매일 오전 9시 5분에 실행
             id='publish_comment_job',     
