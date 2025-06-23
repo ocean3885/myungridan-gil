@@ -42,3 +42,24 @@ class Like(models.Model):
 
     def __str__(self):
         return f'{self.user} likes {self.post}'
+    
+    
+class DraftPost(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name='draft_posts', on_delete=models.CASCADE, null=True, blank=True)
+    title = models.CharField(max_length=100)
+    content = RichTextUploadingField()
+    image = models.ImageField(upload_to='draft_post_img/', blank=True, null=True) # Make image optional for drafts
+    image_thumb = ImageSpecField(source='image',
+                                 processors=[ResizeToFill(100, 100)],
+                                 format='JPEG',
+                                 options={'quality': 60})
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Draft Post"
+        verbose_name_plural = "Draft Posts"

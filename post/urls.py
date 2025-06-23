@@ -11,4 +11,5 @@ urlpatterns = [
     path('detail/<int:post_id>/always/', views.post_always, name='post-always'),
     path('detail/<int:post_id>/sideview/', views.post_sideview, name='post-sideview'),
     path('naming/', views.naming_list, name="naming-list"),
+    path('drafts/<int:draft_id>/publish/', views.publish_draft, name='publish_draft'),
 ]

@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.admin.views.decorators import staff_member_required
 from django.core.paginator import Paginator
 from django.views.decorators.http import require_POST
 from .utils import resize_image 
-from .models import Post, Category
+from .models import Post, Category, DraftPost
 from .forms import PostForm
 
 
@@ -101,3 +102,22 @@ def post_list(request):
         'categories': categories,
     }
     return render(request, 'post/post_list.html', context)
+
+@staff_member_required
+def publish_draft(request, draft_id):
+    draft = get_object_or_404(DraftPost, id=draft_id, user=request.user) # Ensure user owns the draft
+
+    # Create a new Post instance from the DraftPost
+    new_post = Post(
+        user=draft.user,
+        category=draft.category,
+        title=draft.title,
+        content=draft.content,
+        image=draft.image, # This will copy the image file
+    )
+    new_post.save()
+
+    # Optionally, delete the draft after publishing
+    draft.delete()
+
+    return redirect('post-detail', new_post.pk)
