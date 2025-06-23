@@ -79,6 +79,7 @@ def saju_base(request):
         Q(category__name="일주론")
         | Q(category__name="사주학")
         | Q(category__name="유명인사주")
+        | Q(category__name="맹파명리")
         ).order_by("-created_at")
 
     categories = Category.objects.filter(
@@ -105,6 +106,7 @@ def name_base(request):
         Q(category__name="일주론")
         | Q(category__name="사주학")
         | Q(category__name="유명인사주")
+        | Q(category__name="맹파명리")
     ).order_by("-created_at")[:8]
     
     category_id = request.GET.get('category_id')

@@ -1,0 +1,37 @@
+{% load static %}
+<div class="bg-gray-100 p-8 rounded-xl max-w-2xl mx-auto flex flex-col sm:flex-row items-start gap-5 sm:gap-10">
+  <div class="flex items-center gap-4 sm:flex-col">
+    <img class="size-28 rounded-full object-cover border-4 border-indigo-300 shadow-lg transform hover:scale-105 transition-transform duration-300" 
+         src="{% static 'post/profile2.jpg' %}" 
+         alt="도원사주작명원 대표원장 김종찬">
+    <h2 class="font-semibold text-gray-800 mb-4">
+      도원사주작명원<br>대표원장 김종찬
+    </h2>
+  </div>
+
+  <div class="flex-1 text-sm sm:text-base">
+    <div class="text-gray-700 leading-relaxed mb-6">
+      <p class="mb-3">
+        동아대학교 졸업 후 동양철학을 전공하고, 20여 년간 명리학의 깊이를 탐구해왔습니다.
+        고전 명리학의 원리를 현대적 관점에서 재해석하여, 각 개인의 삶에 실질적인 도움이 되는 방향을 제시하는 것을 사명으로 삼고 있습니다.
+      </p>
+    </div>
+    <div class="mb-8">
+      <ul class="text-gray-600">
+        <li>- 유튜브 채널 '도원사주' 운영</li>
+        <li>- 각종 매거진 및 웹사이트 기고 활동</li>
+        <li>- 음운 오행과 수리 길흉을 종합적으로 고려한 입체적 작명</li>
+        <li>- 맹파명리학과 현대심리학을 융합한 심층 분석</li>
+      </ul>
+    </div>
+
+    <div class="flex flex-col justify-center space-y-4">
+      <a href="{% url 'submit-form' 'sj' %}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-lg rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200 shadow-md transform">
+        ☞ 사주 심층 상담 신청 
+      </a>
+      <a href="{% url 'submit-form' 'jm' %}" class="inline-flex items-center justify-center px-6 py-3 border border-blue-600 text-lg font-semibold rounded-md text-blue-700 bg-transparent hover:bg-blue-100 transition-colors duration-200 transform">
+        ☞ 신생아 명품 작명 신청
+      </a>
+    </div>
+  </div>
+</div>

@@ -71,6 +71,7 @@
           >
             <img src="{{ post.image.url }}" alt="" />
             <div class="prose md:prose-xl">{{ post.content|safe}}</div>
+            {% include './profile_section.html'%}
             <div class="h-5"></div>
             <button
               id="scrollToTopBtn"
