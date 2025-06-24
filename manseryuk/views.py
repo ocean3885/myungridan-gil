@@ -17,11 +17,24 @@ class Msr_Calculator():
             )
 
         if sl == "음력윤달":
-            data = birthdata[1]
+            if len(birthdata) > 1:
+                data = birthdata[1]
+            else:
+                return {"error": "음력윤달 데이터가 없습니다."}
         else:
             data = birthdata[0]
+        o_data = data
+        if data and time == "익일":
+            next_cd_no = data.cd_no + 1
+            data = CalendaData.objects.using('manseryuk').filter(cd_no=next_cd_no).first()
 
         outdata = {
+            "os_year": o_data.cd_sy,
+            "os_month": o_data.cd_sm,
+            "os_day": o_data.cd_sd,
+            "ol_year": o_data.cd_ly,
+            "ol_month": o_data.cd_lm,
+            "ol_day": o_data.cd_ld,
             "s_year": data.cd_sy,
             "s_month": data.cd_sm,
             "s_day": data.cd_sd,
@@ -44,7 +57,10 @@ class Msr_Calculator():
             "sol_plan": data.cd_sol_plan,
             "lunar_plan": data.cd_lun_plan,
         }
-        outdata["time_ji_kr"] = time
+        if time == "익일":
+            outdata["time_ji_kr"] = "자"
+        else:
+            outdata["time_ji_kr"] = time
         outdata["time_gan_kr"] = self.get_time_gan(
             outdata["day_gan_kr"], outdata["time_ji_kr"]
         )
@@ -56,7 +72,7 @@ class Msr_Calculator():
             outdata["month_gan_kr"], outdata["month_ji_kr"]
         )
         outdata["daewoon_num"] = self.daewoonNum(
-            year, month, day, sl, outdata["daewoon"][0]
+            year, month, day, sl, time, outdata["daewoon"][0]
         )
         outdata["daewoon_num_list"] = descending_tens(outdata["daewoon_num"])
         outdata["time_gan10"] = find_ten_god(outdata["day_gan_kr"],outdata["time_gan_kr"])
@@ -130,7 +146,7 @@ class Msr_Calculator():
         
     
 
-    def daewoonNum(self, year, month, day, sl, way):
+    def daewoonNum(self, year, month, day, time, sl, way):
         JEOLGI = ["입춘", "경칩", "청명", "입하", "망종", "소서",
                   "입추", "백로", "한로", "입동", "대설", "소한"]
         if sl == "양력":
@@ -141,6 +157,9 @@ class Msr_Calculator():
             birthdata = CalendaData.objects.using('manseryuk').filter(
                 cd_ly=year, cd_lm=month, cd_ld=day
             )
+        if birthdata and time == "익일":
+            next_cd_no = birthdata[0].cd_no + 1
+            birthdata = CalendaData.objects.using('manseryuk').filter(cd_no=next_cd_no)
         start_spot = birthdata[0].cd_no - 35
         temp_data_list = CalendaData.objects.using('manseryuk').filter(
             cd_no__gt=start_spot, cd_no__lt=start_spot+70

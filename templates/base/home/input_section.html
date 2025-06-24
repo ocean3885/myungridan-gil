@@ -1,0 +1,271 @@
+<div class="max-w-md mx-auto p-6 bg-white rounded-xl shadow-lg">
+    <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">내 사주 정보 입력</h2>
+    <form id="sajuForm" action="" method="POST">
+        {% csrf_token %}
+
+        <div class="mb-5">
+            <label for="id_birth_combined" class="block text-gray-700 text-sm font-semibold mb-2">생년월일 (YYYYMMDD)</label>
+            <input type="text" id="id_birth_combined" placeholder="예: 19820105" maxlength="8"
+                   class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm w-full">
+            <p id="birth_interpretation" class="mt-2 text-gray-500 text-sm"></p>
+            <p id="validation_message" class="mt-1 text-red-600 text-xs hidden"></p>
+            
+            <input type="hidden" name="year" id="hidden_year">
+            <input type="hidden" name="month" id="hidden_month">
+            <input type="hidden" name="day" id="hidden_day">
+        </div>
+
+        <div class="mb-5">
+            <label for="id_saju_time_slot" class="block text-gray-700 text-sm font-semibold mb-2">태어난 시각</label>
+            <select id="id_saju_time_slot" name="saju_time_slot" required
+                    class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm w-full bg-white appearance-none">
+                <option value="">시각 선택</option>
+                <option value="자">子시 (00:00 ~ 01:29)</option>
+                <option value="축">丑시 (01:30 ~ 03:29)</option>
+                <option value="인">寅시 (03:30 ~ 05:29)</option>
+                <option value="묘">卯시 (05:30 ~ 07:29)</option>
+                <option value="진">辰시 (07:30 ~ 09:29)</option>
+                <option value="사">巳시 (09:30 ~ 11:29)</option>
+                <option value="오">午시 (11:30 ~ 13:29)</option>
+                <option value="미">未시 (13:30 ~ 15:29)</option>
+                <option value="신">申시 (15:30 ~ 17:29)</option>
+                <option value="유">酉시 (17:30 ~ 19:29)</option>
+                <option value="술">戌시 (19:30 ~ 21:29)</option>
+                <option value="해">亥시 (21:30 ~ 23:29)</option>
+                <option value="익일">子시 (23:30 ~ 23:59)</option>
+            </select>
+        </div>
+
+        <div class="mb-5">
+            <label class="block text-gray-700 text-sm font-semibold mb-2">성별</label>
+            <div class="flex space-x-4">
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="radio" id="id_gender_male" name="gen" value="남" required
+                           class="form-radio h-5 w-5 text-indigo-600 focus:ring-indigo-500">
+                    <span class="ml-2 text-gray-700 text-sm">남성</span>
+                </label>
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="radio" id="id_gender_female" name="gen" value="여"
+                           class="form-radio h-5 w-5 text-indigo-600 focus:ring-indigo-500">
+                    <span class="ml-2 text-gray-700 text-sm">여성</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="mb-5">
+            <label class="block text-gray-700 text-sm font-semibold mb-2">음력 / 양력</label>
+            <div class="flex space-x-4">
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="radio" id="id_sl_solar" name="sl" value="양력" checked required
+                           class="form-radio h-5 w-5 text-indigo-600 focus:ring-indigo-500">
+                    <span class="ml-2 text-gray-700 text-sm">양력</span>
+                </label>
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="radio" id="id_sl_lunar" name="sl" value="음력"
+                           class="form-radio h-5 w-5 text-indigo-600 focus:ring-indigo-500">
+                    <span class="ml-2 text-gray-700 text-sm">음력</span>
+                </label>
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="radio" id="id_sl_lunar" name="sl" value="음력윤달"
+                           class="form-radio h-5 w-5 text-indigo-600 focus:ring-indigo-500">
+                    <span class="ml-2 text-gray-700 text-sm">음력윤달</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <label for="id_email" class="sr-only">이메일 주소</label>
+            <input type="email" id="id_email" name="email" placeholder="이메일 주소" required
+                   class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm w-full">
+        </div>
+
+        <button type="submit" id="submitButton"
+                class="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all">
+            사주 정보 분석
+        </button>
+    </form>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const birthCombinedInput = document.getElementById('id_birth_combined');
+        const birthInterpretation = document.getElementById('birth_interpretation');
+        const validationMessage = document.getElementById('validation_message');
+        const hiddenYear = document.getElementById('hidden_year');
+        const hiddenMonth = document.getElementById('hidden_month');
+        const hiddenDay = document.getElementById('hidden_day');
+        const sajuTimeSlotSelect = document.getElementById('id_saju_time_slot');
+        const form = document.getElementById('sajuForm');
+        const submitButton = document.getElementById('submitButton');
+
+        let hasBirthInputBeenTouched = false;
+
+        submitButton.disabled = true;
+        submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+
+        function updateSubmitButtonState() {
+            // isBirthDateValid는 이제 validateBirthInput의 직접적인 결과에 따라 달라짐.
+            // validateBirthInput이 빈 문자열일 때는 true를 반환하여 초기 상태 유지
+            const isBirthDateValid = validateBirthInput(birthCombinedInput.value.replace(/[^0-9]/g, ''));
+            const isSajuTimeSelected = sajuTimeSlotSelect.value !== "";
+            
+            // 모든 필수 필드 (HTML5 required 속성), 생년월일 유효성, 사주 시각 선택 여부 확인
+            // 단, 생년월일 필드가 비어있을 경우 (isBirthDateValid가 true)
+            // 즉, 유효성 검사 통과 조건에 "필수 입력 여부"는 form.checkValidity()가 판단하고,
+            // validateBirthInput은 "형식적 유효성"만 판단하도록 분리.
+            if (form.checkValidity() && isBirthDateValid && isSajuTimeSelected) {
+                submitButton.disabled = false;
+                submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+            } else {
+                submitButton.disabled = true;
+                submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        // 유효성 검사 함수 (생년월일만 검사)
+        function validateBirthInput(inputValue) {
+            let message = '';
+            let isValid = true; 
+
+            // === 핵심 변경: 입력값이 비어있으면 유효성 검사 패스하고 초기 상태로 복원 ===
+            if (inputValue.length === 0) {
+                validationMessage.textContent = '';
+                validationMessage.classList.add('hidden');
+                birthCombinedInput.classList.remove('border-red-500');
+                birthCombinedInput.classList.add('border-gray-300');
+                return false; // 빈 값은 유효한 입력이 아니므로 false 반환 (required 속성이 처리)
+            }
+            // =========================================================================
+
+            if (inputValue.length < 8) {
+                message = '생년월일 8자리를 입력해주세요.';
+                isValid = false;
+            } else if (inputValue.length > 8) {
+                 message = '입력 형식이 잘못되었습니다 (YYYYMMDD).';
+                 isValid = false;
+            } else {
+                const year = parseInt(inputValue.substring(0, 4));
+                const month = parseInt(inputValue.substring(4, 6));
+                const day = parseInt(inputValue.substring(6, 8));
+
+                if (isNaN(year) || isNaN(month) || isNaN(day)) {
+                    message = '숫자만 입력해주세요.';
+                    isValid = false;
+                } else if (year < 1900 || year > 2100) {
+                    message = '유효한 년도를 입력해주세요 (1900-2100).';
+                    isValid = false;
+                } else if (month < 1 || month > 12) {
+                    message = '유효한 월을 입력해주세요 (01-12).';
+                    isValid = false;
+                } else if (day < 1 || day > 31) {
+                    message = '유효한 일을 입력해주세요 (01-31).';
+                    isValid = false;
+                } else {
+                    const date = new Date(year, month - 1, day);
+                    if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
+                        message = '유효하지 않은 날짜입니다 (예: 2월 30일).';
+                        isValid = false;
+                    }
+                }
+            }
+            
+            // 메시지 표시 및 입력 필드 스타일 변경
+            if (message) {
+                validationMessage.textContent = message;
+                validationMessage.classList.remove('hidden');
+                birthCombinedInput.classList.add('border-red-500');
+                birthCombinedInput.classList.remove('border-gray-300');
+            } else {
+                validationMessage.textContent = '';
+                validationMessage.classList.add('hidden');
+                birthCombinedInput.classList.remove('border-red-500');
+                birthCombinedInput.classList.add('border-gray-300');
+            }
+            return isValid;
+        }
+
+        birthCombinedInput.addEventListener('focus', () => {
+            hasBirthInputBeenTouched = true;
+        });
+
+        birthCombinedInput.addEventListener('input', () => {
+            const inputValue = birthCombinedInput.value.replace(/[^0-9]/g, '');
+            birthCombinedInput.value = inputValue;
+
+            let interpretation = "";
+            let year = null, month = null, day = null;
+
+            if (inputValue.length >= 4) {
+                year = inputValue.substring(0, 4);
+                interpretation += `${year}년`;
+            }
+            if (inputValue.length >= 6) {
+                month = inputValue.substring(4, 6);
+                interpretation += `${month}월`;
+            }
+            if (inputValue.length >= 8) {
+                day = inputValue.substring(6, 8);
+                interpretation += `${day}일`;
+            }
+
+            birthInterpretation.textContent = interpretation;
+
+            hiddenYear.value = year || '';
+            hiddenMonth.value = month || '';
+            hiddenDay.value = day || '';
+            
+            // 입력값이 비어있을 때는 에러 메시지 초기화만 수행하고 유효성 검사 로직은 스킵
+            if (inputValue.length === 0) {
+                validationMessage.textContent = '';
+                validationMessage.classList.add('hidden');
+                birthCombinedInput.classList.remove('border-red-500');
+                birthCombinedInput.classList.add('border-gray-300');
+            } else if (hasBirthInputBeenTouched) { // 입력값이 있고, 이미 필드를 건드렸을 때만 유효성 검사 실행
+                validateBirthInput(inputValue);
+            }
+            updateSubmitButtonState();
+        });
+
+        birthCombinedInput.addEventListener('blur', () => {
+            const inputValue = birthCombinedInput.value.replace(/[^0-9]/g, '');
+            // 블러 시에도 입력값이 비어있으면 초기 상태로 복원
+            if (inputValue.length === 0) {
+                validationMessage.textContent = '';
+                validationMessage.classList.add('hidden');
+                birthCombinedInput.classList.remove('border-red-500');
+                birthCombinedInput.classList.add('border-gray-300');
+            } else {
+                validateBirthInput(inputValue);
+            }
+            updateSubmitButtonState();
+        });
+
+        sajuTimeSlotSelect.addEventListener('change', updateSubmitButtonState);
+
+        const otherRequiredInputs = form.querySelectorAll('input[required]:not(#id_birth_combined), select[required]');
+        otherRequiredInputs.forEach(input => {
+            input.addEventListener('change', updateSubmitButtonState);
+            input.addEventListener('input', updateSubmitButtonState); 
+        });
+
+        form.addEventListener('submit', (event) => {
+            const inputValue = birthCombinedInput.value.replace(/[^0-9]/g, '');
+            hasBirthInputBeenTouched = true; // 제출 전에 무조건 검사하도록 설정
+
+            // 유효성 검사 실패 시 제출 중단
+            if (!validateBirthInput(inputValue)) {
+                event.preventDefault(); 
+                return;
+            }
+            if (sajuTimeSlotSelect.value === "") {
+                alert("태어난 시각을 선택해주세요.");
+                event.preventDefault();
+                return;
+            }
+        });
+        
+        // 초기 로드 시 버튼 상태만 업데이트 (생년월일 필드는 건드려지지 않은 상태이므로 에러 표시 안 됨)
+        updateSubmitButtonState();
+    });
+</script>
