@@ -35,7 +35,7 @@ class Command(BaseCommand):
         scheduler.add_job(
             publish_post_job,
             'interval',
-            hours=33,  # 36시간 간격으로 실행
+            hours=100,  # 36시간 간격으로 실행
             id='publish_post_job',   
             replace_existing=True,
         )
